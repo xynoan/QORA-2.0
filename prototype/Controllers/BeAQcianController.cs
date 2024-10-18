@@ -57,5 +57,30 @@ namespace prototype.Controllers
         {
             return View(); // This will render Views/BeAQcian/Gs.cshtml
         }
+
+        public IActionResult Ba()
+        {
+            return View();
+        }
+
+        public IActionResult Contacts()
+        {
+            return View();
+        }
+
+        public IActionResult Po()
+        {
+            return View();
+        }
+
+        public IActionResult Sb()
+        {
+            return View();
+        }
+
+        public IActionResult Sf()
+        {
+            return View();
+        }
     }
 }
