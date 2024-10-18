@@ -1,0 +1,111 @@
+h1 {
+    width: 70%;
+}
+
+h3.motto {
+    color: var(--brown);
+    text-align: center;
+}
+
+section:first-child {
+    background-image: url(../images/campus.JPG);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+    section:first-child > div {
+        height: 100vh;
+    }
+
+.years {
+    text-shadow: 0 1px 0px #010641, 1px 0 0px #010641, 1px 2px 1px #010641, 2px 1px 1px #010641, 2px 3px 2px #010641, 3px 2px 2px #010641, 3px 4px 2px #010641, 4px 3px 3px #010641, 4px 5px 3px #010641, 5px 4px 2px #010641, 5px 6px 2px #010641, 6px 5px 2px #010641, 6px 7px 1px #010641, 7px 6px 1px #010641, 7px 8px 0px #010641, 8px 7px 0px #010641;
+}
+
+.first_half {
+    width: 60%;
+}
+
+    .first_half > .nav_buttons:hover,
+    .register > .register_anchor:hover,
+    .login_btn:hover {
+        background-color: black;
+        transition: background-color 0.5s;
+    }
+
+    .first_half > .nav_buttons,
+    .register > .header,
+    .login > .header,
+    .register > .register_anchor,
+    .login_btn {
+        background-color: var(--main-color);
+    }
+
+    .first_half > .nav_buttons {
+        display: block;
+        border-radius: 15px;
+        padding-left: 20px !important;
+    }
+
+.register,
+.login {
+    border: 2px solid var(--main-color);
+    border-radius: 18px;
+}
+
+.next {
+    background-color: var(--main-color);
+    width: 15%;
+}
+
+    .next:hover {
+        background-color: black;
+        transition: background-color 0.5s;
+    }
+
+#cancel_application:hover {
+    background-color: var(--main-color) !important;
+    color: white !important;
+    transition: all 0.5s !important;
+}
+
+.register > .header,
+.login > .header {
+    border-radius: 10px 10px 10px 10px;
+}
+
+.email,
+.password {
+    border: 2px solid var(--main-color);
+    border-radius: 15px;
+}
+
+.forgot_password {
+    font-size: 15px;
+}
+
+#nav_links {
+    flex-wrap: wrap;
+    padding: 2em;
+}
+
+#countdown {
+    font-size: 15rem;
+}
+
+@media (min-width: 768px) {
+    #nav_links {
+        flex-wrap: nowrap;
+    }
+
+    .nav_links_width {
+        width: 33%;
+    }
+}
+
+@media (min-width: 1000px) {
+    section:first-child {
+        background-image: url(../images/campus.JPG);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+}

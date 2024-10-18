@@ -1,0 +1,46 @@
+﻿<footer class="text-white">
+    <div class="p-5 footer">
+        <div class="container d-flex gap-1" id="footer">
+            <div class="navigation">
+                <h2 style="color: var(--brown);">Be a QCIAN</h2>
+                <p>
+                    <a asp-controller="BeAQcian" asp-action="Dpn" class="text-decoration-none text-white footer_link">Data Privacy Notice</a><br>
+                    <a asp-controller="BeAQcian" asp-action="Gap" class="text-decoration-none text-white">General Admission Policy</a><br>
+                    <a asp-controller="BeAQcian" asp-action="Sdc" class="text-decoration-none text-white">Selection for a Degree Program and Campus</a><br>
+                    <a asp-controller="BeAQcian" asp-action="Far" class="text-decoration-none text-white">Freshmen Admission Requirements</a><br>
+                    <a asp-controller="BeAQcian" asp-action="Qcucat" class="text-decoration-none text-white">QCUCAT Procedure</a><br>
+                    <a asp-controller="BeAQcian" asp-action="Agc" class="text-decoration-none text-white">Admissions Guidelines: Classification</a><br>
+                    <a asp-controller="BeAQcian" asp-action="Agq" class="text-decoration-none text-white">Admissions Guidelines: Qualification</a><br>
+                    <a asp-controller="BeAQcian" asp-action="Pc" class="text-decoration-none text-white">Program Curriculum</a><br>
+                    <a asp-controller="BeAQcian" asp-action="Gs" class="text-decoration-none text-white">Grading System</a>
+                </p>
+                <h2>
+                    <a asp-controller="BeAQcian" asp-action="Po" id="programs_offered" class="text-decoration-none" style="color: var(--brown);">Programs Offered</a>
+                </h2>
+                <h2 style="color: var(--brown);">Campus</h2>
+                <p>
+                    <a asp-controller="BeAQcian" asp-action="Sb" id="sb" class="text-decoration-none text-white">San Bartolome Campus</a><br>
+                    <a asp-controller="BeAQcian" asp-action="Ba" id="ba" class="text-decoration-none text-white">Batasan Campus</a><br>
+                    <a asp-controller="BeAQcian" asp-action="Sf" id="sf" class="text-decoration-none text-white">San Francisco Campus</a>
+                </p>
+                <h2>
+                    <a asp-controller="BeAQcian" asp-action="Contacts" id="contacts" class="text-decoration-none" style="color: var(--brown);">Contacts</a>
+                </h2>
+                <h2 style="color: var(--brown);">QORA</h2>
+                <p><a asp-controller="Login" asp-action="Index" class="text-decoration-none text-white">Sign In</a></p>
+            </div>
+            <div class="address">
+                <h2 class="fw-bold" style="color: var(--brown);">Address</h2>
+                <p><i class="fa-solid fa-location-dot"></i> 673 Quirino Highway, Novaliches, Quezon City, Metro Manila</p>
+                <h2 class="fw-bold" style="color: var(--brown);">Phone Number</h2>
+                <p><i class="fa-solid fa-phone"></i> 286819135</p>
+                <h2 class="fw-bold" style="color: var(--brown);">E-mail Address</h2>
+                <p><i class="fa-solid fa-envelope"></i> osas@qcu.edu.ph</p>
+                <h2 class="fw-bold" style="color: var(--brown);">Office Hours</h2>
+                <p><i class="fa-solid fa-clock"></i> Monday to Friday: 8:00 AM to 5:00 PM</p>
+                <img src="~/images/footer-logo.svg" alt="footer logo" height="50px">
+            </div>
+        </div>
+    </div>
+    <p class="p-3 text-center text-white copyright">Copyright <span>@DateTime.Now.Year</span> © Quezon City University.</p>
+</footer>
