@@ -1,15 +1,9 @@
 ﻿@{
     Layout = "~/Views/BeAQcian/Shared/_BeAQcianLayout.cshtml";
-    <!-- Use the BeAQcian-specific layout -->
-    ViewBag.Title = "Data Privacy Notice";
-    <!-- Set the page title -->
-    ViewBag.CustomHeadingStyle = "text-uppercase";
-    <!-- Example custom heading style -->
 }
 
 @section Styles {
     <style>
-        /* Page-specific styles for BeAQcian pages */
         main {
             margin-top: 150px;
         }
@@ -58,18 +52,15 @@
 }
 
 <div class="border border-black rounded-top-3 rounded-bottom-5" id="section">
-    <!-- Back link button -->
     <a href="@Url.Action("Index", "Home")" class="back">
         <i class="fa-solid fa-arrow-rotate-left p-2 text-black"></i>
     </a>
 
-    <!-- Page Title with dynamic heading style -->
     <h1 class="text-white fs-2 rounded-top-3 rounded-bottom-4 @ViewBag.CustomHeadingStyle" id="subHeading">
-        @ViewBag.Title <!-- Display the page title dynamically -->
+        @ViewBag.Title 
     </h1>
 
-    <!-- Dynamic content section -->
     <div id="qcian-details" class="p-4 rounded-bottom-5">
-        @Html.Raw(ViewBag.DynamicContent) <!-- Render the dynamic content safely -->
+        @Html.Raw(ViewBag.DynamicContent) 
     </div>
 </div>

@@ -10,7 +10,6 @@ namespace prototype.Controllers
             ViewBag.Title = "Data Privacy Notice";
             ViewBag.CustomHeadingStyle = "text-uppercase";
 
-            // Example dynamic content
             ViewBag.DynamicContent = @"
         <h3>PART 1. POLICY </h3>
 <p>1. At Quezon City University, we are committed to protecting the privacy and security of the personal data that we gather from the students, parents, guardians, and staff. This privacy notice describes how we gather, use, disclose, and protect personal information in compliance with relevant laws and rules.  
