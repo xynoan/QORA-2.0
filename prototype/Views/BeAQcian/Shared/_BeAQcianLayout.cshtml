@@ -3,24 +3,42 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quezon City University @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/prototype.styles.css" asp-append-version="true" />
     <link rel="icon" href="~/images/letter-Q.png" type="image/png" />
 
-    <!-- Allow individual views to inject their own styles -->
-    @RenderSection("Styles", required: false)
-</head>
-<body>
-    <header>
-        @await Html.PartialAsync("_Header")
-    </header>
+    <title>Quezon City University - @ViewBag.Title</title>
 
-    <main role="main" class="pb-3">
+    <!-- Render the Styles section if defined -->
+    @RenderSection("Styles", required: false) <!-- Ensure this is present to render styles from views -->
+
+    <style>
+        /* Common styles for all pages */
+        .fa-arrow-rotate-left:hover {
+            transition: background-color 0.5s, color 0.5s;
+            background-color: black;
+            color: white !important;
+        }
+
+        h1#subHeading {
+            background-color: var(--main-color);
+            margin-bottom: 0;
+            padding: 15px 15px 15px 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Shared header -->
+    @await Html.PartialAsync("_Header")
+
+    <!-- Main content from the child view -->
+    <main class="container">
         @RenderBody()
     </main>
 
+    <!-- Shared footer -->
     @await Html.PartialAsync("_Footer")
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -31,10 +49,7 @@
             crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/877d2cecdc.js" crossorigin="anonymous"></script>
 
-    <!-- Allow individual views to inject their own scripts -->
-    @RenderSection("Scripts", required: false)
-
-    <!-- Support additional custom scripts -->
-    @RenderSection("CustomScripts", required: false)
+    <!-- Scripts -->
+    <script src="~/js/site.js"></script>
 </body>
 </html>

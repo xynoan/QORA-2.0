@@ -385,3 +385,15 @@ footer a:hover,
 .rounded-5 {
     border-radius: 2rem; /* Adjust the value to achieve the desired rounding */
 }
+
+.rounded-bottom-4 {
+    border-radius: 0 0 15px 15px;
+}
+
+.rounded-bottom-5 {
+    border-radius: 0 0 50px 50px;
+}
+
+.border-black {
+    border-color: #000 !important;
+}
