@@ -1,0 +1,45 @@
+hr.divider {
+    width: 100%;
+}
+
+#main-container {
+    margin-top: 170px;
+    margin-bottom: 50px;
+}
+
+.step1 {
+    width: 20%;
+}
+
+.course {
+    width: 40%;
+}
+
+.back_to_homepage {
+    background-color: var(--main-color);
+}
+
+    .back_to_homepage:hover {
+        background-color: black;
+        transition: background-color 0.5s;
+    }
+
+.yay {
+    border: 5px solid var(--main-color);
+    width: 70%;
+}
+
+.next {
+    background-color: var(--main-color);
+    width: 15%;
+}
+
+    .next:hover {
+        background-color: black;
+        transition: background-color 0.5s;
+    }
+
+#content-form {
+    border: 2px solid var(--main-color);
+    border-radius: 30px;
+}
