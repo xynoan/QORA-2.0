@@ -1,33 +1,43 @@
 ﻿<main>
+    <!-- First Section -->
     <section>
         <div class="container d-flex align-items-end justify-content-end">
-            <h1 id="navigation_links" class="fw-bold text-end text-white text-uppercase p-4"><span class="years" id="countdown">30</span> <br>years of empowering education from #1 city to global society</h1>
+            <h1 id="navigation_links" class="fw-bold text-end text-white text-uppercase p-4">
+                <span class="years" id="countdown">30</span> <br>years of empowering education from #1 city to global society
+            </h1>
         </div>
     </section>
+
+    <!-- Second Section: Greeting and Login/Registration -->
     <section class="mb-5">
         <div class="container">
             <h2 class="fw-bold py-4 fs-2" style="color: var(--brown);">Nice to see you again, QCian!</h2>
             <div class="d-flex gap-4 flex-wrap justify-content-center">
                 <div class="second_half">
+                    <!-- Register Section -->
                     <div class="register mb-2">
                         <p class="header text-white text-center p-2">NEW APPLICANT</p>
                         <p class="text-center">Do not have an account yet?</p>
                         <a href="@Url.Action("Index", "Register")" class="d-block text-white text-decoration-none text-center register_anchor m-3 p-1 rounded-4">REGISTER</a>
                     </div>
+
+                    <!-- Login Section -->
                     <div class="login">
                         <p class="text-center text-white header p-2 m-0">LOG IN</p>
-                        <form action="./student/enrollment.php" class="p-4 d-flex flex-column" method="post">
-                            <input class="form-control mb-2 email" type="email" name="" placeholder="Email">
-                            <input class="form-control password" type="password" name="" placeholder="Password">
+                        <form action="@Url.Action("Index", "Login")" class="p-4 d-flex flex-column" method="post">
+                            <input class="form-control mb-2 email" type="email" name="email" placeholder="Email">
+                            <input class="form-control password" type="password" name="password" placeholder="Password">
                             <div class="d-flex forgot_password gap-1 mt-3">
                                 <div class="input-group d-flex gap-1 justify-content-between">
                                     <div>
-                                        <input class="me-1" type="checkbox" name="" id="remember"><label for="remember">Remember Me</label>
+                                        <input class="me-1" type="checkbox" name="remember" id="remember">
+                                        <label for="remember">Remember Me</label>
                                     </div>
-                                    <a href="./login/forgot.php" class="text-black">Forgot Password?</a>
+                                    <a href="@Url.Action("Forgot", "Login")" class="text-black">Forgot Password?</a>
                                 </div>
                             </div>
                             <button class="btn login_btn text-white rounded-5 mt-3" type="button" data-bs-toggle="modal" data-bs-target="#consent">LOG IN</button>
+
                             <!-- Modal -->
                             <div class="modal fade" id="consent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -41,7 +51,7 @@
                                         </div>
                                         <div class="modal-footer d-flex flex-column align-items-end">
                                             <button type="submit" class="btn btn-primary next p-2" style="width: 50%; border: 2px solid var(--main-color);">Login as Student</button>
-                                            <a id="cancel_application" href="./registrar/index.php" class="text-decoration-none fw-bold text-center rounded-2 p-2 cancel_application" style="width: 50%; border: 2px solid var(--main-color); background: white; color: var(--main-color);">Login as Registrar</a>
+                                            <a id="cancel_application" href="@Url.Action("Index", "Registrar")" class="text-decoration-none fw-bold text-center rounded-2 p-2 cancel_application" style="width: 50%; border: 2px solid var(--main-color); background: white; color: var(--main-color);">Login as Registrar</a>
                                         </div>
                                     </div>
                                 </div>
@@ -52,33 +62,92 @@
             </div>
         </div>
     </section>
+
+    <!-- Third Section: Navigation Links -->
     <section>
         <div class="container">
             <div class="d-flex gap-5" id="nav_links">
+                <!-- First Column -->
                 <div class="nav_links_width">
-                    <h2 class="fw-bold fs-2" style="color: var(--brown);"><i class="fa-solid fa-square-check me-2" style="color: var(--brown); font-size: 40px;"></i>Be a QCIAN!</h2>
-                    <p><a href="./be_a_qcian/gap.php" class="text-decoration-none underline-on-hover" style="color: var(--main-color);"><i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> GENERAL ADMISSION POLICY</a></p>
-                    <p><a href="./be_a_qcian/sdc.php" class="text-decoration-none underline-on-hover" style="color: var(--main-color);"><i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> SELECTION FOR A DEGREE PROGRAM AND CAMPUS</a></p>
-                    <p><a href="./be_a_qcian/gs.php" class="text-decoration-none underline-on-hover" style="color: var(--main-color);"><i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> GRADING SYSTEM</a></p>
+                    <h2 class="fw-bold fs-2" style="color: var(--brown);">
+                        <i class="fa-solid fa-square-check me-2" style="color: var(--brown); font-size: 40px;"></i>Be a QCIAN!
+                    </h2>
+                    <p>
+                        <a href="@Url.Action("Gap", "BeAQcian")" class="text-decoration-none underline-on-hover" style="color: var(--main-color);">
+                            <i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> GENERAL ADMISSION POLICY
+                        </a>
+                    </p>
+                    <p>
+                        <a href="@Url.Action("Sdc", "BeAQcian")" class="text-decoration-none underline-on-hover" style="color: var(--main-color);">
+                            <i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> SELECTION FOR A DEGREE PROGRAM AND CAMPUS
+                        </a>
+                    </p>
+                    <p>
+                        <a href="@Url.Action("Gs", "BeAQcian")" class="text-decoration-none underline-on-hover" style="color: var(--main-color);">
+                            <i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> GRADING SYSTEM
+                        </a>
+                    </p>
                 </div>
+
+                <!-- Second Column -->
                 <div class="nav_links_width">
-                    <h2 class="fw-bold fs-2" style="color: var(--brown);"><i class="fa-solid fa-magnifying-glass p-2 rounded-5 me-2" style="color: white; font-size: 20px; border: 2px solid var(--brown); background-color: var(--brown); position: relative; bottom: 7px;"></i>APPLY NOW</h2>
-                    <p><a href="./be_a_qcian/far.php" class="text-decoration-none underline-on-hover" style="color: var(--main-color);"><i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> FRESHMEN ADMISSION REQUIREMENTS</a></p>
-                    <p><a href="./be_a_qcian/qcucat.php" class="text-decoration-none underline-on-hover" style="color: var(--main-color);"><i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> QCUCAT PROCEDURE</a></p>
-                    <p><a href="./be_a_qcian/agc.php" class="text-decoration-none underline-on-hover" style="color: var(--main-color);"><i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> ADMISSIONS GUIDELINES: Classifications</a></p>
-                    <p><a href="./be_a_qcian/agq.php" class="text-decoration-none underline-on-hover" style="color: var(--main-color);"><i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> ADMISSIONS GUIDELINES: Qualifications</a></p>
+                    <h2 class="fw-bold fs-2" style="color: var(--brown);">
+                        <i class="fa-solid fa-magnifying-glass p-2 rounded-5 me-2" style="color: white; font-size: 20px; border: 2px solid var(--brown); background-color: var(--brown); position: relative; bottom: 7px;"></i>APPLY NOW
+                    </h2>
+                    <p>
+                        <a href="@Url.Action("Far", "BeAQcian")" class="text-decoration-none underline-on-hover" style="color: var(--main-color);">
+                            <i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> FRESHMEN ADMISSION REQUIREMENTS
+                        </a>
+                    </p>
+                    <p>
+                        <a href="@Url.Action("Qcucat", "BeAQcian")" class="text-decoration-none underline-on-hover" style="color: var(--main-color);">
+                            <i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> QCUCAT PROCEDURE
+                        </a>
+                    </p>
+                    <p>
+                        <a href="@Url.Action("Agc", "BeAQcian")" class="text-decoration-none underline-on-hover" style="color: var(--main-color);">
+                            <i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> ADMISSIONS GUIDELINES: Classifications
+                        </a>
+                    </p>
+                    <p>
+                        <a href="@Url.Action("Agq", "BeAQcian")" class="text-decoration-none underline-on-hover" style="color: var(--main-color);">
+                            <i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> ADMISSIONS GUIDELINES: Qualifications
+                        </a>
+                    </p>
                 </div>
+
+                <!-- Third Column -->
                 <div class="nav_links_width">
-                    <h2 class="fw-bold fs-2" style="color: var(--brown);"><img src="../images/QORA-links.png" alt="QORA Links" height="40" style="position: relative; left: 17px;">ORA Links</h2>
-                    <p><a href="./student/enrollment.php" class="text-decoration-none underline-on-hover" style="color: var(--main-color);" disabled><i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> ONLINE APPOINTMENT</a></p>
-                    <p><a href="./be_a_qcian/dpn.php" class="text-decoration-none underline-on-hover" style="color: var(--main-color);"><i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> DATA PRIVACY NOTICE</a></p>
-                    <p><a href="./be_a_qcian/pc.php" class="text-decoration-none underline-on-hover" style="color: var(--main-color);"><i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> PROGRAM CURRICULUM</a></p>
+                    <h2 class="fw-bold fs-2" style="color: var(--brown);">
+                        <img src="@Url.Content("~/images/QORA-links.png")" alt="QORA Links" height="40" style="position: relative; left: 17px;">ORA Links
+                    </h2>
+                    <p>
+                        <a href="@Url.Action("Enrollment", "Student")" class="text-decoration-none underline-on-hover" style="color: var(--main-color);" disabled>
+                            <i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> ONLINE APPOINTMENT
+                        </a>
+                    </p>
+                    <p>
+                        <a href="@Url.Action("Dpn", "BeAQcian")" class="text-decoration-none underline-on-hover" style="color: var(--main-color);">
+                            <i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> DATA PRIVACY NOTICE
+                        </a>
+                    </p>
+                    <p>
+                        <a href="@Url.Action("Pc", "BeAQcian")" class="text-decoration-none underline-on-hover" style="color: var(--main-color);">
+                            <i class="fa-regular fa-circle-right" style="color: var(--brown); font-size: 20px;"></i> PROGRAM CURRICULUM
+                        </a>
+                    </p>
                 </div>
             </div>
-            <h3 class="fs-2 mb-4 motto text-uppercase">equipping youth for the future, qcu offers education and holistic development to prepare you for both career success and a fulfilling life since 1994.</h3>
+
+            <!-- Motto -->
+            <h3 class="fs-2 mb-4 motto text-uppercase">
+                equipping youth for the future, qcu offers education and holistic development to prepare you for both career success and a fulfilling life since 1994.
+            </h3>
         </div>
     </section>
 </main>
+
+
 <script src="https://accounts.google.com/gsi/client" async></script>
 <script>
     document.addEventListener("DOMContentLoaded", () => {

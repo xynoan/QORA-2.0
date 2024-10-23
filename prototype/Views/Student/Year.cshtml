@@ -1,16 +1,17 @@
 @{
-    ViewBag["Title"] = "- Enrollment";
+    ViewBag.Title = "- Enrollment";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 
 <div class="container" id="main-container">
     <div id="content-form" class="p-5 mt-3">
-        <?php include('../shared/logoutModal.php') ?>
+        @await Html.PartialAsync("_LogoutModal")
         <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 34%"></div>
         </div>
         <h1 class="mt-3">Student Enlistment Form</h1>
         <hr class="divider">
-        <form action="./program.php" method="post">
+        <form asp-action="Program" method="post">
             <div style="width: 50%; text-align: center;" class="mx-auto">
                 <div class="d-flex flex-row justify-content-between mb-3">
                     <div style="width: 45%;">
