@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "- Success!";
+}
+
+<div class="container d-flex justify-content-center align-items-center" id="main-container">
+    <div id="content-form" class="p-5">
+        <h1 class="text-center mb-3 text-success">Success!</h1>
+        <p class="text-center">Your password has been reset.</p>
+        <form asp-action="Index" asp-controller="Login" method="post">
+            <button id="signin" class="btn d-block submit_button text-white text-uppercase" type="submit">Go back to login page</button>
+        </form>
+    </div>
+</div>

@@ -8,5 +8,21 @@ namespace prototype.Controllers
         {
             return View();
         }
+        public IActionResult Feedback()
+        {
+            return View();
+        }
+        public IActionResult Forgot()
+        {
+            return View();
+        }
+        public IActionResult Otp()
+        {
+            return View();
+        }
+        public IActionResult Resetpw()
+        {
+            return View();
+        }
     }
 }

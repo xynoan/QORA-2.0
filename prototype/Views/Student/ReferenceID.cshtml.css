@@ -1,0 +1,52 @@
+hr.divider {
+    width: 100%;
+}
+
+#main-container {
+    margin-top: 170px;
+    margin-bottom: 50px;
+}
+
+#content-form {
+    border-radius: 30px;
+    border: 2px solid var(--main-color);
+}
+
+.navbar-brand {
+    width: 821px;
+}
+
+.next {
+    background-color: var(--main-color);
+    width: 15%;
+}
+
+    .next:hover {
+        background-color: black;
+        transition: background-color 0.5s;
+    }
+
+.square {
+    height: 250px;
+    width: 250px;
+    border-radius: 5%;
+}
+
+.fa-cloud-arrow-up {
+    cursor: pointer;
+}
+
+    .fa-cloud-arrow-up:hover {
+        opacity: 1 !important;
+        transition: opacity 0.5s;
+    }
+
+#submitImage {
+    background-color: var(--main-color);
+    width: 150px;
+}
+
+    #submitImage:hover {
+        background-color: black;
+        transition: background-color 0.5s;
+    }
