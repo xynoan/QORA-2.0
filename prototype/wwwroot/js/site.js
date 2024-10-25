@@ -24,10 +24,9 @@ function toggleProgram() {
 function toggleProfile() {
     popupDiv.classList.toggle('active');
 }
-
 function toggleSave() {
     alert("Saved changes.");
-    window.location.href = "../index.php";
+    window.location.href = "/";
 }
 
 function toggleFilter() {
