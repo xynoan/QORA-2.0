@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+/* Variables */
 :root {
     --main-color: #010641;
     --secondary-color: #4351a2;
@@ -7,6 +8,7 @@
     --brown: #A08048;
 }
 
+/* General styles */
 body {
     font-family: "Poppins", sans-serif;
 }
@@ -16,6 +18,7 @@ hr {
     width: 75%;
 }
 
+/* Hamburger Menu */
 .hamburger {
     display: flex;
     flex-direction: column;
@@ -60,6 +63,7 @@ hr {
         background-color: white;
     }
 
+/* Navigation Menu */
 .nav-menu {
     position: fixed;
     top: 0;
@@ -74,138 +78,28 @@ hr {
     transition: opacity 0.5s, transform 0.5s;
 }
 
-    .nav-menu li {
+    .nav-menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+        transition: transform 0.5s;
+    }
+
+    .nav-menu ul > li {
         list-style-type: none;
         margin-bottom: 1.5em;
     }
 
-.qcianList {
-    margin-bottom: 0.5em !important;
-}
+        .nav-menu ul > li > a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            position: relative;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.041);
+        }
 
-.nav-menu ul > li > a {
-    text-decoration: none;
-    color: var(--secondary-color);
-    position: relative;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.041);
-}
-
-    .nav-menu ul > li > a:hover {
-        color: var(--brown);
-    }
-
-.nav-menu.active {
-    opacity: 1;
-    visibility: visible;
-    transition: transform 0.5s;
-    transform: translateX(0);
-}
-
-.submenu.active,
-.has-submenu2:hover .submenu2,
-.submenu3.active,
-.has-submenu4:hover .submenu4,
-.has-submenu5:hover .submenu5,
-.has-submenu6:hover .submenu6,
-.has-submenu7:hover .submenu7,
-.has-submenu8:hover .submenu8,
-.has-submenu9:hover .submenu9,
-.has-submenu10:hover .submenu10,
-.has-submenu11:hover .submenu11,
-.has-submenu12:hover .submenu12 {
-    visibility: visible;
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.submenu,
-.submenu2,
-.submenu3,
-.submenu4,
-.submenu5,
-.submenu6,
-.submenu7,
-.submenu8,
-.submenu9,
-.submenu10,
-.submenu11,
-.submenu12 {
-    visibility: hidden;
-    opacity: 0;
-    background-color: #212529;
-    padding: 10px;
-    transition: transform 0.5s;
-    transform: translateX(-10%);
-    left: 475px;
-}
-
-.submenu2,
-.submenu10,
-.submenu11,
-.submenu12 {
-    width: 80% !important;
-    left: 400px;
-}
-
-.submenu2 {
-    top: 210px;
-}
-
-.submenu10 {
-    top: 10px;
-}
-
-.submenu11 {
-    top: 115px;
-}
-
-    .submenu11 li {
-        height: 40px;
-    }
-
-.submenu12 {
-    top: 160px;
-}
-
-.submenu5 {
-    top: 200px;
-}
-
-.submenu4 {
-    top: 340px;
-}
-
-.submenu6,
-.submenu7,
-.submenu8,
-.submenu9 {
-    width: 100% !important;
-    left: 425px;
-}
-
-.submenu8 {
-    top: 0px;
-}
-
-.submenu9 {
-    top: 100px;
-}
-
-.submenu6 {
-    top: 215px;
-}
-
-.submenu7 {
-    top: 310px;
-}
-
-.level2 {
-    width: 70%;
-}
-
-.level2--programs {
-    width: 50%;
-}
+            .nav-menu ul > li > a:hover {
+                color: var(--brown);
+            }
 
 #hamburgerNav {
     flex-direction: column;
@@ -213,10 +107,7 @@ hr {
     align-items: start;
 }
 
-#level1 {
-    width: 27%;
-}
-
+/* Navbar */
 nav {
     background-color: white;
     background-size: 1400px 70px;
@@ -224,6 +115,7 @@ nav {
     background-repeat: no-repeat;
 }
 
+/* Sign-in Button */
 .nav_signin {
     background-color: var(--main-color);
     border-radius: 17px;
@@ -238,27 +130,7 @@ nav {
         text-decoration: underline;
     }
 
-img.qora_image:hover {
-    opacity: 0.5;
-    transition: opacity 0.5s;
-}
-
-.border-primary {
-    border-color: #A08048 !important;
-}
-
-@keyframes shadows {
-    50% {
-        text-shadow: var(--main-color) 0 0 5px;
-        box-shadow: 0px 0px 5px 5px var(--main-color);
-    }
-
-    100% {
-        text-shadow: var(--secondary-color) 0 0 5px;
-        box-shadow: 0px 0px 5px 5px var(--secondary-color);
-    }
-}
-
+/* Profile & Utility Elements */
 #profileDiv {
     opacity: 0;
     visibility: hidden;
@@ -279,41 +151,36 @@ img.qora_image:hover {
         transform: translateY(0);
     }
 
+.putBorder:hover,
 #add_new_account:hover,
-#logout:hover {
-    text-decoration: underline !important;
+#logout:hover,
+.cancel:hover,
+.mainColorHover:hover,
+.forgotPassword:hover,
+#logoutBtn:hover,
+#save:hover,
+#submit:hover,
+.black-on-hover:hover {
+    transition: all 0.5s;
+}
+
+/* Specific Hover Effects */
+img.qora_image:hover {
+    opacity: 0.5;
+    transition: opacity 0.5s;
+}
+
+.forgotPassword:hover {
+    color: var(--main-color) !important;
 }
 
 .cancel:hover,
 .mainColorHover:hover {
     background-color: var(--main-color) !important;
     color: white !important;
-    transition: all 0.5s;
 }
 
-.putBorder:hover {
-    padding: 5px;
-    border-radius: 5px;
-    border: 2px solid black;
-}
-
-.forgotPassword:hover {
-    color: var(--main-color) !important;
-    transition: color 0.5s;
-}
-
-#logoutBtn:hover,
-#save:hover,
-#submit:hover,
-.black-on-hover:hover {
-    background-color: black !important;
-    transition: background-color 0.5s;
-}
-
-h2 {
-    font-size: 25px;
-}
-
+/* Footer */
 .footer {
     background-color: #212529;
 }
@@ -323,27 +190,8 @@ footer a:hover,
     text-decoration: underline !important;
 }
 
-
-
-.form-grid {
-    margin: 0;
-}
-
-.submit_message {
-    color: var(--brown);
-    background-color: white;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-    .submit_message:hover {
-        color: var(--main-color);
-        border-color: var(--main-color);
-        transition: all 0.5s;
-    }
-
 .copyright {
-    background-color: #A08048;
+    background-color: var(--brown);
     margin-bottom: 0;
 }
 
@@ -378,12 +226,17 @@ footer a:hover,
     }
 }
 
-/* reusable css */
-.rounded-4 {
-    border-radius: 1.5rem; /* Adjust this value as per your design */
+/* Reusable Styles */
+.border-primary {
+    border-color: var(--brown) !important;
 }
+
+.rounded-4 {
+    border-radius: 1.5rem;
+}
+
 .rounded-5 {
-    border-radius: 2rem; /* Adjust the value to achieve the desired rounding */
+    border-radius: 2rem;
 }
 
 .rounded-bottom-4 {
@@ -397,3 +250,33 @@ footer a:hover,
 .border-black {
     border-color: #000 !important;
 }
+
+/* Animations */
+@keyframes shadows {
+    50% {
+        text-shadow: var(--main-color) 0 0 5px;
+        box-shadow: 0px 0px 5px 5px var(--main-color);
+    }
+
+    100% {
+        text-shadow: var(--secondary-color) 0 0 5px;
+        box-shadow: 0px 0px 5px 5px var(--secondary-color);
+    }
+}
+
+/* Custom Form */
+.form-grid {
+    margin: 0;
+}
+
+.submit_message {
+    color: var(--brown);
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .submit_message:hover {
+        color: var(--main-color);
+        border-color: var(--main-color);
+    }
