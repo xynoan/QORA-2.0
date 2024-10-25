@@ -1,0 +1,91 @@
+div.active {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+i.operation {
+    font-size: 15px;
+    margin-right: 5px;
+}
+
+span.sub-span {
+    font-size: 13px;
+    border: 2px solid grey;
+    width: 80%;
+}
+
+button.filter,
+select {
+    margin: 0 5px;
+    background-color: white;
+    border: 2px solid var(--main-color) !important;
+    color: var(--main-color) !important;
+    width: 15%;
+}
+
+    button.filter:hover {
+        background-color: var(--main-color);
+        color: white !important;
+        transition: all 0.5s;
+    }
+
+hr.divider {
+    width: 100%;
+}
+
+#main-container {
+    margin-top: 160px;
+    margin-bottom: 50px;
+}
+
+#content-form {
+    border-radius: 30px;
+    border: 2px solid var(--main-color);
+}
+
+.graduated {
+    background-color: grey !important;
+    color: white !important;
+    width: 75px;
+    margin-left: 20px;
+    margin: 0;
+}
+
+.white-on-hover:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.underline-on-hover:hover {
+    text-decoration: underline !important;
+}
+
+.navbar-brand {
+    width: 821px;
+}
+
+.square {
+    height: 250px;
+    width: 250px;
+    border-radius: 5%;
+}
+
+.fa-cloud-arrow-up {
+    cursor: pointer;
+}
+
+    .fa-cloud-arrow-up:hover {
+        opacity: 1 !important;
+        transition: opacity 0.5s;
+    }
+
+#submitImage {
+    background-color: var(--main-color);
+    width: 150px;
+}
+
+    #submitImage:hover {
+        background-color: black;
+        transition: background-color 0.5s;
+    }

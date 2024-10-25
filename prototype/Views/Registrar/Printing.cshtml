@@ -1,0 +1,25 @@
+@{
+    ViewBag.Title = "- Registrar";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="container" id="main-container">
+    <h1 class="text-center fs-2" style="color: var(--main-color);">Enrolled Schedule for AY [date]/[ ] Sem</h1>
+    <div class="border border-black border-2">
+        <div class="d-flex justify-content-between p-3">
+            <span>Roxas, Mark Joseph - StudNo - IT.pdf </span>
+            <div class="zoom me-5">
+                <i class="fa-solid fa-minus"></i>
+                <i class="fa-solid fa-plus"></i>
+            </div>
+            <div>
+                <i class="fa-solid fa-print"></i> <span>Print</span>
+                <i class="fa-solid fa-envelope"></i> <span>Email</span>
+            </div>
+        </div>
+        <div style="background-color: grey;" class="p-3">
+            <img src="/images/Reg-Form.png" alt="regform" height="500px;" class="d-block mx-auto my-auto">
+            <p class="text-end"><a href="@Url.Action("Index")" style="background-color: var(--main-color);" class="text-white text-decoration-none black-on-hover p-2 rounded-3">Next Student</a></p>
+        </div>
+    </div>
+</div>
