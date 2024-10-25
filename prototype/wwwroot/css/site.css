@@ -106,6 +106,23 @@ hr {
     align-items: start;
 }
 
+.submenu {
+    display: none;
+}
+
+.submenu li {
+    opacity: 0;
+    transform: translateX(-10%);
+    transition: all 0.3s ease;
+}
+
+    /* Apply the sliding effect */
+    .submenu li.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+
 /* Navbar */
 nav {
     background-color: white;

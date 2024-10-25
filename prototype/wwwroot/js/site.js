@@ -64,31 +64,125 @@ function removeActiveClassFromAll(...elements) {
 
 document.addEventListener("DOMContentLoaded", () => {
     // hamburger
-    let QCIAN = document.getElementById("be_a_QCIAN");
-    let subMenuQCIAN = document.getElementById("qcian-Submenu");
-    let programs = document.getElementById("programsOffered");
-    let subMenuPrograms = document.getElementById("programsSubmenu");
-    let hamburgerNav = document.getElementById("hamburgerNav");
+    function handleHover(mainMenuId, submenuItems) {
+        const mainMenu = document.getElementById(mainMenuId);
+        const secondUL = document.getElementById('secondUL');
+        const thirdUL = document.getElementById('thirdUL');
+        function clearSubmenus() {
+            secondUL.innerHTML = '';
+            thirdUL.innerHTML = '';
+            secondUL.style.display = 'none';
+            thirdUL.style.display = 'none';
+        }
+        mainMenu.addEventListener('mouseenter', function () {
+            clearSubmenus();
 
-    QCIAN.addEventListener("click", () => {
-        subMenuQCIAN.classList.toggle("active");
-    });
+            submenuItems.forEach((item, index) => {
+                const li = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = item.href;
+                link.innerHTML = item.text;
+                li.appendChild(link);
+                secondUL.appendChild(li);
 
-    programs.addEventListener("click", () => {
-        subMenuPrograms.classList.toggle("active");
-    });
+                if (item.submenu && item.submenu.length > 0) {
+                    li.addEventListener('mouseenter', function () {
+                        thirdUL.innerHTML = ''; 
+                        item.submenu.forEach((program, i) => {
+                            const programLi = document.createElement('li');
+                            const programLink = document.createElement('a');
+                            programLink.href = "#";
+                            programLink.innerHTML = program;
+                            programLi.appendChild(programLink);
+                            thirdUL.appendChild(programLi);
 
-    QCIAN.addEventListener('mouseenter', () => {
-        hamburgerNav.appendChild(subMenuQCIAN);
-        subMenuQCIAN.classList.add("active");
-        subMenuPrograms.remove();
-    });
+                            setTimeout(() => {
+                                programLi.classList.add('show');
+                            }, i * 100); 
+                        });
 
-    programs.addEventListener('mouseenter', () => {
-        hamburgerNav.appendChild(subMenuPrograms);
-        subMenuPrograms.classList.add("active");
-        subMenuQCIAN.remove();
-    });
+                        thirdUL.style.display = 'block';
+                    });
+                }
+
+                setTimeout(() => {
+                    li.classList.add('show');
+                }, index * 100); 
+            });
+
+            secondUL.style.display = 'block';
+        });
+    }
+
+    handleHover('be_a_QCIAN', [
+        { text: "Data Privacy Notice", href: "#" },
+        { text: "General Admission Policy", href: "#" },
+        { text: "Selection for a Degree Program and Campus", href: "#" },
+        { text: "Freshmen Admission Requirements", href: "#" },
+        { text: "QCUCAT Procedure", href: "#" },
+        { text: "Admissions Guidelines: Classifications", href: "#" },
+        { text: "Admissions Guidelines: Qualifications", href: "#" },
+        { text: "Program Curriculum", href: "#" },
+        { text: "Grading System", href: "#" }
+    ]);
+
+    handleHover('programsOffered', [
+        {
+            text: "College of Business and Accountancy", href: "#", submenu: [
+                "Bachelor of Science in Accountancy",
+                "Bachelor of Science in Entrepreneurship",
+                "Bachelor of Management Accounting"
+            ]
+        },
+        {
+            text: "College of Computer Studies", href: "#", submenu: [
+                "Bachelor of Science in Computer Science",
+                "Bachelor of Science in Information System",
+                "Bachelor of Science in Information Technology"
+            ]
+        },
+        {
+            text: "College of Education", href: "#", submenu: [
+                "Bachelor of Early Childhood Education"
+            ]
+        },
+        {
+            text: "College of Engineering", href: "#", submenu: [
+                "Bachelor of Science in Industrial Engineering",
+                "Bachelor of Science in Electronics Engineering"
+            ]
+        }
+    ]);
+
+    handleHover('contactUs', [
+        {
+            text: "Office of VP for Academic Affairs<br>DR. BRADFORD ANTONIO C. MARTINEZ", href: "#", submenu: [
+                "Contact Number: 8806-3324<br>Email: ovpaa2020@gmail.com"
+            ]
+        },
+        {
+            text: "Chief, Admissions<br>MS. ANNIE LOU M. GONZALES", href: "#", submenu: [
+                "Contact Number: 8681-9135<br>Email: admission@qcu.edu.ph"
+            ]
+        },
+        {
+            text: "Registrar and Admissions Division<br>MS. SHERYL P. MOSTAJO (Registrar)", href: "#", submenu: [
+                "Contact Number: 8806-3470<br>Email: registrar@qcu.edu.ph"
+            ]
+        },
+        {
+            text: "Student Affairs Division<br>MS. MERLY P. DELA CRUZ", href: "#", submenu: [
+                "Contact Number: 8806-3165<br>Email: sasd2020@gmail.com"
+            ]
+        }
+    ]);
+
+    handleHover('campus', [
+        { text: "San Bartolome Campus", href: "#" },
+        { text: "Batasan Campus", href: "#" },
+        { text: "San Francisco Campus", href: "#" }
+    ]);
+
     // form
     let previousButton = document.getElementById("previousButton");
 
