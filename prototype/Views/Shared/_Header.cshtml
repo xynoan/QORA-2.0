@@ -93,7 +93,35 @@
             <li class="nav-item"><a href="@Url.Action("Index", "Login")" class="nav-link px-2 text-white nav_signin">Sign in</a></li>
         </ul>
     </div>
-    <p class="text-uppercase fs-4 text-center text-white p-2 m-0 border-top border-3 border-primary" style="background-color: #212529;">
+        <div class="scroll-line"></div>
+
+    <p class="text-uppercase fs-4 text-center text-white p-2 m-0" style="background-color: #212529;">
         mula sa tahanan ng husay at talino, para sa bayan...
     </p>
 </nav>
+<style>
+    .scroll-line {
+        height: 4px;
+        background: #A08048; /* Set to a valid primary color */
+        width: 100%;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(window).scroll(function () {
+        var windowTop = $(window).scrollTop();
+        var docheight = $(document).height();
+        var winheight = $(window).height();
+
+        var scrolled = (windowTop / (docheight - winheight)) * 100;
+
+        $('.scroll-line').css('width', (scrolled + '%'));
+    });
+
+    function toggleMenu() {
+        // Define your toggle functionality here
+        $('#hamburgerNav').slideToggle(); // Example of toggle behavior
+    }
+</script>
