@@ -12,7 +12,7 @@
         <hr class="divider" />
 
         <form asp-action="PersonalInfo" method="post">
-            <div class="d-flex gap-5">
+            <div class="d-flex flex-column w-auto gap-5">
                 <div class="d-flex flex-column step1">
                     <label for="date" class="fw-bold">Application Date</label>
                     <input type="date" name="ApplicationDate" id="date" class="form-control" />
@@ -30,36 +30,37 @@
             <hr class="divider" />
             <p class="fw-bold">Applying as (Choose appropriate answer)</p>
 
-            <input type="radio" name="ApplyingAs" id="shs" value="SHS" />
-            <label for="shs" class="ms-1">Senior High School Graduate</label>
+            <div class="mb-3">
+                <label for="shs"><input type="radio" name="ApplyingAs" id="shs" value="SHS" /> Senior High School Graduate</label>
 
-            <div class="dropdown d-inline-block">
-                <button class="btn border-black dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Track</button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Academic</a></li>
-                    <li><a class="dropdown-item" href="#">Technical-Vocational-Livelihood</a></li>
-                </ul>
+                <div class="dropdown d-inline-block">
+                    <button class="btn border-black dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Track</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Academic</a></li>
+                        <li><a class="dropdown-item" href="#">Technical-Vocational-Livelihood</a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown d-inline-block">
+                    <button class="btn border-black dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Strand</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">ABM</a></li>
+                        <li><a class="dropdown-item" href="#">HUMSS</a></li>
+                        <li><a class="dropdown-item" href="#">STEM</a></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="dropdown d-inline-block">
-                <button class="btn border-black dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Strand</button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">ABM</a></li>
-                    <li><a class="dropdown-item" href="#">HUMSS</a></li>
-                    <li><a class="dropdown-item" href="#">STEM</a></li>
-                </ul>
+            <div class="input-group gap-1 mb-3">
+                <label for="hsGraduate"><input type="radio" name="ApplyingAs" id="hsGraduate" value="HSGraduate" /> High School Graduate (Year 2015 and below)</label>
             </div>
+            
+            <label for="transferee" class="mb-3 "><input type="radio" name="ApplyingAs" id="transferee" value="Transferee" /> Transferee</label> 
+            
+            <br />
 
-            <div class="input-group gap-1">
-                <input type="radio" name="ApplyingAs" id="hsGraduate" value="HSGraduate" />
-                <label for="hsGraduate"> High School Graduate (Year 2015 and below)</label>
-            </div>
-
-            <input type="radio" name="ApplyingAs" id="transferee" value="Transferee" />
-            <label for="transferee" class="ms-1">Transferee</label> <br />
-
-            <div class="input-group gap-1 align-items-baseline">
-                <p>Applying for Accreditation of Subjects?</p>
+            <div class="input-group align-items-baseline mb-3">
+                Applying for Accreditation of Subjects?
                 <div class="dropdown d-inline-block">
                     <button class="btn border-black dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select One</button>
                     <ul class="dropdown-menu">
@@ -69,15 +70,16 @@
                 </div>
             </div>
 
-            <input type="radio" name="ApplyingAs" id="2ndDegree" value="SecondDegree" />
-            <label for="2ndDegree" class="ms-1">2nd Degree Course Taker (Graduate of Bachelor’s Degree)</label>
+            
+            <label for="2ndDegree"><input type="radio" name="ApplyingAs" id="2ndDegree" value="SecondDegree" /> 2nd Degree Course Taker (Graduate of Bachelor’s Degree)</label>
 
             <hr class="divider" />
 
-            <div class="d-flex gap-5">
+            <div class="d-flex flex-column gap-5">
                 <div>
                     <p class="fw-bold">Preferred Course</p>
                     <div class="row row-cols-2 courseWidth d-flex align-items-baseline">
+
                         <div class="col mb-4 choice">First Choice</div>
                         <select class="form-select d-inline-block course" name="FirstChoice">
                             <option selected>Select One</option>

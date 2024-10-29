@@ -3,12 +3,8 @@ hr.divider {
 }
 
 #main-container {
-    margin-top: 170px;
+    margin-top: 100px;
     margin-bottom: 50px;
-}
-
-.step1 {
-    width: 20%;
 }
 
 .course {
@@ -17,7 +13,6 @@ hr.divider {
 
 .next {
     background-color: var(--main-color);
-    width: 15%;
 }
 
     .next:hover {
