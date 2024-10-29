@@ -24,3 +24,15 @@ hr.divider {
     border: 2px solid var(--main-color);
     border-radius: 30px;
 }
+
+@media (min-width: 768px) {
+    .form-steps {
+        flex-direction: row !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .preference-selection {
+        flex-direction: row !important;
+    }
+}
