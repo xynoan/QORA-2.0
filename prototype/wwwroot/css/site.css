@@ -21,6 +21,15 @@ hr {
 nav {
     background-color: #ABA9D8 !important;
     border-bottom: 4px solid var(--brown);
+    height: 70px;
+}
+
+main {
+    margin-top: 50px;
+}
+
+footer {
+    margin-top: 50px;
 }
 
 .banner-message {
@@ -226,7 +235,7 @@ footer a:hover,
 
 @media (min-width: 768px) {
     nav {
-        background-image: url("../images/QORA_BANNER.png");
+        background-image: url("../images/QORA_BANNER.png"); 
         background-color: white !important; 
         border-bottom: none;
     }
