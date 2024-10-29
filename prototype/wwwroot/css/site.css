@@ -18,9 +18,18 @@ hr {
     width: 75%;
 }
 
+nav {
+    background-color: #ABA9D8 !important;
+    border-bottom: 4px solid var(--brown);
+}
+
+.banner-message {
+    display: none;
+}
+
 /* Hamburger Menu */
 .hamburger {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-between;
     height: 35px;
@@ -133,6 +142,7 @@ nav {
 
 /* Sign-in Button */
 .nav_signin {
+    display: none;
     background-color: var(--main-color);
     border-radius: 17px;
     width: 120px;
@@ -179,7 +189,6 @@ nav {
 .black-on-hover:hover {
     transition: all 0.5s;
 }
-
 /* Specific Hover Effects */
 img.qora_image:hover {
     opacity: 0.5;
@@ -216,6 +225,24 @@ footer a:hover,
 }
 
 @media (min-width: 768px) {
+    nav {
+        background-image: url("../images/QORA_BANNER.png");
+        background-color: white !important; 
+        border-bottom: none;
+    }
+
+    nav > .container {
+        justify-content: space-between !important;
+    }
+
+    .banner-message {
+        display: block;
+    }
+
+    .nav_signin {
+        display: block;
+    }
+
     #footer {
         flex-wrap: nowrap;
     }
@@ -227,18 +254,18 @@ footer a:hover,
     }
 }
 
-@media (min-width: 992px) {
-    nav {
-        background-image: url("../images/QORA_BANNER.png");
-    }
-}
-
 @media (min-width: 1200px) {
     #hamburgerNav {
         flex-direction: row;
         align-items: start;
         justify-content: start;
         overflow-y: hidden;
+    }
+}
+
+@media (min-width: 1440px) {
+    .hamburger {
+        display: flex;
     }
 }
 
