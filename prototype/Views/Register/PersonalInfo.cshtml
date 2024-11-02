@@ -13,14 +13,14 @@
 
         <form asp-action="Education" method="post">
             <p class="fw-bold">Full Name</p>
-            <div class="input-group">
-                <input type="text" name="LastName" placeholder="Last Name" class="form-control" />
-                <input type="text" name="FirstName" placeholder="First Name" class="form-control" />
-                <input type="text" name="MiddleName" placeholder="Middle Name" class="form-control" />
-                <input type="text" name="Suffix" placeholder="Suffix" class="form-control" />
+            <div class="input-group d-flex flex-column personal-details-form">
+                <input type="text" name="LastName" placeholder="Last Name" class="form-control w-100" />
+                <input type="text" name="FirstName" placeholder="First Name" class="form-control w-100" />
+                <input type="text" name="MiddleName" placeholder="Middle Name" class="form-control w-100" />
+                <input type="text" name="Suffix" placeholder="Suffix" class="form-control w-100" />
             </div>
 
-            <div class="mt-3 d-flex flex-column w-auto gap-3">
+            <div class="mt-3 d-flex flex-column w-auto gap-3 background-info-form">
                 <div class="d-flex flex-column">
                     <p class="fw-bold">Date of Birth</p>
                     <input type="date" name="DateOfBirth" class="form-control" />
@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <div class="mt-3 d-flex flex-column">
+            <div class="mt-3 d-flex flex-column background-info-form">
                 <div class="d-flex flex-column">
                     <p class="fw-bold">Religion</p>
                     <select class="form-select" name="Religion">
@@ -69,12 +69,12 @@
             </div>
 
             <p class="fw-bold mt-3">Present Address</p>
-            <div class="input-group">
-                <input type="text" name="HouseStreet" placeholder="House No./Street" class="form-control" />
-                <input type="text" name="Barangay" placeholder="Barangay" class="form-control" />
-                <input type="text" name="Municipality" placeholder="Municipality" class="form-control" />
-                <input type="text" name="District" placeholder="District" class="form-control" />
-                <input type="text" name="ZipCode" placeholder="Zip Code" class="form-control" />
+            <div class="input-group d-flex flex-column personal-details-form">
+                <input type="text" name="HouseStreet" placeholder="House No./Street" class="form-control w-100" />
+                <input type="text" name="Barangay" placeholder="Barangay" class="form-control w-100" />
+                <input type="text" name="Municipality" placeholder="Municipality" class="form-control w-100" />
+                <input type="text" name="District" placeholder="District" class="form-control w-100" />
+                <input type="text" name="ZipCode" placeholder="Zip Code" class="form-control w-100" />
             </div>
 
             <div class="d-flex justify-content-between mt-4">
