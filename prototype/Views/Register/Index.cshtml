@@ -75,42 +75,50 @@
 
             <hr class="divider" />
 
-            <div class="d-flex flex-column gap-5 preference-selection">
+            <div class="d-flex flex-column gap-3 preference-selection">
                 <div>
                     <p class="fw-bold">Preferred Course</p>
-                    <div class="row row-cols-2 courseWidth d-flex align-items-baseline">
+                    <div class="courseWidth d-flex align-items-baseline flex-column gap-3">
 
-                        <div class="col mb-4 choice">First Choice</div>
-                        <select class="form-select d-inline-block course" name="FirstChoice">
-                            <option selected>Select One</option>
-                            <option value="BECEd">Bachelor of Early Childhood Education</option>
-                            <option value="BSA">Bachelor of Science in Accountancy</option>
-                            <option value="BSCS">Bachelor of Science in Computer Science</option>
-                            <!-- Add other options -->
-                        </select>
+                        <div class="choice-container">
+                            <div class="choice">First Choice</div>
+                            <select class="form-select d-inline-block course" name="FirstChoice">
+                                <option selected>Select One</option>
+                                <option value="BECEd">Bachelor of Early Childhood Education</option>
+                                <option value="BSA">Bachelor of Science in Accountancy</option>
+                                <option value="BSCS">Bachelor of Science in Computer Science</option>
+                                <!-- Add other options -->
+                            </select>
+                        </div>
 
-                        <div class="col mb-4 choice">Second Choice</div>
+                        <div class="choice-container">
+                        <div class="choice">Second Choice</div>
                         <select class="form-select d-inline-block course" name="SecondChoice">
                             <option selected>Select One</option>
                             <option value="BECEd">Bachelor of Early Childhood Education</option>
                             <option value="BSA">Bachelor of Science in Accountancy</option>
                             <!-- Add other options -->
                         </select>
+                        </div>
 
-                        <div class="col mb-4 choice">Third Choice</div>
+                        <div class="choice-container">
+                        <div class="choice">Third Choice</div>
                         <select class="form-select d-inline-block course" name="ThirdChoice">
                             <option selected>Select One</option>
                             <option value="BECEd">Bachelor of Early Childhood Education</option>
                             <option value="BSA">Bachelor of Science in Accountancy</option>
                             <!-- Add other options -->
                         </select>
+                        </div>
 
-                        <div class="col mb-4 choice">Currently Enrolled?</div>
-                        <select class="form-select d-inline-block course" name="CurrentlyEnrolled">
+                        <div class="choice-container">
+                        <div class="choice">Currently Enrolled?</div>
+                        <select class="mb-3 form-select d-inline-block course" name="CurrentlyEnrolled">
                             <option selected>Select One</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
+                        </div>
                     </div>
 
                     <input type="text" name="SchoolName" id="schoolName" placeholder="Name Of School" class="form-control" />
@@ -118,35 +126,43 @@
 
                 <div>
                     <p class="fw-bold">Preferred Campus</p>
-                    <div class="row row-cols-2 courseWidth d-flex align-items-baseline">
-                        <div class="col mb-4">First Choice</div>
-                        <select class="form-select d-inline-block course" name="FirstCampusChoice">
-                            <option selected>Select One</option>
-                            <option value="sb">San Bartolome</option>
-                            <option value="sf">San Francisco</option>
-                            <option value="ba">Batasan</option>
-                        </select>
 
-                        <div class="col mb-4">Second Choice</div>
-                        <select class="form-select d-inline-block course" name="SecondCampusChoice">
-                            <option selected>Select One</option>
-                            <option value="sb">San Bartolome</option>
-                            <option value="sf">San Francisco</option>
-                            <option value="ba">Batasan</option>
-                        </select>
+                    <div class="courseWidth d-flex align-items-baseline flex-column gap-3">
 
-                        <div class="col mb-4">Third Choice</div>
-                        <select class="form-select d-inline-block course" name="ThirdCampusChoice">
-                            <option selected>Select One</option>
-                            <option value="sb">San Bartolome</option>
-                            <option value="sf">San Francisco</option>
-                            <option value="ba">Batasan</option>
-                        </select>
+                        <div class="choice-container">
+                            <div class="choice">First Choice</div>
+                            <select class="form-select d-inline-block course" name="FirstCampusChoice">
+                                <option selected>Select One</option>
+                                <option value="sb">San Bartolome</option>
+                                <option value="sf">San Francisco</option>
+                                <option value="ba">Batasan</option>
+                            </select>
+                        </div>
+
+                        <div class="choice-container">
+                            <div class="choice">Second Choice</div>
+                            <select class="form-select d-inline-block course" name="SecondCampusChoice">
+                                <option selected>Select One</option>
+                                <option value="sb">San Bartolome</option>
+                                <option value="sf">San Francisco</option>
+                                <option value="ba">Batasan</option>
+                            </select>
+                        </div>
+
+                        <div class="choice-container">
+                            <div class="choice">Third Choice</div>
+                            <select class="form-select d-inline-block course" name="ThirdCampusChoice">
+                                <option selected>Select One</option>
+                                <option value="sb">San Bartolome</option>
+                                <option value="sf">San Francisco</option>
+                                <option value="ba">Batasan</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <p class="text-end mt-4 mb-0">
+            <p class="text-end mt-3 mb-0">
                 <button class="btn next text-white" type="submit">Next <i class="fa-solid fa-chevron-right"></i></button>
             </p>
         </form>

@@ -2,10 +2,6 @@ hr.divider {
     width: 100%;
 }
 
-.course {
-    width: 40%;
-}
-
 .next {
     background-color: var(--main-color);
 }
@@ -21,6 +17,16 @@ hr.divider {
 }
 
 @media (min-width: 768px) {
+    .choice,
+    .course {
+        width: 50%;
+    }
+
+    .choice-container {
+        display: flex;
+        align-items: center;
+    }
+
     .form-steps {
         flex-direction: row !important;
     }
