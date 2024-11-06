@@ -12,7 +12,6 @@ hr.divider {
 
 .next {
     background-color: var(--main-color);
-    width: 15%;
 }
 
     .next:hover {
@@ -23,4 +22,18 @@ hr.divider {
 #content-form {
     border: 2px solid var(--main-color);
     border-radius: 30px;
+}
+
+@media (min-width: 768px) {
+    .name-input-group {
+        flex-direction: row !important;
+    }
+
+    .name-input-group > input {
+        width: 1% !important;
+    }
+
+    .personal-info-group {
+        flex-direction: row !important;
+    }
 }
