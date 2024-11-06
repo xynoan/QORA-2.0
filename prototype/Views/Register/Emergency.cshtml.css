@@ -12,7 +12,6 @@ hr.divider {
 
 .next {
     background-color: var(--main-color);
-    width: 15%;
 }
 
     .next:hover {

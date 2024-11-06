@@ -23,17 +23,3 @@ hr.divider {
     border: 2px solid var(--main-color);
     border-radius: 30px;
 }
-
-@media (min-width: 768px) {
-    .name-input-group {
-        flex-direction: row !important;
-    }
-
-    .name-input-group > input {
-        width: 1% !important;
-    }
-
-    .personal-info-group {
-        flex-direction: row !important;
-    }
-}

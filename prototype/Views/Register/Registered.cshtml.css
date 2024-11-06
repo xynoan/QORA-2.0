@@ -21,7 +21,6 @@ hr.divider {
 
 .yay {
     border: 5px solid var(--main-color);
-    width: 70%;
 }
 
 .next {
@@ -35,6 +34,19 @@ hr.divider {
     }
 
 #content-form {
-    border: 2px solid var(--main-color);
     border-radius: 30px;
+}
+
+@media (min-width: 768px) {
+    .yay {
+        width: 70%;
+    }
+
+    #content-form {
+        border: 2px solid var(--main-color);
+    }
+
+    #content-form > p {
+        margin-bottom: 25px !important;
+    }
 }
