@@ -4,10 +4,12 @@
 }
 
 <div class="container" id="main-container">
-    <div id="content-form" class="p-5 mt-3">
+    <div id="content-form" class="p-md-5 p-3 mt-3">
         @await Html.PartialAsync("_LogoutModal")
-        <div class="d-flex justify-content-evenly">
-            <img src="/images/QCU-Logo.png" alt="QCU" height="100px">
+
+        <!-- Header Section -->
+        <div class="d-flex flex-column flex-md-row justify-content-evenly align-items-center">
+            <img src="/images/QCU-Logo.png" alt="QCU" height="80px" class="mb-3 mb-md-0">
             <div class="text-center">
                 <p class="fw-bold fs-4 m-0">QUEZON CITY UNIVERSITY</p>
                 <p class="m-0">673 Quirino Hi-Way, San Bartolome, Novaliches Q.C</p>
@@ -15,116 +17,76 @@
                 <p class="m-0">STUDENT APPLICATION FORM</p>
                 <p><span class="text-danger">1st</span> SEM, AY: <span class="text-danger">2024-2025</span></p>
             </div>
-            <img src="/images/blake.jpg" alt="blake" height="150px" style="border: 2px solid black;">
+            <img src="/images/blake.jpg" alt="blake" height="100px" style="border: 2px solid black;">
         </div>
-        <!-- ----------------------------------------------------------------------------------- -->
-        <h1 class="fs-2">Personal Information</h1>
+
+        <!-- Personal Information Section -->
+        <h1 class="fs-3 mt-4">Personal Information</h1>
         <hr class="divider">
+
         <p class="fw-bold">Full Name</p>
-        <div class="input-group">
-            <input type="text" name="" id="" placeholder="Last Name" class="form-control">
-            <input type="text" name="" id="" placeholder="First Name" class="form-control">
-            <input type="text" name="" id="" placeholder="Middle Name" class="form-control">
-            <input type="text" name="" id="" placeholder="Suffix" class="form-control">
+        <div class="row g-2">
+            <div class="col-12 col-md-3"><input type="text" placeholder="Last Name" class="form-control"></div>
+            <div class="col-12 col-md-3"><input type="text" placeholder="First Name" class="form-control"></div>
+            <div class="col-12 col-md-3"><input type="text" placeholder="Middle Name" class="form-control"></div>
+            <div class="col-12 col-md-3"><input type="text" placeholder="Suffix" class="form-control"></div>
         </div>
-        <div class="mt-3 row row-cols-3">
-            <div class="d-flex flex-column col">
+
+        <!-- Birth Details Section -->
+        <div class="mt-3 row g-3">
+            <div class="col-md-4">
                 <p class="fw-bold">Date of Birth</p>
-                <input type="date" name="" id="" class="form-control">
+                <input type="date" class="form-control">
             </div>
-            <div class="d-flex flex-column col">
+            <div class="col-md-4">
                 <p class="fw-bold">Birth Place</p>
-                <input type="text" name="" id="" placeholder="Select Place" class="form-control">
+                <input type="text" placeholder="Select Place" class="form-control">
             </div>
-            <div class="d-flex flex-column col">
+            <div class="col-md-4">
                 <p class="fw-bold">Gender</p>
-                <select class="form-select d-inline-block" onchange="nextPage()" id="gender">
+                <select class="form-select">
                     <option selected>Select One</option>
-                    <option value="abm">ABM</option>
-                    <option value="humss">HUMSS</option>
-                    <option value="STEM">STEM</option>
-                    <option value="ICT">ICT</option>
-                    <option value="GAS">GAS</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
                 </select>
             </div>
         </div>
-        <div class="mt-3 row row-cols-3">
-            <div class="d-flex flex-column col">
-                <p class="fw-bold">Religion</p>
-                <select class="form-select d-inline-block" onchange="nextPage()" id="gender">
-                    <option selected>Select One</option>
-                    <option value="abm">ABM</option>
-                    <option value="humss">HUMSS</option>
-                    <option value="STEM">STEM</option>
-                    <option value="ICT">ICT</option>
-                    <option value="GAS">GAS</option>
-                </select>
-            </div>
-            <div class="d-flex flex-column col">
-                <p class="fw-bold">Citizenship</p>
-                <input type="text" name="" id="" class="form-control">
-            </div>
-            <div class="d-flex flex-column col">
-                <p class="fw-bold">Civil Status</p>
-                <select class="form-select d-inline-block" onchange="nextPage()" id="gender">
-                    <option selected>Select One</option>
-                    <option value="abm">ABM</option>
-                    <option value="humss">HUMSS</option>
-                    <option value="STEM">STEM</option>
-                    <option value="ICT">ICT</option>
-                    <option value="GAS">GAS</option>
-                </select>
-            </div>
+
+        <!-- Address Section -->
+        <p class="fw-bold mt-4">Present Address</p>
+        <div class="row g-2">
+            <div class="col-12 col-md-6 col-lg-4"><input type="text" placeholder="House No./Street" class="form-control"></div>
+            <div class="col-12 col-md-6 col-lg-4"><input type="text" placeholder="Barangay" class="form-control"></div>
+            <div class="col-12 col-md-6 col-lg-4"><input type="text" placeholder="Municipality" class="form-control"></div>
+            <div class="col-12 col-md-6 col-lg-4"><input type="text" placeholder="District" class="form-control"></div>
+            <div class="col-12 col-md-6 col-lg-4"><input type="text" placeholder="Zip Code" class="form-control"></div>
         </div>
-        <p class="fw-bold mt-3">Present Address</p>
-        <div class="input-group">
-            <input type="text" name="" id="" placeholder="House No./Street" class="form-control">
-            <input type="text" name="" id="" placeholder="Barangay" class="form-control">
-            <input type="text" name="" id="" placeholder="Municipality" class="form-control">
-            <input type="text" name="" id="" placeholder="District" class="form-control">
-            <input type="text" name="" id="" placeholder="Zip Code" class="form-control">
-        </div>
-        <!-- ----------------------------------------------------------------------------------- -->
-        <h2 class="fs-2 mt-4">Basic Information</h2>
+
+        <!-- Basic Information Section -->
+        <h2 class="fs-3 mt-4">Basic Information</h2>
         <hr class="divider">
-        <div class="d-flex gap-5">
-            <div class="d-flex flex-column step1">
+
+        <div class="row g-3">
+            <div class="col-md-4">
                 <label for="date" class="fw-bold">Application Date</label>
-                <input type="date" name="" id="date">
+                <input type="date" id="date" class="form-control">
             </div>
-            <div class="d-flex flex-column step1">
+            <div class="col-md-4">
                 <label for="lrn" class="fw-bold">LRN</label>
-                <input type="number" name="" id="lrn">
+                <input type="number" id="lrn" class="form-control">
             </div>
-            <div class="d-flex flex-column step1">
+            <div class="col-md-4">
                 <label for="studentNumber" class="fw-bold">Student Number</label>
-                <input type="number" name="" id="studentNumber" disabled>
+                <input type="number" id="studentNumber" class="form-control" disabled>
             </div>
         </div>
+
+        <!-- Educational Attainment Section -->
+        <h2 class="fs-3 mt-4">Educational Attainment</h2>
         <hr class="divider">
-        <div class="d-flex gap-5">
-            <div class="d-flex flex-column">
-                <p class="fw-bold">Applying as</p>
-                <input type="text" name="" id="" class="form-control" disabled>
-            </div>
-            <div class="d-flex flex-column">
-                <p class="fw-bold">Year Level</p>
-                <input type="text" name="" id="" class="form-control" disabled>
-            </div>
-            <div class="d-flex flex-column">
-                <p class="fw-bold">Term</p>
-                <input type="text" name="" id="" class="form-control" disabled>
-            </div>
-            <div class="d-flex flex-column">
-                <p class="fw-bold">Academic Year</p>
-                <input type="text" name="" id="" class="form-control" disabled>
-            </div>
-        </div>
-        <!-- ----------------------------------------------------------------------------------- -->
-        <h2 class="fs-2 mt-4">Educational Attainment</h2>
-        <hr class="divider">
-        <p class="fw-bold m-0">College</p>
-        <select class="form-select d-inline-block my-3" id="College">
+
+        <p class="fw-bold">College</p>
+        <select class="form-select mb-3" id="College">
             <option selected>Select One</option>
             <option value="abm">ABM</option>
             <option value="humss">HUMSS</option>
@@ -132,167 +94,34 @@
             <option value="ICT">ICT</option>
             <option value="GAS">GAS</option>
         </select>
-        <p class="fw-bold mt-3">School Address</p>
-        <input type="text" name="" id="" class="form-control">
-        <p class="fw-bold mt-3">Location</p>
-        <div class="d-flex justify-content-between">
-            <div style="width: 50%;">
-                <label for="location">Within Quezon City?</label>
-                <select class="form-select d-inline-block" id="location" style="width: 65%;">
-                    <option selected>Select One</option>
-                    <option value="abm">ABM</option>
-                    <option value="humss">HUMSS</option>
-                    <option value="STEM">STEM</option>
-                    <option value="ICT">ICT</option>
-                    <option value="GAS">GAS</option>
-                </select>
-            </div>
-            <div style="width: 50%;">
-                <label for="School">School Type</label>
-                <select class="form-select d-inline-block" id="School" style="width: 80%;">
-                    <option selected>Select One</option>
-                    <option value="abm">ABM</option>
-                    <option value="humss">HUMSS</option>
-                    <option value="STEM">STEM</option>
-                    <option value="ICT">ICT</option>
-                    <option value="GAS">GAS</option>
-                </select>
-            </div>
-        </div>
-        <div class="mt-3 row row-cols-3">
-            <div class="d-flex flex-column col">
-                <p class="fw-bold"><label for="course">Course</label></p>
-                <select class="form-select d-inline-block" id="course">
-                    <option selected>Select One</option>
-                    <option value="abm">ABM</option>
-                    <option value="humss">HUMSS</option>
-                    <option value="STEM">STEM</option>
-                    <option value="ICT">ICT</option>
-                    <option value="GAS">GAS</option>
-                </select>
-            </div>
-            <div class="d-flex flex-column col">
-                <p class="fw-bold"><label for="graduated">Date Graduated</label></p>
-                <input type="date" name="" id="graduated" class="form-control">
-            </div>
-            <div class="d-flex flex-column col">
-                <p class="fw-bold"><label for="honors">Honors Received (With Certificate)</label></p>
-                <input type="text" name="" id="honors" class="form-control">
-            </div>
-        </div>
-        <!-- ----------------------------------------------------------------------------------- -->
-        <h2 class="fs-2 mt-4">Family Background</h2>
+
+        <!-- Family Background Section -->
+        <h2 class="fs-3 mt-4">Family Background</h2>
         <hr class="divider">
+
         <p class="fw-bold">Father's Full Name</p>
-        <div class="input-group">
-            <input type="text" name="" id="" placeholder="Last Name" class="form-control">
-            <input type="text" name="" id="" placeholder="First Name" class="form-control">
-            <input type="text" name="" id="" placeholder="Middle Name" class="form-control">
-            <input type="text" name="" id="" placeholder="Suffix" class="form-control">
+        <div class="row g-2">
+            <div class="col-12 col-md-3"><input type="text" placeholder="Last Name" class="form-control"></div>
+            <div class="col-12 col-md-3"><input type="text" placeholder="First Name" class="form-control"></div>
+            <div class="col-12 col-md-3"><input type="text" placeholder="Middle Name" class="form-control"></div>
+            <div class="col-12 col-md-3"><input type="text" placeholder="Suffix" class="form-control"></div>
         </div>
-        <div class="mt-3 row row-cols-3">
-            <div class="d-flex flex-column col">
-                <p class="fw-bold"><label for="Occupation">Occupation</label></p>
-                <input type="text" name="" id="Occupation" class="form-control">
-            </div>
-            <div class="d-flex flex-column col">
-                <p class="fw-bold"><label for="Educational">Educational Attainment</label></p>
-                <select class="form-select d-inline-block" id="Educational">
-                    <option selected>Select One</option>
-                    <option value="abm">ABM</option>
-                    <option value="humss">HUMSS</option>
-                    <option value="STEM">STEM</option>
-                    <option value="ICT">ICT</option>
-                    <option value="GAS">GAS</option>
-                </select>
-            </div>
-            <div class="d-flex flex-column col">
-                <p class="fw-bold"><label for="Contact">Contact Number</label></p>
-                <input type="text" name="" id="Contact" class="form-control">
-            </div>
-        </div>
-        <p class="fw-bold mt-3">Mother’s Maiden Name</p>
-        <div class="input-group">
-            <input type="text" name="" id="" placeholder="Last Name" class="form-control">
-            <input type="text" name="" id="" placeholder="First Name" class="form-control">
-            <input type="text" name="" id="" placeholder="Middle Name" class="form-control">
-        </div>
-        <div class="mt-3 row row-cols-3">
-            <div class="d-flex flex-column col">
-                <p class="fw-bold"><label for="Occupation">Occupation</label></p>
-                <input type="text" name="" id="Occupation" class="form-control">
-            </div>
-            <div class="d-flex flex-column col">
-                <p class="fw-bold"><label for="Educational">Educational Attainment</label></p>
-                <select class="form-select d-inline-block" id="Educational">
-                    <option selected>Select One</option>
-                    <option value="abm">ABM</option>
-                    <option value="humss">HUMSS</option>
-                    <option value="STEM">STEM</option>
-                    <option value="ICT">ICT</option>
-                    <option value="GAS">GAS</option>
-                </select>
-            </div>
-            <div class="d-flex flex-column col">
-                <p class="fw-bold"><label for="Contact">Contact Number</label></p>
-                <input type="text" name="" id="Contact" class="form-control">
-            </div>
-        </div>
-        <p class="fw-bold mt-3">Address</p>
-        <div class="input-group">
-            <input type="text" name="" id="" placeholder="House No./Street" class="form-control">
-            <input type="text" name="" id="" placeholder="Barangay" class="form-control">
-            <input type="text" name="" id="" placeholder="Municipality" class="form-control">
-            <input type="text" name="" id="" placeholder="District" class="form-control">
-            <input type="text" name="" id="" placeholder="Zip Code" class="form-control">
-        </div>
-        <p class="fw-bold mt-3">Guardian’s Full Name</p>
-        <div class="input-group">
-            <input type="text" name="" id="" placeholder="Last Name" class="form-control">
-            <input type="text" name="" id="" placeholder="First Name" class="form-control">
-            <input type="text" name="" id="" placeholder="Middle Name" class="form-control">
-            <input type="text" name="" id="" placeholder="Suffix" class="form-control">
-        </div>
-        <div class="d-flex justify-content-between gap-4">
-            <div style="width: 50%;">
-                <label for="Relationship" class="fw-bold my-3">Relationship</label>
-                <input type="text" name="" id="Relationship" class="form-control">
-            </div>
-            <div style="width: 50%;">
-                <label for="Contact" class="fw-bold my-3">Contact Number</label>
-                <input type="text" name="" id="Contact" class="form-control">
-            </div>
-        </div>
-        <!-- ----------------------------------------------------------------------------------- -->
-        <h2 class="fs-2 mt-4">Person to be notified in case of Emergency</h2>
+
+        <!-- Emergency Contact Section -->
+        <h2 class="fs-3 mt-4">Person to be Notified in Case of Emergency</h2>
         <hr class="divider">
-        <form action="./create.php" method="post">
-            <p class="fw-bold">Full Name</p>
-            <div class="input-group">
-                <input type="text" name="" id="" placeholder="Last Name" class="form-control">
-                <input type="text" name="" id="" placeholder="First Name" class="form-control">
-                <input type="text" name="" id="" placeholder="Middle Name" class="form-control">
-                <input type="text" name="" id="" placeholder="Suffix" class="form-control">
-            </div>
-            <div class="d-flex justify-content-between gap-4">
-                <div style="width: 50%;">
-                    <label for="Relationship" class="fw-bold my-3">Relationship</label>
-                    <input type="text" name="" id="Relationship" class="form-control">
-                </div>
-                <div style="width: 50%;">
-                    <label for="Contact" class="fw-bold my-3">Contact Number</label>
-                    <input type="text" name="" id="Contact" class="form-control">
-                </div>
-            </div>
-            <p class="fw-bold mt-3">Address</p>
-            <div class="input-group">
-                <input type="text" name="" id="" placeholder="House No./Street" class="form-control">
-                <input type="text" name="" id="" placeholder="Barangay" class="form-control">
-                <input type="text" name="" id="" placeholder="Municipality" class="form-control">
-                <input type="text" name="" id="" placeholder="District" class="form-control">
-                <input type="text" name="" id="" placeholder="Zip Code" class="form-control">
-            </div>
-        </form>
+
+        <p class="fw-bold">Full Name</p>
+        <div class="row g-2">
+            <div class="col-12 col-md-3"><input type="text" placeholder="Last Name" class="form-control"></div>
+            <div class="col-12 col-md-3"><input type="text" placeholder="First Name" class="form-control"></div>
+            <div class="col-12 col-md-3"><input type="text" placeholder="Middle Name" class="form-control"></div>
+            <div class="col-12 col-md-3"><input type="text" placeholder="Suffix" class="form-control"></div>
+        </div>
+
+        <!-- Back to Search Tab -->
+        <p class="text-end mt-4">
+            <a href="@Url.Action("Index")" class="text-decoration-none text-white p-2 rounded-3" style="background-color: var(--main-color);">Back to Search Tab</a>
+        </p>
     </div>
 </div>
-<p class="text-end" style="margin: 20px 125px 20px 0;"><a href="@Url.Action("Index")" class="text-decoration-none text-white p-2 rounded-3 black-on-hover" style="background-color: var(--main-color);">Back to Search Tab</a></p>
