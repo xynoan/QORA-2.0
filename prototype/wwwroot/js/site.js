@@ -63,6 +63,14 @@ function removeActiveClassFromAll(...elements) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    // form
+    let previousButton = document.getElementById("previousButton");
+
+    if (previousButton) {
+        previousButton.addEventListener("click", () => {
+            window.history.back();
+        });
+    }
     // hamburger
     function handleHover(mainMenuId, submenuItems) {
         const mainMenu = document.getElementById(mainMenuId);
@@ -182,15 +190,6 @@ document.addEventListener("DOMContentLoaded", () => {
         { text: "Batasan Campus", href: "#" },
         { text: "San Francisco Campus", href: "#" }
     ]);
-
-    // form
-    let previousButton = document.getElementById("previousButton");
-
-    if (previousButton) {
-        previousButton.addEventListener("click", () => {
-            window.history.back();
-        });
-    }
 
     // OTP
     const inputs = document.querySelectorAll("#otp > *[id]");
