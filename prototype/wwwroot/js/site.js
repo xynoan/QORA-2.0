@@ -123,15 +123,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     handleHover('be_a_QCIAN', [
-        { text: "Data Privacy Notice", href: "#" },
-        { text: "General Admission Policy", href: "#" },
-        { text: "Selection for a Degree Program and Campus", href: "#" },
-        { text: "Freshmen Admission Requirements", href: "#" },
-        { text: "QCUCAT Procedure", href: "#" },
-        { text: "Admissions Guidelines: Classifications", href: "#" },
-        { text: "Admissions Guidelines: Qualifications", href: "#" },
-        { text: "Program Curriculum", href: "#" },
-        { text: "Grading System", href: "#" }
+        { text: "Data Privacy Notice", href: '/BeAQcian/Dpn' },
+        { text: "General Admission Policy", href: '/BeAQcian/Gap' },
+        { text: "Selection for a Degree Program and Campus", href: '/BeAQcian/Sdc' },
+        { text: "Freshmen Admission Requirements", href: '/BeAQcian/Far' },
+        { text: "QCUCAT Procedure", href: '/BeAQcian/Qcucat' },
+        { text: "Admissions Guidelines: Classifications", href: '/BeAQcian/Agc' },
+        { text: "Admissions Guidelines: Qualifications", href: '/BeAQcian/Agq' },
+        { text: "Program Curriculum", href: '/BeAQcian/Pc' },
+        { text: "Grading System", href: '/BeAQcian/Gs' }
     ]);
 
     handleHover('programsOffered', [
@@ -186,9 +186,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ]);
 
     handleHover('campus', [
-        { text: "San Bartolome Campus", href: "#" },
-        { text: "Batasan Campus", href: "#" },
-        { text: "San Francisco Campus", href: "#" }
+        { text: "San Bartolome Campus", href: "/BeAQcian/Sb" },
+        { text: "Batasan Campus", href: "/BeAQcian/Ba" },
+        { text: "San Francisco Campus", href: "/BeAQcian/Sf" }
     ]);
 
     // OTP
