@@ -2,11 +2,6 @@ hr.divider {
     width: 100%;
 }
 
-#main-container {
-    margin-top: 170px;
-    margin-bottom: 50px;
-}
-
 .step1 {
     width: 20%;
 }
@@ -17,7 +12,6 @@ hr.divider {
 
 .next {
     background-color: var(--main-color);
-    width: 15%;
 }
 
     .next:hover {
@@ -28,4 +22,18 @@ hr.divider {
 #content-form {
     border: 2px solid var(--main-color);
     border-radius: 30px;
+}
+
+@media (min-width: 768px) {
+    .background-info-form {
+        flex-direction: row !important;
+    }
+
+    .personal-details-form {
+        flex-direction: row !important;
+    }
+
+    .personal-details-form input {
+        width: 1% !important;
+    }
 }

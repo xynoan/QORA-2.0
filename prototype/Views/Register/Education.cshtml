@@ -24,8 +24,8 @@
             <input type="text" name="C_ADDRESS" id="address" placeholder="Enter your School Address" class="form-control mb-3">
 
             <p class="fw-bold mb-0">Location</p>
-            <div class="d-flex justify-content-between">
-                <div style="width: 50%;">
+            <div class="d-flex justify-content-between flex-column education-info-form">
+                <div>
                     <label for="location">Within Quezon City?</label>
                     <select class="form-select d-inline-block my-3" name="C_LOCATION" style="width: 65%;">
                         <option selected>Select Yes/No</option>
@@ -33,7 +33,7 @@
                         <option value="No">No</option>
                     </select>
                 </div>
-                <div style="width: 50%;">
+                <div>
                     <label for="School">School Type</label>
                     <select class="form-select d-inline-block my-3" name="C_SCHOOL_TYPE" style="width: 80%;">
                         <option selected>Select Type</option>
@@ -48,11 +48,11 @@
                     <p class="fw-bold"><label for="course">Course</label></p>
                     <input type="text" name="C_COURSE_YR" id="course" class="form-control" placeholder="Enter your Course">
                 </div>
-                <div class="d-flex flex-column col">
+                <div>
                     <p class="fw-bold"><label for="graduated">Date Graduated</label></p>
                     <input type="date" name="C_DATE_GRADUATED" id="graduated" class="form-control">
                 </div>
-                <div class="d-flex flex-column col">
+                <div>
                     <p class="fw-bold"><label for="honors">Honors Received (With Certificate)</label></p>
                     <input type="text" name="C_HONORS_RECEIVED" id="honors" class="form-control" placeholder="i.e. Top 1, High Honors, etc. (Optional)">
                 </div>
@@ -67,6 +67,7 @@
                 <div style="width: 50%;">
                     <label for="locationVoc">Within Quezon City?</label>
                     <select class="form-select d-inline-block" name="TV_LOCATION" style="width: 65%;">
+
                         <option selected>Select One</option>
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
@@ -75,6 +76,7 @@
                 <div style="width: 50%;">
                     <label for="SchoolVoc">School Type</label>
                     <select class="form-select d-inline-block" name="TV_SCHOOL_TYPE" style="width: 80%;">
+
                         <option selected>Select One</option>
                         <option value="Public">Public</option>
                         <option value="Private">Private</option>
@@ -87,11 +89,11 @@
                     <p class="fw-bold"><label for="courseVocational">Course/Year/Taken</label></p>
                     <input type="text" name="TV_CURRICULUM" id="courseVocational" placeholder="Enter your Strand" class="form-control">
                 </div>
-                <div class="d-flex flex-column col">
+                <div>
                     <p class="fw-bold"><label for="graduatedVoc">Date Graduated</label></p>
                     <input type="date" name="TV_DATE_GRADUATED" id="graduatedVoc" class="form-control">
                 </div>
-                <div class="d-flex flex-column col">
+                <div>
                     <p class="fw-bold"><label for="honorsVoc">Honors Received (With Certificate)</label></p>
                     <input type="text" name="TV_HONORS_RECEIVED" id="honorsVoc" class="form-control" placeholder="i.e. Top 1, High Honors, etc. (Optional)">
                 </div>
@@ -113,16 +115,15 @@
                             oninvalid="setCustomValidity('Select Yes/No.'); setInvalidBackground(this)"
                             oninput="setCustomValidity(''); setValidBackground(this)">
                         <option selected value="" disabled>Select Yes/No</option>
+
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                     </select>
                 </div>
-                <div style="width: 50%;">
-                    <label for="SchoolHs">School Type</label>
-                    <select class="form-select d-inline-block" name="HS_SCHOOL_TYPE" style="width: 80%;" required
-                            oninvalid="setCustomValidity('Choose the School Type.'); setInvalidBackground(this)"
-                            oninput="setCustomValidity(''); setValidBackground(this)">
-                        <option selected value="" disabled>Select Type</option>
+                <div>
+                    <label for="School">School Type</label>
+                    <select class="form-select d-inline-block my-3" name="SchoolType" id="School" style="width: 80%;">
+                        <option selected>Select One</option>
                         <option value="Public">Public</option>
                         <option value="Private">Private</option>
                         <option value="Local">Local</option>
@@ -136,13 +137,13 @@
                            oninvalid="setCustomValidity('Enter The Track/Strand.'); setInvalidBackground(this)"
                            oninput="setCustomValidity(''); setValidBackground(this)">
                 </div>
-                <div class="d-flex flex-column col">
+                <div>
                     <p class="fw-bold"><label for="graduatedHs">Date Graduated</label></p>
                     <input type="date" name="HS_DATE_GRADUATE" id="graduatedHs" class="form-control" required
                            oninvalid="setCustomValidity('Enter The Date when you Graduated.'); setInvalidBackground(this)"
                            oninput="setCustomValidity(''); setValidBackground(this)">
                 </div>
-                <div class="d-flex flex-column col">
+                <div>
                     <p class="fw-bold"><label for="honorsHs">Honors Received (With Certificate)</label></p>
                     <input type="text" name="HS_HONORS_RECEIVED" id="honorsHs" class="form-control" placeholder="i.e. Top 1, High Honors, etc. (Optional)">
                 </div>

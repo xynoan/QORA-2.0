@@ -27,7 +27,7 @@
 }
 
 <div class="container" id="main-container">
-    <div id="content-form" class="p-5 mt-3">
+    <div id="content-form" class="p-md-5 p-3 mt-3">
         @await Html.PartialAsync("_LogoutModal")
 
         <div>
@@ -73,7 +73,7 @@
 
                 <div class="d-flex gap-5 justify-content-center align-items-center">
                 <div class="first-half">
-                    <div class="row row-cols-3 text-center mb-3">
+                    <div class="row row-cols-1 row-cols-md-3 text-center mb-3">
                         <div class="col text-uppercase fw-bold mb-2">Year Level</div>
                         <div class="col text-uppercase fw-bold mb-2">TERM</div>
                         <div class="col text-uppercase fw-bold mb-2">Applying as</div>
@@ -312,22 +312,19 @@
                         <div class="col"><input type="number" name="gwa" class="form-control" readonly /></div>
                     </div>
                 </div>
-
-
-
             <div class="d-flex justify-content-between mt-4">
                 <button class="btn next text-white" id="previousButton" type="button" onclick="goBack()"><i class="fa-solid fa-chevron-left"></i> Previous</button>
                 <button class="btn next text-white" type="button" data-bs-toggle="modal" data-bs-target="#consent">Next <i class="fa-solid fa-chevron-right"></i></button>
             </div>
-
             <div class="modal fade" id="consent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5 text-danger text-center" id="exampleModalLabel">Electronic Consent Form for Student Application</h1>
+                            <h1 class="modal-title fs-5 text-danger text-center w-100" id="exampleModalLabel">Electronic Consent Form for Student Application</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <!-- Consent Text Here -->
                             <span class="fw-bold">Please read the following carefully and indicate your consent by checking the box provided:</span><br><br>
                             I, <b>Student Name</b>, hereby consent to participate in the student application process for <b>Quezon City University Online Registration Appointment (QORA)</b>.
                             <br><br>
@@ -525,4 +522,3 @@
         window.location.href = '@Url.Action("Grade", "Student")';
     }
 </script>
-

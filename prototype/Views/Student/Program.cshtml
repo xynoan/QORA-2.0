@@ -4,7 +4,7 @@
 }
 
 <div class="container" id="main-container">
-    <div id="content-form" class="p-5 mt-3">
+    <div id="content-form" class="p-md-5 p-3 mt-3">
         @await Html.PartialAsync("_LogoutModal")
         <div>
             <ul class="progressbar">
@@ -41,6 +41,8 @@
                 <p class="text-uppercase text-center college p-2" style="color:gray;">College of Education</p>
                 <p class="text-uppercase text-center college p-2" style="color:gray;">College of Engineering</p>
             </div>
+
+            <!-- Navigation Buttons -->
             <div class="d-flex justify-content-between mt-4">
                 <button class="btn next text-white" id="previousButton" type="button" onclick="goBack()"><i class="fa-solid fa-chevron-left"></i> Previous</button>
                 <button class="btn next text-white" name="program_info_next" type="submit">Next <i class="fa-solid fa-chevron-right"></i></button>

@@ -15,6 +15,10 @@
 
     <style>
         /* Common styles for all pages */
+        main {
+            margin-top: 100px;
+        }
+
         .fa-arrow-rotate-left:hover {
             transition: background-color 0.5s, color 0.5s;
             background-color: black;
@@ -26,6 +30,21 @@
             margin-bottom: 0;
             padding: 15px 15px 15px 40px;
         }
+
+        .back {
+            display: none;
+            text-align: center;
+        }
+
+        @@media (min-width: 768px) {
+            main {
+                margin-top: 170px;
+            }
+
+            .back {
+                display: block;
+            }
+        }
     </style>
 </head>
 
@@ -34,7 +53,10 @@
     @await Html.PartialAsync("_Header")
 
     <!-- Main content from the child view -->
-    <main class="container">
+    <main class="container d-flex">
+        <a href="@Url.Action("Index", "Home")" class="back me-5">
+            <i class="fa-solid fa-arrow-rotate-left p-2 text-black"></i>
+        </a>
         @RenderBody()
     </main>
 

@@ -22,13 +22,14 @@
                 <input type="text" name="FATHER_FIRST_NAME" id="firstName_father" placeholder="First Name" class="form-control" style="border: 1px solid #ccc;">
                 <input type="text" name="FATHER_MIDDLE_NAME" id="middleName_father" placeholder="Middle Name" class="form-control" style="border: 1px solid #ccc;">
                 <input type="text" name="FATHER_SUFFIX" id="suffix_father" placeholder="Suffix e.g., Jr., Sr., III" class="form-control">
+
             </div>
-            <div class="mt-3 row row-cols-3">
-                <div class="d-flex flex-column col">
+            <div class="mt-3 d-flex flex-column gap-3 personal-info-group">
+                <div class="d-flex flex-column">
                     <p class="fw-bold"><label for="Occupation">Occupation</label></p>
                     <input type="text" name="FATHER_OCCUPATION" id="Occupation" placeholder="e.g., Teacher, Carpenter, Driver" class="form-control">
                 </div>
-                <div class="d-flex flex-column col">
+                <div class="d-flex flex-column">
                     <p class="fw-bold"><label for="Educational">Educational Attainment</label></p>
                     <select class="form-select d-inline-block" id="Educational" name="FATHER_EDUCATIONAL_ATTAINMENT">
                         <option selected value="" disabled>Select One</option>
@@ -38,23 +39,23 @@
                         <option value="Tertiary">Tertiary</option>
                     </select>
                 </div>
-                <div class="d-flex flex-column col">
+                <div class="d-flex flex-column">
                     <p class="fw-bold"><label for="Contact">Contact Number</label></p>
                     <input type="number" name="FATHER_CONTACT_NUMBER" id="contact" placeholder="+639568612356" class="form-control">
                 </div>
             </div>
-            <p class="fw-bold mt-3">Mother’s Maiden Name</p>
+            <p class="fw-bold mt-3">Motherâ€™s Maiden Name</p>
             <div class="input-group">
                 <input type="text" name="MOTHER_LAST_NAME" id="Last_name_mom" placeholder="Last Name" class="form-control" style="border: 1px solid #ccc;">
                 <input type="text" name="MOTHER_FIRST_NAME" id="First_name_mom" placeholder="First Name" class="form-control" style="border: 1px solid #ccc;">
                 <input type="text" name="MOTHER_MIDDLE_NAME" id="Middle_name_mom" placeholder="Middle Name" class="form-control" style="border: 1px solid #ccc;">
             </div>
-            <div class="mt-3 row row-cols-3">
-                <div class="d-flex flex-column col">
+            <div class="mt-3 gap-3 d-flex flex-column personal-info-group">
+                <div class="d-flex flex-column">
                     <p class="fw-bold"><label for="OccupationMother">Occupation</label></p>
                     <input type="text" name="MOTHER_OCCUPATION" id="OccupationMother" placeholder="e.g., House Wife, Salesperson, Nurse" class="form-control">
                 </div>
-                <div class="d-flex flex-column col">
+                <div class="d-flex flex-column">
                     <p class="fw-bold"><label for="EducationalMother">Educational Attainment</label></p>
                     <select class="form-select d-inline-block" id="EducationalMother" name="MOTHER_EDUCATIONAL_ATTAINMENT" class="form-control">
                         <option selected value="" disabled>Select One</option>
@@ -64,7 +65,7 @@
                         <option value="Tertiary">Tertiary</option>
                     </select>
                 </div>
-                <div class="d-flex flex-column col">
+                <div class="d-flex flex-column">
                     <p class="fw-bold"><label for="ContactMother">Contact Number</label></p>
                     <input type="number" name="MOTHER_CONTACT_NUMBER" id="ContactMother" placeholder="+639568612356" class="form-control">
                 </div>
@@ -96,7 +97,7 @@
                            oninput="setCustomValidity(''); setValidBackground(this)">
                 </div>
             </div>
-            <p class="fw-bold mt-3">Guardian’s Full Name</p>
+            <p class="fw-bold mt-3">Guardianâ€™s Full Name</p>
             <div class="input-group">
                 <input type="text" name="GUARDIAN_LAST_NAME" id="lastName_guard" placeholder="Last Name" class="form-control" style="border: 1px solid #ccc;" required
                        oninvalid="setCustomValidity('Enter The Last Name.'); setInvalidBackground(this)"
@@ -109,14 +110,14 @@
                        oninput="setCustomValidity(''); setValidBackground(this)">
                 <input type="text" name="GUARDIAN_SUFFIX" id="suffix_guard" placeholder="Suffix e.g., Jr., Sr., III" class="form-control">
             </div>
-            <div class="d-flex justify-content-between gap-4">
-                <div style="width: 50%;">
+            <div class="d-flex justify-content-between flex-column personal-info-group">
+                <div>
                     <label for="Relationship" class="fw-bold my-3">Relationship</label>
                     <input type="text" name="GUARDIAN_RELATIONSHIP" id="Relationship" placeholder="e.g., Mother, Father, Guardian" class="form-control" style="border: 1px solid #ccc;" required
                            oninvalid="setCustomValidity('Enter The Relationship.'); setInvalidBackground(this)"
                            oninput="setCustomValidity(''); setValidBackground(this)">
                 </div>
-                <div style="width: 50%;">
+                <div>
                     <label for="ContactGuardian" class="fw-bold my-3">Contact Number</label>
                     <input type="number" name="GUARDIAN_CONTACT_NUMBER" id="ContactGuardian" placeholder="+639568612356" class="form-control" style="border: 1px solid #ccc;" required
                            oninvalid="setCustomValidity('Enter Contact number.'); setInvalidBackground(this)"

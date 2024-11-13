@@ -4,7 +4,7 @@
 }
 
 <div class="container" id="main-container">
-    <div id="content-form" class="p-5 mt-3">
+    <div id="content-form" class="p-md-5 p-3 mt-3">
         @await Html.PartialAsync("_LogoutModal")
         <div>
             <ul class="progressbar">
@@ -34,9 +34,15 @@
                     <p>March 28, 2024 (8:00am -12:00pm)</p>
 
                 </div>
-                <p style="width: 70%;" class="text-center fw-bold">*Regular students are advised to proceed to the registrar's office (Administration Building 2nd Floor, San Bartolome Novaliches Campus, look for Ms. Sheryl P. Mostajo) for enrollment with their reference ID. The Registrar's office will facilitate any necessary modifications to the automated enrollment certificate as needed.</p>
+
+                <!-- Instruction Text -->
+                <p class="text-center fw-bold" style="width: 100%; max-width: 600px;">
+                    *Regular students are advised to proceed to the registrar's office (Administration Building 2nd Floor, San Bartolome Novaliches Campus, look for Ms. Sheryl P. Mostajo) for enrollment with their reference ID. The Registrar's office will facilitate any necessary modifications to the automated enrollment certificate as needed.
+                </p>
             </div>
-            <div class="d-flex justify-content-between mt-4">
+
+            <!-- Navigation Buttons -->
+            <div class="d-flex flex-column flex-md-row justify-content-between mt-4 gap-3" style="max-width: 400px; margin: 0 auto;">
                 <button class="btn next text-white" id="previousButton" type="button"><i class="fa-solid fa-file-pdf"></i> Save as PDF</button>
                 <button class="btn next text-white" type="submit">Home <i class="fa-solid fa-chevron-right"></i></button>
             </div>

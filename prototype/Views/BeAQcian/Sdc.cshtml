@@ -4,17 +4,9 @@
 
 @section Styles {
     <style>
-        main {
-            margin-top: 150px;
-        }
-
         #qcian-details {
             background-color: white;
             margin-bottom: 0;
-        }
-
-        div#section {
-            margin-bottom: 2rem;
         }
 
         .fa-arrow-rotate-left {
@@ -22,20 +14,10 @@
             border: 2px solid black;
             border-radius: 50%;
         }
-
-        .container > div > a.back {
-            position: absolute;
-            top: 155px;
-            left: 35px;
-        }
     </style>
 }
 
 <div class="border border-black rounded-top-3 rounded-bottom-5" id="section">
-    <a href="@Url.Action("Index", "Home")" class="back">
-        <i class="fa-solid fa-arrow-rotate-left p-2 text-black"></i>
-    </a>
-
     @{
         var customStyle = ViewBag.CustomHeadingStyle ?? "";
     }

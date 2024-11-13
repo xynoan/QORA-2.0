@@ -353,7 +353,7 @@ osas@qcu.edu.ph </p>";
             ViewBag.Title = "Program Curricculum";
             ViewBag.CustomHeadingStyle = "text-uppercase";
             ViewBag.CustomDetailsStyle = "rounded-4 border border-black m-3";
-            ViewBag.DynamicContent = $@"<embed src=""{Url.Content("~/COURSE_CURRICULUM.pdf")}"" width=""1010"" height=""590"" 
+            ViewBag.DynamicContent = $@"<embed src=""{Url.Content("~/COURSE_CURRICULUM.pdf")}""
 type=""application/pdf"">";
             return View(); // This will render Views/BeAQcian/Pc.cshtml
         }
