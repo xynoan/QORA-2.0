@@ -94,7 +94,9 @@
         </ul>
     </div>
         <div class="scroll-line"></div>
-
+    <button onclick="topFunction()" id="scrolltopbtn" title="Go to top">
+        <img src="@Url.Content("~/images/up_icon.png")" height="100%" width="80px">
+    </button>
     <p class="text-uppercase fs-4 text-center text-white p-2 m-0" style="background-color: #212529;">
         mula sa tahanan ng husay at talino, para sa bayan...
     </p>
@@ -123,5 +125,28 @@
     function toggleMenu() {
         // Define your toggle functionality here
         $('#hamburgerNav').slideToggle(); // Example of toggle behavior
+    }
+</script>
+<script>
+
+    // Get the scroll-to-top button
+    const mybutton = document.getElementById("scrolltopbtn");
+
+    // Show or hide the button based on scroll position
+    window.onscroll = function () {
+        scrollFunction();
+    };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // Scroll to the top of the document with smooth behavior
+    function topFunction() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 </script>

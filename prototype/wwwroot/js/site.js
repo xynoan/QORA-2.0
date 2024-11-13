@@ -174,3 +174,119 @@ document.addEventListener("click", (e) => {
         }
     });
 });
+
+//Validator//
+function setInvalidBackground(inputField) {
+    inputField.style.borderColor = 'red';
+    inputField.style.backgroundColor = '#ffe6e6'; // Light red background color
+}
+
+function setValidBackground(inputField) {
+    inputField.style.borderColor = '';
+    inputField.style.backgroundColor = ''; // Reset background color
+}
+
+///END OF VALIDATOR////
+
+////REGISTER - INDEX////
+
+function toggleTrackStrand(enable) {
+    var track = document.getElementById('track');
+    var strand = document.getElementById('strand');
+
+    track.disabled = !enable;
+    strand.disabled = !enable;
+
+    if (!enable) {
+        track.value = "";
+        strand.innerHTML = '<option value="" selected disabled>Select Strand</option>';
+    } else {
+        updateStrandOptions();
+    }
+}
+
+function updateStrandOptions() {
+    var track = document.getElementById('track').value;
+    var strand = document.getElementById('strand');
+    strand.innerHTML = '';
+
+    if (track === 'Academic') {
+        var options = ['Academic (GA)', 'Humanities and Social Sciences (HUMSS)', 'Science, Technology, Engineering and Mathematics (STEM)', 'Accountancy, Business and Management (ABM)'];
+    } else if (track === 'Technical-Vocational-Livelihood') {
+        var options = ['Home Economics (HE)', 'Industrial Arts (IA)', 'Information and Communications Technology (ICT)'];
+    }
+
+    options.forEach(function (optionText) {
+        var option = document.createElement('option');
+        option.value = optionText.split(' ')[0]; // Use the acronym as the value
+        option.textContent = optionText;
+        strand.appendChild(option);
+    });
+
+    // Set the default strand based on the track
+    if (track === 'Academic') {
+        strand.value = 'GA';
+    } else if (track === 'Technical-Vocational-Livelihood') {
+        strand.value = 'HE';
+    }
+}
+
+// Initialize the state on page load
+window.onload = function () {
+    var radios = document.getElementsByName('applyingAs');
+    var selected = Array.from(radios).find(radio => radio.checked);
+    if (selected && selected.value === 'Senior High School Graduate') {
+        toggleTrackStrand(true);
+    } else {
+        toggleTrackStrand(false);
+    }
+}
+
+////// END REGISTER - INDEX ////
+
+
+/////ADDRESS////
+
+
+// district data
+const districts = {
+    'District 1': ['Alicia', 'Bagong Pag-asa', 'Bahay Toro', 'Balingasa', 'Bungad', 'Damar', 'Damayan', 'Del Monte', 'Katipunan', 'Lourdes', 'Maharlika', 'Manresa', 'Mariblo', 'Masambong', 'N.S. Amoranto (Gintong Silahis)', 'Nayong Kanluran', 'Paang Bundok', 'Pag-ibig sa Nayon', 'Paltok', 'Paraiso', 'Phil-Am', 'Project 6', 'Ramon Magsaysay', 'Saint Peter', 'Salvacion', 'San Antonio', 'San Isidro Labrador', 'San Jose', 'Santa Cruz', 'Santa Teresita', 'Sto. Cristo', 'Santo Domingo (Matalahib)', 'Siena', 'Talayan', 'Vasra', 'Veterans Village', 'West Triangle'],
+    'District 2': ['Bagong Silangan', 'Batasan Hills', 'Commonwealth', 'Holy Spirit', 'Payatas'],
+    'District 3': ['Amihan', 'Bagumbayan', 'Bagumbuhay', 'Bayanihan', 'Blue Ridge A', 'Blue Ridge B', 'Camp Aguinaldo', 'Claro (Quirino 3-B)', 'Dioquino Zobel', 'Duyan-duyan', 'E. Rodriguez', 'East Kamias', 'Escopa I', 'Escopa II', 'Escopa III', 'Escopa IV', 'Libis', 'Loyola Heights', 'Mangga', 'Marilag', 'Masagana', 'Matandang Balara', 'Milagrosa', 'Pansol', 'Quirino 2-A', 'Quirino 2-B', 'Quirino 2-C', 'Quirino 3-A', 'St. Ignatius', 'San Roque', 'Silangan', 'Socorro', 'Tagumpay', 'Ugong Norte', 'Villa Maria Clara', 'West Kamias', 'White Plains'],
+    'District 4': ['Bagong Lipunan ng Crame', 'Botocan', 'Central', 'Damayang Lagi', 'Don Manuel', 'Doña Aurora', 'Doña Imelda', 'Doña Josefa', 'Horseshoe', 'Immaculate Concepcion', 'Kalusugan', 'Kamuning', 'Kaunlaran', 'Kristong Hari', 'Krus na Ligas', 'Laging Handa', 'Malaya', 'Mariana', 'Obrero', 'Old Capitol Site', 'Paligsahan', 'Pinagkaisahan', 'Pinyahan', 'Roxas', 'Sacred Heart', 'San Isidro Galas', 'San Martin de Porres', 'San Vicente', 'Santol', 'Sikatuna Village', 'South Triangle', 'Sto. Niño', 'Tatalon', 'Teacher\'s Village East', 'Teacher\'s Village West', 'U.P. Campus', 'U.P. Village', 'Valencia'],
+    'District 5': ['Bagbag', 'Capri', 'Fairview', 'Gulod', 'Greater Lagro', 'Kaligayahan', 'Nagkaisang Nayon', 'North Fairview', 'Novaliches Proper', 'Pasong Putik Proper', 'San Agustin', 'San Bartolome', 'Sta. Lucia', 'Sta. Monica'],
+    'District 6': ['Apolonio Samson', 'Baesa', 'Balong Bato', 'Culiat', 'New Era', 'Pasong Tamo', 'Sangandaan', 'Sauyo', 'Talipapa', 'Tandang Sora', 'Unang Sigaw']
+};
+
+// Function to populate dropdown options
+function populateDropdown(elementId, options) {
+    const dropdown = document.getElementById(elementId);
+    dropdown.innerHTML = '<option value="" selected disabled>Select Option</option>'; // Reset dropdown
+
+    options.forEach(option => {
+        const optionElem = document.createElement('option');
+        optionElem.value = option;
+        optionElem.textContent = option;
+        dropdown.appendChild(optionElem);
+    });
+}
+
+// Event listener to populate barangay dropdown when district is changed
+document.getElementById('district').addEventListener('change', function () {
+    const selectedDistrict = this.value;
+    if (selectedDistrict && districts[selectedDistrict]) {
+        populateDropdown('barangay', districts[selectedDistrict]);
+    } else {
+        populateDropdown('barangay', []);
+    }
+});
+
+// Default population of district dropdown
+populateDropdown('district', Object.keys(districts));
+
+// Pre-select Quezon City as the default city in the City dropdown
+document.getElementById('municipality').value = 'Quezon City';
+
+///END OF ADDRESS////
+
+

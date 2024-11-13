@@ -4,149 +4,192 @@
 
 <div class="container" id="main-container">
     <div id="content-form" class="p-5 mt-3">
-        <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 20%"></div>
+        <div>
+            <ul class="progressbar">
+                <li class="active"><a style="color:black;">Basic Information</a></li>
+                <li><a style="color:black;">Personal Information</a></li>
+                <li><a style="color:black;">Educational Attainment</a></li>
+                <li><a style="color:black;">Family Background</a></li>
+                <li><a style="color:black;">In Case Of Emegency</a></li>
+            </ul>
         </div>
 
         <h1 class="mt-3">Basic Information</h1>
         <hr class="divider" />
 
-        <form asp-action="PersonalInfo" method="post">
+        <form asp-action="Index" method="post">
             <div class="d-flex gap-5">
                 <div class="d-flex flex-column step1">
                     <label for="date" class="fw-bold">Application Date</label>
-                    <input type="date" name="ApplicationDate" id="date" class="form-control" />
+                    <input type="date" name="APPLICATION_DATE" id="date" class="form-control" required />
                 </div>
                 <div class="d-flex flex-column step1">
                     <label for="lrn" class="fw-bold">LRN</label>
-                    <input type="number" name="LRN" id="lrn" class="form-control" />
+                    <input type="number" name="LRN" id="lrn" class="form-control" required />
                 </div>
                 <div class="d-flex flex-column step1">
                     <label for="studentNumber" class="fw-bold">Student Number</label>
-                    <input type="number" name="StudentNumber" id="studentNumber" class="form-control" disabled />
+                    <input type="number" name="BI_STUDENT_ACC_ID" id="studentNumber" class="form-control"  required/>
                 </div>
             </div>
 
-            <hr class="divider" />
+            <hr class="divider">
             <p class="fw-bold">Applying as (Choose appropriate answer)</p>
+            <input type="radio" name="APPLYING_AS" id="applyingAs3" value="Senior High School Graduate" onclick="toggleTrackStrand(true)">
+            <label for="applyingAs3" class="ms-1"> Senior High School Graduate</label>
+            <label for="track" class="fw-bold" style="padding-left: 70px;">Track:</label>
+            <select class="form-select d-inline-block" id="track" name="TRACK" style="width: 350px;" disabled onchange="updateStrandOptions()">
+                <option value="Academic" selected>Academic</option>
+                <option value="Technical-Vocational-Livelihood">Technical-Vocational-Livelihood</option>
+            </select>
 
-            <input type="radio" name="ApplyingAs" id="shs" value="SHS" />
-            <label for="shs" class="ms-1">Senior High School Graduate</label>
-
-            <div class="dropdown d-inline-block">
-                <button class="btn border-black dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Track</button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Academic</a></li>
-                    <li><a class="dropdown-item" href="#">Technical-Vocational-Livelihood</a></li>
-                </ul>
-            </div>
-
-            <div class="dropdown d-inline-block">
-                <button class="btn border-black dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Strand</button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">ABM</a></li>
-                    <li><a class="dropdown-item" href="#">HUMSS</a></li>
-                    <li><a class="dropdown-item" href="#">STEM</a></li>
-                </ul>
-            </div>
-
+            <label for="strand" class="fw-bold">Strand:</label>
+            <select class="form-select d-inline-block" id="strand" name="STRAND" style="width: 200px;" disabled>
+                <option value="GA" selected>Academic (GA)</option>
+                <option value="HUMSS">Humanities and Social Sciences (HUMSS)</option>
+                <option value="STEM">Science, Technology, Engineering and Mathematics (STEM)</option>
+                <option value="ABM">Accountancy, Business and Management (ABM)</option>
+            </select>
             <div class="input-group gap-1">
-                <input type="radio" name="ApplyingAs" id="hsGraduate" value="HSGraduate" />
-                <label for="hsGraduate"> High School Graduate (Year 2015 and below)</label>
+                <input type="radio" name="APPLYING_AS" id="applyingAs4" value="High School Graduate" onclick="toggleTrackStrand(false)">
+                <label for="applyingAs4"> High School Graduate (Year 2015 and below)</label>
             </div>
-
-            <input type="radio" name="ApplyingAs" id="transferee" value="Transferee" />
-            <label for="transferee" class="ms-1">Transferee</label> <br />
-
-            <div class="input-group gap-1 align-items-baseline">
-                <p>Applying for Accreditation of Subjects?</p>
-                <div class="dropdown d-inline-block">
-                    <button class="btn border-black dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select One</button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Yes</a></li>
-                        <li><a class="dropdown-item" href="#">No</a></li>
-                    </ul>
-                </div>
+            <input type="radio" name="APPLYING_AS" id="applyingAs2" value="Transferee" onclick="toggleTrackStrand(false)">
+            <label for="applyingAs2" class="ms-1">Transferee</label>
+            <br>
+            <label for="accreditation" style="padding-right: 20px;">Applying for Accreditation of Subjects?</label>
+            <select class="form-select d-inline-block" id="accreditation" name="ACCREDITATION_OF_SUBJECTS" style="width: 120px;"  required
+                    oninvalid="setCustomValidity('Please Select!.'); setInvalidBackground(this)"
+                    oninput="setCustomValidity(''); setValidBackground(this)">
+                <option value="" selected disabled>Yes/No</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+            <div class="input-group gap-1">
+                <input type="radio" name="APPLYING_AS" id="applyingAs1" value="2nd Degree Course Taker" onclick="toggleTrackStrand(false)">
+                <label for="applyingAs1" class="ms-1">2nd Degree Course Taker (Graduate of Bachelor’s Degree)</label>
             </div>
+            <hr class="divider">
 
-            <input type="radio" name="ApplyingAs" id="2ndDegree" value="SecondDegree" />
-            <label for="2ndDegree" class="ms-1">2nd Degree Course Taker (Graduate of Bachelor’s Degree)</label>
+    <div class="d-flex gap-5">
+        <div>
+    <p class="fw-bold">Preferred Course</p>
+    <div class="row row-cols-2 courseWidth d-flex align-items-baseline">
+        <div class="col mb-4 choice">First Choice</div>
+        <select class="form-select d-inline-block course" id="PREFERRED_COURSE1" name="PREFERRED_COURSE1"  required oninvalid="setCustomValidity('Select Course.'); setInvalidBackground(this)"
+                oninput="setCustomValidity(''); setValidBackground(this)">
+            <option value="" selected disabled>Select Program</option>
+            <option value="Bachelor of Early Childhood Education">Bachelor of Early Childhood Education</option>
+            <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy</option>
+            <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
+            <option value="Bachelor of Science in Electronics Engineering">Bachelor of Science in Electronics Engineering</option>
+            <option value="Bachelor of Science in Entrepreneurship">Bachelor of Science in Entrepreneurship</option>
+            <option value="Bachelor of Science in Information Systems">Bachelor of Science in Information Systems</option>
+            <option value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</option>
+            <option value="Bachelor of Science in Management Accounting">Bachelor of Science in Management Accounting</option>
+        </select>
+        <div class="col mb-4 choice">Second Choice</div>
+        <select class="form-select d-inline-block course" id="PREFERRED_COURSE2" name="PREFERRED_COURSE2"  required oninvalid="setCustomValidity('Select Course.'); setInvalidBackground(this)"
+                oninput="setCustomValidity(''); setValidBackground(this)">
+            <option value="" selected disabled>Select Program</option>
+            <option value="Bachelor of Early Childhood Education">Bachelor of Early Childhood Education</option>
+            <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy</option>
+            <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
+            <option value="Bachelor of Science in Electronics Engineering">Bachelor of Science in Electronics Engineering</option>
+            <option value="Bachelor of Science in Entrepreneurship">Bachelor of Science in Entrepreneurship</option>
+            <option value="Bachelor of Science in Information Systems">Bachelor of Science in Information Systems</option>
+            <option value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</option>
+            <option value="Bachelor of Science in Management Accounting">Bachelor of Science in Management Accounting</option>
+        </select>
+        <div class="col mb-4 choice">Third Choice</div>
+        <select class="form-select d-inline-block course" id="PREFERRED_COURSE3" name="PREFERRED_COURSE3"  required oninvalid="setCustomValidity('Select Course.'); setInvalidBackground(this)"
+                oninput="setCustomValidity(''); setValidBackground(this)">
+            <option value="" selected disabled>Select Program</option>
+            <option value="Bachelor of Early Childhood Education">Bachelor of Early Childhood Education</option>
+            <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy</option>
+            <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
+            <option value="Bachelor of Science in Electronics Engineering">Bachelor of Science in Electronics Engineering</option>
+            <option value="Bachelor of Science in Entrepreneurship">Bachelor of Science in Entrepreneurship</option>
+            <option value="Bachelor of Science in Information Systems">Bachelor of Science in Information Systems</option>
+            <option value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</option>
+            <option value="Bachelor of Science in Management Accounting">Bachelor of Science in Management Accounting</option>
+        </select>
+        <div class="col mb-4 choice">Currently Enrolled?</div>
+                        <select class="form-select d-inline-block course" id="CURRENTLY_ENROLLED" name="CURRENTLY_ENROLLED"  required oninvalid="setCustomValidity('Select Choice.'); setInvalidBackground(this)"
+                oninput="setCustomValidity(''); setValidBackground(this)">
+            <option value="" selected disabled>Select Yes/No</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    <label for="nameOfSchool" class="fw-bold">Name of School</label>
+                    <input type="text" name="NAME_OF_SCHOOL" id="NAME_OF_SCHOOL" placeholder="Enter your school name" class="form-control" style="border: 1px solid #ccc;"
+            oninvalid="setCustomValidity('Drop your School Name.'); setInvalidBackground(this)"
+            oninput="setCustomValidity(''); setValidBackground(this)">
 
-            <hr class="divider" />
-
-            <div class="d-flex gap-5">
-                <div>
-                    <p class="fw-bold">Preferred Course</p>
-                    <div class="row row-cols-2 courseWidth d-flex align-items-baseline">
-                        <div class="col mb-4 choice">First Choice</div>
-                        <select class="form-select d-inline-block course" name="FirstChoice">
-                            <option selected>Select One</option>
-                            <option value="BECEd">Bachelor of Early Childhood Education</option>
-                            <option value="BSA">Bachelor of Science in Accountancy</option>
-                            <option value="BSCS">Bachelor of Science in Computer Science</option>
-                            <!-- Add other options -->
-                        </select>
-
-                        <div class="col mb-4 choice">Second Choice</div>
-                        <select class="form-select d-inline-block course" name="SecondChoice">
-                            <option selected>Select One</option>
-                            <option value="BECEd">Bachelor of Early Childhood Education</option>
-                            <option value="BSA">Bachelor of Science in Accountancy</option>
-                            <!-- Add other options -->
-                        </select>
-
-                        <div class="col mb-4 choice">Third Choice</div>
-                        <select class="form-select d-inline-block course" name="ThirdChoice">
-                            <option selected>Select One</option>
-                            <option value="BECEd">Bachelor of Early Childhood Education</option>
-                            <option value="BSA">Bachelor of Science in Accountancy</option>
-                            <!-- Add other options -->
-                        </select>
-
-                        <div class="col mb-4 choice">Currently Enrolled?</div>
-                        <select class="form-select d-inline-block course" name="CurrentlyEnrolled">
-                            <option selected>Select One</option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                    </div>
-
-                    <input type="text" name="SchoolName" id="schoolName" placeholder="Name Of School" class="form-control" />
-                </div>
-
-                <div>
-                    <p class="fw-bold">Preferred Campus</p>
-                    <div class="row row-cols-2 courseWidth d-flex align-items-baseline">
-                        <div class="col mb-4">First Choice</div>
-                        <select class="form-select d-inline-block course" name="FirstCampusChoice">
-                            <option selected>Select One</option>
-                            <option value="sb">San Bartolome</option>
-                            <option value="sf">San Francisco</option>
-                            <option value="ba">Batasan</option>
-                        </select>
-
-                        <div class="col mb-4">Second Choice</div>
-                        <select class="form-select d-inline-block course" name="SecondCampusChoice">
-                            <option selected>Select One</option>
-                            <option value="sb">San Bartolome</option>
-                            <option value="sf">San Francisco</option>
-                            <option value="ba">Batasan</option>
-                        </select>
-
-                        <div class="col mb-4">Third Choice</div>
-                        <select class="form-select d-inline-block course" name="ThirdCampusChoice">
-                            <option selected>Select One</option>
-                            <option value="sb">San Bartolome</option>
-                            <option value="sf">San Francisco</option>
-                            <option value="ba">Batasan</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <p class="text-end mt-4 mb-0">
-                <button class="btn next text-white" type="submit">Next <i class="fa-solid fa-chevron-right"></i></button>
-            </p>
-        </form>
+</div>
+        <div>
+    <p class="fw-bold">Preferred Campus</p>
+    <div class="row row-cols-2 courseWidth d-flex align-items-baseline">
+        <div class="col mb-4">First Choice</div>
+        <select class="form-select d-inline-block campus" id="PREFERRED_CAMPUS1" name="PREFERRED_CAMPUS1" style="width:180px"  required oninvalid="setCustomValidity('Select Campus.'); setInvalidBackground(this)"
+                oninput="setCustomValidity(''); setValidBackground(this)">
+            <option value="" selected disabled>Select Campus</option>
+            <option value="San Bartolome">San Bartolome</option>
+            <option value="San Francisco">San Francisco</option>
+            <option value="Batasan">Batasan</option>
+        </select>
+        <div class="col mb-4">Second Choice</div>
+        <select class="form-select d-inline-block campus" id="PREFERRED_CAMPUS2" name="PREFERRED_CAMPUS2" style="width:180px"  required oninvalid="setCustomValidity('Select Campus.'); setInvalidBackground(this)"
+                oninput="setCustomValidity(''); setValidBackground(this)">
+            <option value="" selected disabled>Select Campus</option>
+            <option value="San Bartolome">San Bartolome</option>
+            <option value="San Francisco">San Francisco</option>
+            <option value="Batasan">Batasan</option>
+        </select>
+        <div class="col mb-4">Third Choice</div>
+        <select class="form-select d-inline-block campus" id="PREFERRED_CAMPUS3" name="PREFERRED_CAMPUS3" style="width:180px" onchange="nextPage()"  required oninvalid="setCustomValidity('Select Campus.'); setInvalidBackground(this)"
+                oninput="setCustomValidity(''); setValidBackground(this)">
+            <option value="" selected disabled>Select Campus</option>
+            <option value="San Bartolome">San Bartolome</option>
+            <option value="San Francisco">San Francisco</option>
+            <option value="Batasan">Batasan</option>
+        </select>
     </div>
 </div>
+    </div>
+
+    <p class="text-end mt-4 mb-0">
+                <button class="btn next text-white" type="submit" formnovalidate>Next <i class="fa-solid fa-chevron-right"></i></button>
+    </p>
+</form>
+    </div>
+</div>
+<!-- Bootstrap Modal for Popup Guide -->
+<div class="modal fade" id="popupGuideModal" tabindex="-1" aria-labelledby="popupGuideModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="popupGuideModalLabel">Welcome Guide</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                This is your guide to filling out the form. Follow each step carefully.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got it!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var myModal = new bootstrap.Modal(document.getElementById('popupGuideModal'), {
+            backdrop: 'static', // Prevent closing by clicking outside the modal
+            keyboard: false     // Prevent closing with the Esc key
+        });
+        myModal.show();
+    });
+
+</script>

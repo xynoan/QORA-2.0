@@ -1,3 +1,5 @@
+@await Html.PartialAsync("_Internet")
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +22,9 @@
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
-
+    <button onclick="topFunction()" id="scrolltopbtn" title="Go to top">
+        <img src="@Url.Content("~/images/up_icon.png")" height="100%" width="80px">
+    </button>
     @await Html.PartialAsync("_Footer")
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -38,3 +42,26 @@
     @RenderSection("CustomScripts", required: false)
 </body>
 </html>
+<script>
+
+    // Get the scroll-to-top button
+    const mybutton = document.getElementById("scrolltopbtn");
+
+    // Show or hide the button based on scroll position
+    window.onscroll = function () {
+        scrollFunction();
+    };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // Scroll to the top of the document with smooth behavior
+    function topFunction() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+</script>

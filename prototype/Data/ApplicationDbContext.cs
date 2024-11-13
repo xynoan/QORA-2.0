@@ -1,4 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileSystemGlobbing;
+using prototype.Models;
+using prototype.Models.Register;
+using prototype.Models.Student;
 using System.Collections.Generic;
 
 namespace prototype.Data
@@ -11,20 +15,21 @@ namespace prototype.Data
         }
 
         public DbSet<User> Users { get; set; }  // This line remains unchanged
-    }
+        public DbSet<AccountCreationModel> Accounts { get; set; } // Maps to USERS table
+                                                                  // Define DbSet for each model
+        public DbSet<BasicInformation> BASIC_INFORMATION { get; set; }
+        public DbSet<PersonalInformation> PERSONAL_INFORMATION { get; set; }
+        public DbSet<Educations> EDUCATION { get; set; }
+        public DbSet<Family> FAMILY { get; set; }
 
-    public class User
-    {
-        public int UserId { get; set; }  // Maps to USERID
+        public DbSet<EmergencyContact> PERSON_INCASEOF_EMERGENCY { get; set; }
 
-        public string? ACC_STUDENT_ID { get; set; }  // Maps to ACC_STUDENT_ID (nullable)
-        public string? EMAIL { get; set; }  // Maps to EMAIL (nullable)
-        public string? PASSWORD { get; set; }  // Maps to PASSWORD (nullable)
-        public string? ENROLLMENT_STATUS { get; set; }  // Maps to ENROLLMENT_STATUS (nullable)
-        public string? OTP { get; set; }  // Maps to OTP (nullable)
-        public string? REFERENCE_STATUS { get; set; }  // Maps to REFERENCE_STATUS (nullable)
-        public string? STATUS { get; set; }  // Maps to STATUS (nullable)
-        public string? USER_TYPE { get; set; }  // Maps to USER_TYPE (nullable)
-        public string? VERIFICATION { get; set; }  // Maps to VERIFICATION (nullable)
+        public DbSet<StudentEnlistment> StudentEnlistment { get; set; }
+
+        public DbSet<StudentYrScreening> StudentYrScreenings { get; set; }
+        public DbSet<StudentGrading> StudentGradings { get; set; }
+
+
     }
 }
+

@@ -7,18 +7,109 @@
         <h1 class="mb-3 fs-2">Create your Account</h1>
         <p>Create your online account</p>
 
-        <form asp-action="Verification" method="post">
-            <input class="d-block form-control mb-3" type="email" name="Email" id="email" placeholder="email@gmail.com" />
-            <input class="d-block form-control mb-3" type="password" name="Password" id="password" placeholder="Password" />
+        <form asp-action="Create" method="post">
+            <input class="d-block form-control mb-3" type="email" name="Email" id="email" placeholder="email@gmail.com" required />
 
-            <p class="m-0">Password must contain</p>
-            <p style="font-size: 15px;" class="text-success m-0"><i class="fa-regular fa-circle-check"></i> at least 8-25 characters</p>
-            <p style="font-size: 15px;" class="text-success m-0"><i class="fa-regular fa-circle-check"></i> at least 1 lowercase letter</p>
-            <p style="font-size: 15px;" class="text-success m-0"><i class="fa-regular fa-circle-check"></i> at least 1 uppercase letter</p>
-            <p style="font-size: 15px;" class="text-danger m-0"><i class="fa-regular fa-circle-xmark"></i> at least 1 number</p>
-            <p style="font-size: 15px;" class="text-success"><i class="fa-regular fa-circle-check"></i> at least 1 special character (! @@ # $ % ^ & *)</p>
+            <!-- Password Input with Show/Hide Icon Inside the Input Field -->
+            <div class="position-relative mb-3">
+                <input class="d-block form-control" type="password" name="Password" id="Password" placeholder="Password" required />
+                <span onclick="togglePasswordVisibility()" id="toggleIcon" class="fa fa-eye-slash position-absolute"
+                      style="top: 50%; right: 10px; transform: translateY(-50%); cursor: pointer;"></span>
+            </div>
+
+            <!-- Confirm Password Input -->
+            <div class="position-relative mb-3">
+                <input class="d-block form-control" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Confirm Password" required />
+                <span id="passwordMatchMessage" style="font-size: 14px; color: red; display: none;">Passwords do not match</span>
+            </div>
+
+            <p class="m-0">Password must contain:</p>
+            <p style="font-size: 15px;" class="password-indicator" id="charLength"><i id="charLengthIcon" class="fa-regular fa-circle-xmark"></i> at least 8-25 characters</p>
+            <p style="font-size: 15px;" class="password-indicator" id="lowercase"><i id="lowercaseIcon" class="fa-regular fa-circle-xmark"></i> at least 1 lowercase letter</p>
+            <p style="font-size: 15px;" class="password-indicator" id="uppercase"><i id="uppercaseIcon" class="fa-regular fa-circle-xmark"></i> at least 1 uppercase letter</p>
+            <p style="font-size: 15px;" class="password-indicator" id="number"><i id="numberIcon" class="fa-regular fa-circle-xmark"></i> at least 1 number</p>
+            <p style="font-size: 15px;" class="password-indicator" id="special"><i id="specialIcon" class="fa-regular fa-circle-xmark"></i> at least 1 special character (&#35; &#64; &#36; &#37; ^ &amp; *)</p>
 
             <button id="signin" class="btn d-block submit_button text-white" type="submit">Send OTP</button>
         </form>
     </div>
 </div>
+
+<script>
+    function togglePasswordVisibility() {
+        var passwordField = document.getElementById("Password");
+        var confirmPasswordField = document.getElementById("ConfirmPassword");
+        var toggleIcon = document.getElementById("toggleIcon");
+
+        // Toggle Password Field
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            confirmPasswordField.type = "text"; // Also toggle Confirm Password field
+            toggleIcon.classList.remove("fa-eye-slash");
+            toggleIcon.classList.add("fa-eye");
+        } else {
+            passwordField.type = "password";
+            confirmPasswordField.type = "password"; // Toggle back to password type
+            toggleIcon.classList.remove("fa-eye");
+            toggleIcon.classList.add("fa-eye-slash");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var passwordField = document.getElementById("Password");
+        var confirmPasswordField = document.getElementById("ConfirmPassword");
+        var passwordMatchMessage = document.getElementById("passwordMatchMessage");
+
+        // Add event listeners for real-time password match validation
+        confirmPasswordField.addEventListener("input", validatePasswordMatch);
+        passwordField.addEventListener("input", validatePasswordMatch);
+
+        // Validate if passwords match and display feedback
+        function validatePasswordMatch() {
+            if (passwordField.value === confirmPasswordField.value) {
+                confirmPasswordField.style.borderColor = "green";
+                passwordMatchMessage.style.display = "none";
+            } else {
+                confirmPasswordField.style.borderColor = "red";
+                passwordMatchMessage.style.display = "block";
+                passwordMatchMessage.textContent = "Passwords do not match";
+            }
+        }
+
+
+        passwordField.addEventListener("input", function() {
+            var password = passwordField.value;
+            var isCharLengthValid = (password.length >= 8 && password.length <= 25);
+            var isLowercaseValid = /[a-z]/.test(password);
+            var isUppercaseValid = /[A-Z]/.test(password);
+            var isNumberValid = /\d/.test(password);
+            var isSpecialValid = @Html.Raw(@"/[!@#$%^&*]/.test(password)"); // Ensure regex is treated as JS, not Razor
+
+            updateIndicator("charLength", isCharLengthValid);
+            updateIndicator("lowercase", isLowercaseValid);
+            updateIndicator("uppercase", isUppercaseValid);
+            updateIndicator("number", isNumberValid);
+            updateIndicator("special", isSpecialValid);
+
+            var isPasswordValid = isCharLengthValid && isLowercaseValid && isUppercaseValid && isNumberValid && isSpecialValid;
+            passwordField.style.borderColor = isPasswordValid ? "green" : "red";
+        });
+
+        function updateIndicator(indicatorId, isValid) {
+            var iconElement = document.getElementById(indicatorId + "Icon");
+            var textElement = document.getElementById(indicatorId);  // Reference the text container itself
+
+            if (isValid) {
+                iconElement.classList.remove("fa-circle-xmark");
+                iconElement.classList.add("fa-circle-check");
+                iconElement.style.color = "green";
+                textElement.style.color = "green"; // Change text color to green when valid
+            } else {
+                iconElement.classList.remove("fa-circle-check");
+                iconElement.classList.add("fa-circle-xmark");
+                iconElement.style.color = "red";
+                textElement.style.color = "red"; // Change text color to red when invalid
+            }
+        }
+    });
+</script>
