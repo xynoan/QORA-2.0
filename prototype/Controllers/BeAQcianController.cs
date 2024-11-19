@@ -106,6 +106,12 @@ osas@qcu.edu.ph </p>";
             return View();
         }
 
+        public IActionResult GradeSlip()
+        {
+            ViewBag.Title = "Grade Slip";
+            return View(); 
+        }
+
 
         // Action method for General Admission Policy
         public IActionResult Gap()
