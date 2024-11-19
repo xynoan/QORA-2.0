@@ -415,95 +415,80 @@
             const gradeInputs = document.querySelectorAll('input[name^="grades"]');
 
             gradeInputs.forEach(function (gradeInput) {
-                let gradeValue = parseFloat(gradeInput.value).toFixed(2);  // Limit to 2 decimal places
+                let gradeValue = parseFloat(gradeInput.value);  // Parse value as a number
                 const remarksInput = gradeInput.closest('tr').querySelector('input[name^="remarks"]');
 
-                // Validation: Ensure grades are between 0 and 100
-                if (gradeValue < 0) {
-                    gradeValue = 0;
-                    gradeInput.value = gradeValue;
-                } else if (gradeValue > 100) {
-                    gradeValue = 100;
-                    gradeInput.value = gradeValue;
+                // Log the gradeValue to debug the input
+                console.log("Grade Input:", gradeValue);
+
+                // Check if the grade is valid (non-NaN and within acceptable range)
+                if (isNaN(gradeValue) || gradeValue < 0 || (gradeValue > 100 && gradeValue !== 1.00 && gradeValue !== 1.25)) {
+                    remarksInput.value = "Invalid grade";
+                    remarksInput.style.color = "red";
+                    return;  // Skip further processing for invalid grades
                 }
 
-                if (!isNaN(gradeValue)) {
-                    let remarks = "";
-                    if (Number.isInteger(gradeValue) || gradeValue === "1.00") {  // Handle 1.00 correctly
-                        if (gradeValue >= 98) {
-                            remarks = "Excellent";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue >= 95) {
-                            remarks = "Excellent";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue >= 92) {
-                            remarks = "Very Good";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue >= 89) {
-                            remarks = "Very Good";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue >= 86) {
-                            remarks = "Good";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue >= 83) {
-                            remarks = "Good";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue >= 80) {
-                            remarks = "Satisfactory";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue >= 77) {
-                            remarks = "Satisfactory";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue >= 75) {
-                            remarks = "Passed";
-                            remarksInput.style.color = "green";
-                        } else {
-                            remarks = "Failed";
-                            remarksInput.style.color = "red";
-                        }
-                    } else {  // Fractional grade (e.g., 1.00, 1.25, etc.)
-                        if (gradeValue <= 1.00) {
-                            remarks = "Excellent";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue <= 1.25) {
-                            remarks = "Excellent";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue <= 1.50) {
-                            remarks = "Very Good";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue <= 1.75) {
-                            remarks = "Very Good";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue <= 2.00) {
-                            remarks = "Good";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue <= 2.25) {
-                            remarks = "Good";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue <= 2.50) {
-                            remarks = "Satisfactory";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue <= 2.75) {
-                            remarks = "Satisfactory";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue === 3.00) {
-                            remarks = "Passed";
-                            remarksInput.style.color = "green";
-                        } else if (gradeValue === 4 || gradeValue === 5) {
-                            remarks = "Failed";
-                            remarksInput.style.color = "red";
-                        } else {
-                            remarks = "Invalid grade";
-                            remarksInput.style.color = "red";
-                        }
+                let remarks = "";
+                if (gradeValue >= 75 && gradeValue <= 100) {
+                    // Handling grades in the range 75-100
+                    if (gradeValue >= 98) {
+                        remarks = "Excellent";
+                    } else if (gradeValue >= 95) {
+                        remarks = "Excellent";
+                    } else if (gradeValue >= 92) {
+                        remarks = "Very Good";
+                    } else if (gradeValue >= 89) {
+                        remarks = "Very Good";
+                    } else if (gradeValue >= 86) {
+                        remarks = "Good";
+                    } else if (gradeValue >= 83) {
+                        remarks = "Good";
+                    } else if (gradeValue >= 80) {
+                        remarks = "Satisfactory";
+                    } else if (gradeValue >= 77) {
+                        remarks = "Satisfactory";
+                    } else if (gradeValue >= 75) {
+                        remarks = "Passed";
+                    } else {
+                        remarks = "Failed";
                     }
-                    remarksInput.value = remarks;
+                } else if (gradeValue >= 1.00 && gradeValue <= 5.00) {
+                    // Handling grades like 1.00, 1.25, etc.
+                    if (gradeValue === 1.00) {
+                        remarks = "Excellent";
+                    } else if (gradeValue <= 1.25) {
+                        remarks = "Excellent";
+                    } else if (gradeValue <= 1.50) {
+                        remarks = "Very Good";
+                    } else if (gradeValue <= 1.75) {
+                        remarks = "Very Good";
+                    } else if (gradeValue <= 2.00) {
+                        remarks = "Good";
+                    } else if (gradeValue <= 2.25) {
+                        remarks = "Good";
+                    } else if (gradeValue <= 2.50) {
+                        remarks = "Satisfactory";
+                    } else if (gradeValue <= 2.75) {
+                        remarks = "Satisfactory";
+                    } else if (gradeValue === 3.00) {
+                        remarks = "Passed";
+                    } else if (gradeValue >= 4.00 && gradeValue <= 5.00) {
+                        remarks = "Failed";
+                    } else {
+                        remarks = "Invalid grade";
+                    }
                 } else {
-                    remarksInput.value = "";
-                    remarksInput.style.color = "";
+                    remarks = "Invalid grade";
                 }
+
+                // Log the assigned remarks for debugging
+                console.log("Assigned Remarks:", remarks);
+
+                remarksInput.value = remarks;
+                remarksInput.style.color = remarks === "Failed" || remarks === "Invalid grade" ? "red" : "green";
             });
         }
+
 
         // Recompute the total units, GWA, and remarks when any grade input changes
         document.querySelectorAll('input[name^="grades"]').forEach(function (input) {

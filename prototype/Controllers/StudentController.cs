@@ -45,7 +45,7 @@ namespace prototype.Controllers
                                        .FirstOrDefault(p => p.P_STUDENT_ACC_ID == studentAccId);
 
             // Retrieve the profile picture (varbinary data) for the student
-            var studentEnlistment = _context.StudentEnlistment
+            var studentEnlistment = _context.STUDENT_ENLISTMENT
                                              .FirstOrDefault(e => e.SEF_STUDENT_ACC_ID == studentAccId);
 
             // Full name construction
@@ -90,11 +90,11 @@ namespace prototype.Controllers
                     try
                     {
                         // Delete existing enrollment record for this student (if any)
-                        var existingEnrollment = _context.StudentEnlistment
+                        var existingEnrollment = _context.STUDENT_ENLISTMENT
                             .FirstOrDefault(e => e.SEF_STUDENT_ACC_ID == accStudentId);
                         if (existingEnrollment != null)
                         {
-                            _context.StudentEnlistment.Remove(existingEnrollment);
+                            _context.STUDENT_ENLISTMENT.Remove(existingEnrollment);
                         }
 
                         // Process the uploaded picture
@@ -108,7 +108,7 @@ namespace prototype.Controllers
                         model.SEF_STUDENT_ACC_ID = accStudentId;
 
                         // Add the new enrollment record
-                        _context.StudentEnlistment.Add(model);
+                        _context.STUDENT_ENLISTMENT.Add(model);
                         await _context.SaveChangesAsync();
 
                         return RedirectToAction("Year");
@@ -343,7 +343,7 @@ namespace prototype.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            var studentEnlistment = await _context.StudentEnlistment.FirstOrDefaultAsync(e => e.SEF_STUDENT_ACC_ID == accStudentId);
+            var studentEnlistment = await _context.STUDENT_ENLISTMENT.FirstOrDefaultAsync(e => e.SEF_STUDENT_ACC_ID == accStudentId);
             var studentYrScreening = await _context.StudentYrScreenings.FirstOrDefaultAsync(y => y.SYC_STUDENT_ACC_ID == accStudentId);
             var studentGrading = await _context.StudentGradings.Where(g => g.GRADES_STUDENT_ID == accStudentId).ToListAsync();
 
@@ -413,9 +413,8 @@ namespace prototype.Controllers
         }
 
 
-
         [HttpGet("ReferenceID")]
-        public IActionResult ReferenceID()
+        public async Task<IActionResult> ReferenceID()
         {
             var accStudentId = HttpContext.Session.GetString("ACC_STUDENT_ID");
             if (string.IsNullOrEmpty(accStudentId))
@@ -427,23 +426,30 @@ namespace prototype.Controllers
 
             if (studentYrScreening != null)
             {
-                // Assuming "USER_TYPE" is the column indicating student role
                 int studentCount = _context.Users.Count(u => u.USER_TYPE == "STUDENT");
-
-                // Get current year in 2-digit format (e.g., 2024 -> "24")
                 string currentYear = DateTime.Now.Year.ToString().Substring(2, 2);
+                string department = "CS"; // Adjust department as needed
 
-                string department = "CS"; // You can replace this with actual department if needed
-
-                // Generate the reference number using current year (in 2-digit format)
                 string referenceNumber = GenerateStudentCode(
-                    currentYear,  // Use current year in 2 digits
+                    currentYear,
                     studentYrScreening.YR_TERM ?? "NO SEMESTER",
                     department,
                     studentYrScreening.PROGRAMS_OFFER ?? "No Program",
                     studentYrScreening.YR_LEVEL ?? "No Year Level",
                     studentCount
                 );
+
+                // Insert the generated reference into STUDENT_REFERENCE
+                var studentReference = new StudentReference
+                {
+                    SR_STUDENT_ACC_ID = accStudentId,
+                    REFERENCE_NUMBER = referenceNumber,
+                    DATE_TIME = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), // Current date and time
+                    STATUS = "Active" // Or any default status
+                };
+
+                _context.StudentReferences.Add(studentReference);
+                await _context.SaveChangesAsync();
 
                 ViewBag.REFERENCE_NUMBER = referenceNumber;
             }
@@ -452,14 +458,14 @@ namespace prototype.Controllers
             return View();
         }
 
+
         // Generate student code with the provided parameters
         private string GenerateStudentCode(string currentYear, string YR_LEVEL, string department, string program, string YR_TERM, int studentCount)
         {
             return $"{currentYear}{YR_LEVEL}{department}-{program}{YR_TERM}{studentCount:D4}";
         }
 
-
-
+      
         // Helper function to generate reference number
 
         public Dictionary<string, Dictionary<string, List<object>>> GetSubjectData()

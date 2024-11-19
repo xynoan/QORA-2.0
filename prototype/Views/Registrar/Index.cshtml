@@ -1,21 +1,31 @@
 ﻿@{
     ViewBag.Title = "- Registrar";
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    var currentTime = DateTime.Now.ToString("h:mm tt"); // "h:mm tt" will give you "9:30 AM"
+    var amPm = DateTime.Now.ToString("tt");
+    var currentDateTime = DateTime.Now.ToString("dddd, MMMM dd, yyyy (tt)");
 }
+@model List<prototype.Models.Registrar.StudentProfileViewModel>
+
 
 <div class="container" id="main-container">
     <div class="d-flex gap-5">
         <div class="input-group border border-black p-3 rounded-4">
-            <i class="fa-solid fa-magnifying-glass mt-3 ms-3 me-3" style="font-size: 25px; color: grey;"></i><input type="search" name="" placeholder="Search by Reference ID or Student Number" class="form-control">
+            <i class="fa-solid fa-magnifying-glass mt-3 ms-3 me-3" style="font-size: 25px; color: grey;"></i>
+            <input type="search" name="" placeholder="Search by Reference ID or Student Number" class="form-control">
             <button id="submit" type="submit" style="background-color: var(--main-color);" class="text-white rounded-end-4 p-3">Search</button>
         </div>
-        <div class="d-flex text-white rounded-4 p-3 align-items-center" style="width: 50%;background-color: var(--main-color);">
-            <p class="fw-bold fs-3 m-0">2:30<span class="fw-normal" style="vertical-align: super; font-size: 13px;">45</span>PM</p>
-            <div>
+        <div class="d-flex text-white rounded-4 p-3 align-items-center" style="width: 500px;  background-color: var(--main-color);">
+            <p class="fw-bold fs-3 m-0" id="liveTime">
+                @Html.Raw(currentTime)
+                <span id="am_pm" class="fw-normal" style="vertical-align: super; font-size: 13px;">@Html.Raw(amPm)</span>
+            </p>
+            <span id="seconds" style="margin-right: 50px;" class="fw-bold fs-3 m-0"></span>
+
+            <div style="margin-left: 30px;">
                 <p class="m-0 ms-3">Work Time</p>
                 <p style="font-size: 10px;" class="m-0 ms-3">
-                    Saturday, March 2, 2024 (GMT+8) <br>
-                    Time in Manila, Metro Manila
+                    @Html.Raw(currentDateTime) <br> Time in Manila, Metro Manila
                 </p>
             </div>
         </div>
@@ -35,7 +45,7 @@
                         <option value="3">Three</option>
                     </select>
                     <a id="filter-anchor" href="#" onclick="toggleFilter()" class="black-on-hover text-decoration-none text-white p-2 ms-2" style="background-color: var(--main-color);"><i class="fa-solid fa-filter text-white me-2"></i>Filters</a>
-                    <div id="filter-menu" class="p-3 border border-black text-white rounded-4" style="position: absolute; width: 200px; max-width: 15%;background-color: var(--main-color); left: 680px; visibility: hidden; opacity: 0;">
+                    <div id="filter-menu" class="p-3 border border-black text-white rounded-4" style="position: absolute; width: 15%; background-color: var(--main-color); left: 680px; visibility: hidden; opacity: 0;">
                         <span onclick="toggleAcademicYear()" class="white-on-hover">Academic Year ></span>
                         <span onclick="toggleCollegeProgram()" class="white-on-hover">College Program ></span>
                         <span onclick="toggleSection()" class="white-on-hover">Yr. Level/Section ></span>
@@ -159,48 +169,230 @@
                             <div class="input-group gap-1"><input type="radio" name="archive" id="Dropped"> <label for="Dropped">Dropped</label></div>
                         </div>
                     </div>
+
+                    <!-- Table with Edit and Delete buttons -->
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Photo</th>
-                                <th scope="col">Student Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Operation</th>
-                                <th scope="col">Action</th>
+                                <th>Student Photo</th>
+                                <th>Student ID</th>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Photo</td>
-                                <td>John Doe</td>
-                                <td>
-                                    doe.john@gmail.com
-                                </td>
-                                <td><span class="graduated p-1">Graduated</span></td>
-                                <td><i class="fa-solid fa-user-pen operation" style="cursor: pointer;"></i><i class="operation fa-regular fa-trash-can" style="cursor: pointer;"></i></td>
-                                <td><a href="#" class="text-decoration-none text-black underline-on-hover">View Profile</a></td>
-                            </tr>
+                            @foreach (var student in Model)
+                            {
+                                <tr id="row_@student.StudentId" class="student-row" data-student-id="@student.StudentId">
+
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(student.PhotoUrl))
+                                        {
+                                            <img src="data:image/jpeg;base64,@student.PhotoUrl" alt="Student Photo" style="width: 40px; height: 40px; border-radius: 50%;">
+                                        }
+                                        else
+                                        {
+                                            <img src="default-profile.jpg" alt="Default Profile Photo" style="width: 40px; height: 40px; border-radius: 50%;">
+                                        }
+                                    </td>
+                                    <td>@student.StudentId</td>
+                                    <td class="student-name editable">@student.FullName</td>
+                                    <td class="email editable">@student.Email</td>
+                                    <td>
+                                        <!-- Edit button (Toggle edit/save) -->
+                                        <a class="edit-button" href="javascript:void(0);" onclick="toggleEdit('row_@student.StudentId')">
+                                            <i class="fa-solid fa-user-pen operation custom-height-icon" style="cursor: pointer;"></i>
+                                        </a>
+
+                                        <!-- Delete button -->
+                                        <i class="operation fa-regular fa-trash-can delete-button custom-height-icon"
+                                           data-user-id="@student.StudentId"
+                                           style="cursor: pointer;"></i>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
+
+
+
+
                 </div>
             </div>
             <div class="second-half" style="width: 35%;">
-                <input type="text" name="" placeholder="Reference ID" class="form-control mb-3" style="width: 70%;">
+                <input type="text" name="referenceId" id="referenceId" placeholder="Reference ID" class="form-control mb-3" style="width: 70%;" readonly>
                 <div class="border border-black rounded-3 p-5">
                     <div class="mb-4 d-flex flex-column justify-content-center align-items-center text-center">
-                        <img class="border border-black border-2" height="150px" src="../../images/BLAKE.jpg" alt="blake">
-                        <span class="name fw-bold fs-5 mb-2">Blake Justin Bangcaya</span>
-                        <span class="year sub-span rounded-2 mb-2">REGULAR 3RD YR - 1ST SEM</span>
-                        <span class="status text-success sub-span rounded-2 mb-2">CLEARED</span>
-                        <span class="gwa sub-span rounded-2">GWA: 1</span>
+                        <img id="studentPhoto" class="border border-black border-2" height="150px" src="../../images/default-profile.png" alt="Student Photo">
+                        <span class="name fw-bold fs-5 mb-2" id="studentName">Student Name</span>
+                        <span class="year sub-span rounded-2 mb-2" id="studentYear">Year Level</span>
+                        <span class="status text-success sub-span rounded-2 mb-2" id="studentStatus">Status</span>
+                        <span class="gwa sub-span rounded-2" id="studentGwa">GWA: </span>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <a href="@Url.Action("ViewProfile")" class="underline-on-hover text-decoration-none text-black border border-grey border-2 p-1 rounded-2">View Profile</a>
-                        <a href="@Url.Action("Enlist")" class="underline-on-hover text-decoration-none text-black border border-grey border-2 p-1 rounded-2">Enlist Student</a>
+                        <a href="#" id="viewProfile" class="underline-on-hover text-decoration-none text-black border border-grey border-2 p-1 rounded-2">View Profile</a>
+                        <a href="#" id="enlistStudent" class="underline-on-hover text-decoration-none text-black border border-grey border-2 p-1 rounded-2">Enlist Student</a>
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 </div>
+
+<script>
+    function updateTime() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // Handle midnight (0 hours)
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds; // Format seconds
+
+        var timeString = hours + ':' + minutes + '<span class="am-pm">' + ampm + '</span>';
+        document.getElementById('liveTime').innerHTML = timeString + '<span class="fw-normal" style="vertical-align: super; font-size: 13px; position:absolute;">' + seconds + '</span>';
+    }
+
+    // Update the time every second
+    setInterval(updateTime, 1000);
+
+</script>
+<script>
+    // Toggle the edit mode and change the edit/save button icon
+    function toggleEdit(rowId) {
+        var row = document.getElementById(rowId);
+        var fields = row.querySelectorAll('.editable');  // Fields with class "editable"
+
+        // Toggle content editable
+        fields.forEach(function (field) {
+            field.contentEditable = !field.isContentEditable;
+        });
+
+        // Change icon to 'save' or 'edit'
+        var editButton = row.querySelector('.edit-button');
+        var icon = editButton.querySelector('i');
+
+        if (icon.classList.contains('fa-user-pen')) {
+            // Change icon to save (check icon)
+            icon.classList.remove('fa-user-pen');
+            icon.classList.add('fa-check');
+        } else {
+            // Change icon back to edit (pen icon)
+            icon.classList.remove('fa-check');
+            icon.classList.add('fa-user-pen');
+            saveData(row);  // Call the function to save data
+        }
+    }
+
+    // Save the edited data
+    function saveData(row) {
+        var studentId = row.id.replace('row_', '');  // Extract the student ID from the row ID
+        var fullName = row.querySelector('.student-name').textContent;
+        var email = row.querySelector('.email').textContent;  // Extract email
+
+        // Split full name into first name, middle name, and last name
+        var names = fullName.split(" ");
+        var firstName = names[0];
+        var middleName = names.length > 2 ? names[1] : '';  // Middle name optional
+        var lastName = names[names.length - 1];
+
+        // Prepare the data to be sent to the server
+        var data = {
+            studentId: studentId,
+            firstName: firstName,
+            middleName: middleName,
+            lastName: lastName,
+            email: email
+        };
+
+        // Send the data to the server using AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/Registrar/Update", true);  // Update endpoint in your ASP.NET controller
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Handle success response (optional)
+                console.log('Update success:', xhr.responseText);
+            }
+        };
+        xhr.send(JSON.stringify(data));
+    }
+
+    // Delete the student record
+    function confirmDelete(studentId) {
+        if (confirm("Are you sure you want to delete this student?")) {
+            // Send AJAX request to delete student
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/Registrar/Delete', true);  // Delete endpoint in your ASP.NET controller
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    if (xhr.status == 200) {
+                        // Successfully deleted, remove the row from the table
+                        document.getElementById('row_' + studentId).remove();
+                    } else {
+                        alert('Error deleting student: ' + xhr.responseText);
+                    }
+                }
+            };
+            xhr.send('studentId=' + encodeURIComponent(studentId));
+        }
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Add click event listener to all student rows
+        document.querySelectorAll('.student-row').forEach(row => {
+            row.addEventListener('click', function () {
+                // Extract student ID and photo directly from the row
+                const studentId = this.getAttribute('data-student-id');
+                const photoElement = this.querySelector('td img'); // Select the <img> in the row
+                const photoUrl = photoElement ? photoElement.src : "../../images/default-profile.png"; // Use default if photo is missing
+
+                // Update the photo in the second-half section immediately
+                document.getElementById('studentPhoto').src = photoUrl;
+
+                // Fetch additional details from the server
+                fetchStudentDetails(studentId);
+            });
+        });
+    });
+
+    // Function to fetch student details based on studentId
+    function fetchStudentDetails(studentId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/Registrar/GetStudentDetails?studentId=" + studentId, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const studentData = JSON.parse(xhr.responseText);
+
+                if (studentData.FullName) {
+                    updateSecondHalfDetails(studentData);
+                } else {
+                    alert("Student not found!");
+                }
+            }
+        };
+        xhr.send();
+    }
+
+    // Function to update the second-half section with additional details
+    function updateSecondHalfDetails(studentData) {
+        document.getElementById('studentName').textContent = studentData.FullName;
+        document.getElementById('studentYear').textContent = studentData.YearLevel || "N/A";
+        document.getElementById('studentStatus').textContent = studentData.Status || "N/A";
+        document.getElementById('studentGwa').textContent = "GWA: " + (studentData.GWA || "N/A");
+
+        // Update dynamic links if applicable
+        document.getElementById('viewProfile').href = `/Registrar/ViewProfile?studentId=${studentData.StudentId}`;
+        document.getElementById('enlistStudent').href = `/Registrar/Enlist?studentId=${studentData.StudentId}`;
+    }
+
+
+                </script>

@@ -31,17 +31,11 @@ namespace prototype.Models
         [Column("ENROLLMENT_STATUS")]
         public string? EnrollmentStatus { get; set; }
 
-        [Column("OTP")]
-        public string? Otp { get; set; }
-
-        [Column("REFERENCE_STATUS")]
-        public string? ReferenceStatus { get; set; }
-
         [Column("STATUS")]
         public string? Status { get; set; }
 
         [Column("USER_TYPE")]
-        public string? UserType { get; set; }
+        public string? UserType { get; set; } // User type field in the database
 
         [Column("VERIFICATION")]
         public string? Verification { get; set; }

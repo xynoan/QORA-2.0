@@ -189,23 +189,31 @@
             </a>
         </div>
         <!-- Profile and Logout Section -->
-        <img onclick="toggleProfile()" id="profile_img" src="@ViewBag.ProfileImage" alt="DP" height="50px" class="rounded-5 me-5" style="border: 2px solid var(--main-color); cursor: pointer;">
+        <img onclick="toggleProfile()" id="profile_img"
+             src="@(!string.IsNullOrEmpty(ViewBag.ProfileImage) ? ViewBag.ProfileImage : Url.Content("~/images/default-profile.png"))"
+             alt="DP" height="50px" width="50px" class="rounded-5 me-5" style="border: 2px solid var(--main-color); cursor: pointer;">
+
         <div id="profileDiv" class="rounded-5 container p-3">
-            <img id="profile_img" src="@ViewBag.ProfileImage"  alt="Profile" height="100px" style="border: 2px solid var(--main-color); border-radius: 50%; margin: 10px 0 10px 80px;">
-            <p class="m-0 fw-bold text-center">@ViewBag.FullName</p>
-            <p class="text-center">@ViewBag.EMAIL</p>
-            <a href="@Url.Action("Settings", "Home")" class="text-decoration-none text-black putBorder">
-               <center> <i class="fa-solid fa-sliders" style="rotate: 270deg;"></i> Settings
-            </a>
-            </p>
+            <center>
+                <img id="profile_img"
+                     src="@(!string.IsNullOrEmpty(ViewBag.ProfileImage) ? ViewBag.ProfileImage : Url.Content("~/images/default-profile.png"))"
+                     alt="Profile" height="100px" width="100px" style="border: 2px solid var(--main-color); border-radius: 50%;">
+                <p class="m-0 fw-bold text-center">@ViewBag.FullName</p>
+                <p class="text-center">@ViewBag.EMAIL</p>
+                <a href="@Url.Action("Settings", "Home")" class="text-decoration-none text-black putBorder">
+                    <center>
+                        <i class="fa-solid fa-sliders" style="rotate: 270deg;"></i> Settings
+                </a>
+
             <p class="text-center">
                 <form method="post" action="@Url.Action("Index", "Login")">
                     <button id="logout" type="submit" style="border: none; background: white;">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
                     </button>
                 </form>
-                </center>
             </p>
+            </center>
+
         </div>
         </div>
     </div>

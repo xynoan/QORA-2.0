@@ -24,11 +24,12 @@ namespace prototype.Data
 
         public DbSet<EmergencyContact> PERSON_INCASEOF_EMERGENCY { get; set; }
 
-        public DbSet<StudentEnlistment> StudentEnlistment { get; set; }
+        public DbSet<StudentEnlistment> STUDENT_ENLISTMENT { get; set; }
 
         public DbSet<StudentYrScreening> StudentYrScreenings { get; set; }
         public DbSet<StudentGrading> StudentGradings { get; set; }
 
+        public DbSet<StudentReference> StudentReferences { get; set; }
 
     }
 }

@@ -140,9 +140,11 @@ namespace prototype.Controllers
                 TempData["AccountCreation"] = JsonSerializer.Serialize(model);
                 TempData.Keep("StudentAccId");
 
+                // Set USER_TYPE to "STUDENT"
+                model.UserType = "STUDENT"; // Here we set the user type to "STUDENT" for all accounts being created
+
                 // Generate and send OTP
                 string otp = GenerateOtp();
-                model.Otp = otp;
                 HttpContext.Session.SetString("Otp", otp);
                 _emailService.SendAccountCreationEmail(model.Email, otp);
 
@@ -165,6 +167,15 @@ namespace prototype.Controllers
             string enteredOtp = string.Join("", otp);
             string storedOtp = HttpContext.Session.GetString("Otp");
 
+            // Retrieve Student Account ID from TempData
+            var studentAccId = TempData["StudentAccId"]?.ToString();
+
+            if (string.IsNullOrEmpty(studentAccId))
+            {
+                ModelState.AddModelError("", "Student Account ID is missing.");
+                return View();
+            }
+
             if (enteredOtp == storedOtp)
             {
                 var basicInfo = JsonSerializer.Deserialize<BasicInformation>(TempData["BasicInfo"]?.ToString());
@@ -186,6 +197,9 @@ namespace prototype.Controllers
                     if (accountCreation != null)
                     {
                         accountCreation.Status = "Active"; // Set verified status
+                        accountCreation.UserType = "STUDENT"; // Ensure UserType is set here
+                        accountCreation.Verification = "SUCCESS"; // Ensure UserType is set here
+
                         _context.Accounts.Add(accountCreation);
                     }
 

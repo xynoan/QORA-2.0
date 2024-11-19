@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using prototype.Data;
 using prototype.Models;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace prototype.Controllers
@@ -50,14 +48,28 @@ namespace prototype.Controllers
                 // Store the user's ACC_STUDENT_ID in the session
                 HttpContext.Session.SetString("ACC_STUDENT_ID", user.ACC_STUDENT_ID);
 
-                return RedirectToAction("Enrollment", "Student");
+                // Check user type and redirect accordingly
+                if (user.USER_TYPE == "STUDENT")
+                {
+                    return RedirectToAction("Enrollment", "Student");
+                }
+                else if (user.USER_TYPE == "ADMIN")
+                {
+                    return RedirectToAction("Index", "Registrar");
+                }
+                else
+                {
+                    // Handle unknown user types (optional)
+                    ViewData["Error"] = "Invalid user type.";
+                    return View("Index");
+                }
             }
 
             ViewData["EmailError"] = "Incorrect email or password.";
             ViewData["Email"] = email;
             return View("Index");
         }
-    
+
         public IActionResult Feedback()
         {
             return View();
@@ -146,15 +158,10 @@ namespace prototype.Controllers
             return RedirectToAction("Feedback");
         }
 
-       
-
-
         private string GenerateOtp()
         {
             Random random = new Random();
             return random.Next(100000, 999999).ToString();
         }
-        
     }
-
 }

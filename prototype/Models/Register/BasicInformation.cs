@@ -10,7 +10,7 @@ public class BasicInformation
     public string? ACCREDITATION_OF_SUBJECTS { get; set; }
     public string? APPLICATION_DATE { get; set; }
     public string? APPLYING_AS { get; set; }
-    public string? BI_STUDENT_ACC_ID { get; set; }
+    public string BI_STUDENT_ACC_ID { get; set; }
     public string? LRN { get; set; }
     public string? STRAND { get; set; }
     public string? TRACK { get; set; }
