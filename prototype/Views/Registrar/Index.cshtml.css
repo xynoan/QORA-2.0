@@ -88,6 +88,13 @@ hr.divider {
     }
 
 /* Responsive Adjustments */
+@media (min-width: 1024px) {
+    .filterOptions {
+        top: 50px !important;
+        left: 160px !important;
+    }
+}
+
 @media (max-width: 768px) {
     .square {
         height: 150px;
