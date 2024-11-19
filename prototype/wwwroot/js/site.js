@@ -256,14 +256,25 @@ document.addEventListener("click", (e) => {
         popupDiv.classList.toggle("active");
     }
 
-    document.addEventListener("click", (e) => {
-        if (
-            !e.target.closest("#filter-menu") &&
-            e.target.id !== "filter-anchor" &&
-            filterDiv.classList.contains("active")
-        ) {
-            filterDiv.classList.remove("active");
-            removeActiveClassFromAll(academicYear, collegeProgram, section, statusDiv);
-        }
-    });
+    const filterDiv = document.getElementById("filter-menu");
+    const filterAnchor = document.getElementById("filter-anchor");
+    const filterOptions = document.querySelectorAll(".filterOptions");
+
+    // Check if click is outside the main filter menu and submenus
+    const clickedInsideFilterMenu =
+        filterDiv.contains(e.target) ||
+        [...filterOptions].some((submenu) => submenu.contains(e.target));
+
+    // Close the main filter menu and submenus only if the click is outside
+    if (!clickedInsideFilterMenu && e.target !== filterAnchor) {
+        // Hide the main filter menu
+        filterDiv.style.visibility = "hidden";
+        filterDiv.style.opacity = "0";
+        filterDiv.classList.remove("active");
+
+        // Hide all submenus
+        filterOptions.forEach((submenu) => {
+            submenu.classList.remove("active");
+        });
+    }
 });
