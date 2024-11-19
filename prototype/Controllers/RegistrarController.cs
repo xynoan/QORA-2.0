@@ -18,45 +18,78 @@ namespace prototype.Controllers
         {
             _context = context;
         }
+        // Action to view student profile
+        public ActionResult ViewProfiles(string studentId)
+        {
+            ViewBag.StudentId = studentId; // Pass it to the view
+
+            return View();
+        }
+
+        // Action to enlist a student
+        public ActionResult Enlist()
+        {
+            return View();
+        }
 
         // Index Action - List of Students (or any default page)
         public async Task<IActionResult> Index()
         {
-            // Retrieve only active students
-            var activeStudents = await (from user in _context.Users
-                                        join personal in _context.PERSONAL_INFORMATION
-                                        on user.ACC_STUDENT_ID equals personal.P_STUDENT_ACC_ID
-                                        join enlistment in _context.STUDENT_ENLISTMENT
-                                        on user.ACC_STUDENT_ID equals enlistment.SEF_STUDENT_ACC_ID
-                                        where user.STATUS == "Active"  // Only active students
-                                        select new StudentProfileViewModel
-                                        {
-                                            // Check if SEF_ID_PICTURE is not null and convert it to Base64 string
-                                            PhotoUrl = enlistment.SEF_ID_PICTURE != null && enlistment.SEF_ID_PICTURE.Length > 0
-                                                       ? Convert.ToBase64String(enlistment.SEF_ID_PICTURE)
-                                                       : string.Empty,
-                                            FullName = $"{personal.FIRST_NAME} {personal.MIDDLE_NAME} {personal.LAST_NAME}",
-                                            Email = user.EMAIL,
-                                            Status = user.STATUS,
-                                            StudentId = user.ACC_STUDENT_ID  // Ensure this matches the type (string or int as needed)
-                                        }).ToListAsync();
+            // Fetch students who have a record in the StudentReferences table
+            var studentsWithReference = await (from user in _context.Users
+                                               join personal in _context.PERSONAL_INFORMATION
+                                               on user.ACC_STUDENT_ID equals personal.P_STUDENT_ACC_ID
+                                               join enlistment in _context.STUDENT_ENLISTMENT
+                                               on user.ACC_STUDENT_ID equals enlistment.SEF_STUDENT_ACC_ID
+                                               join screening in _context.StudentYrScreenings
+                                               on user.ACC_STUDENT_ID equals screening.SYC_STUDENT_ACC_ID
+                                               join grading in _context.StudentGradings
+                                               on user.ACC_STUDENT_ID equals grading.GRADES_STUDENT_ID
+                                               join reference in _context.StudentReferences // Join with StudentReferences to get Reference Number
+                                               on user.ACC_STUDENT_ID equals reference.SR_STUDENT_ACC_ID
+                                               where reference.SR_STUDENT_ACC_ID != null // Ensure that the student has a reference record
+                                               select new
+                                               {
+                                                   user.ACC_STUDENT_ID,
+                                                   personal.FIRST_NAME,
+                                                   personal.MIDDLE_NAME,
+                                                   personal.LAST_NAME,
+                                                   user.EMAIL,
+                                                   enlistment.SEF_ID_PICTURE,
+                                                   screening.YR_LEVEL,
+                                                   screening.YR_TERM,  // Get YR_TERM
+                                                   Gwa = grading.GWA,  // Get GWA from StudentGradings
+                                                   ReferenceNumber = reference.REFERENCE_NUMBER // Get REFERENCE_NUMBER from StudentReferences
+                                               })
+                                                .GroupBy(x => x.ACC_STUDENT_ID) // Group by StudentId to ensure only one row per student
+                                                .Select(g => g.FirstOrDefault()) // Take the first record from each group
+                                                .ToListAsync();
 
-            return View(activeStudents);
+            // Map the result to StudentProfileViewModel
+            var studentProfiles = studentsWithReference.Select(student => new StudentProfileViewModel
+            {
+                PhotoUrl = student.SEF_ID_PICTURE != null && student.SEF_ID_PICTURE.Length > 0
+                           ? Convert.ToBase64String(student.SEF_ID_PICTURE)
+                           : string.Empty,
+                FullName = $"{student.FIRST_NAME} {student.MIDDLE_NAME} {student.LAST_NAME}",
+                Email = student.EMAIL,
+                StudentId = student.ACC_STUDENT_ID,
+                YearLevelTerm = FormatYearLevelTerm(student.YR_LEVEL, student.YR_TERM), // Format the Year Level and Term
+                Gwa = student.Gwa, // Include GWA from StudentGradings
+                ReferenceNumber = student.ReferenceNumber // Include Reference Number
+            }).ToList();
+
+            // Return the data to the view
+            return View(studentProfiles);
         }
 
-
-
+      
         // AddCourse Action - Display Add Course page
         public IActionResult AddCourse()
         {
             return View();
         }
 
-        // Enlist Action - Display Enlist page
-        public IActionResult Enlist()
-        {
-            return View();
-        }
 
         // Printing Action - Display Printing page
         public IActionResult Printing()
@@ -70,103 +103,73 @@ namespace prototype.Controllers
             return View();
         }
 
-        // UpdateStudent Action - Update student information
-        [HttpPost]
-        public IActionResult UpdateStudent([FromBody] StudentUpdateModel model)
-        {
-            // Find the student by ID and update their data
-            var student = _context.Users.FirstOrDefault(u => u.ACC_STUDENT_ID == model.StudentId);
-            if (student != null)
-            {
-                var personalInfo = _context.PERSONAL_INFORMATION.FirstOrDefault(p => p.P_STUDENT_ACC_ID == model.StudentId);
-                if (personalInfo != null)
-                {
-                    personalInfo.FIRST_NAME = model.FirstName;
-                    personalInfo.MIDDLE_NAME = model.MiddleName;
-                    personalInfo.LAST_NAME = model.LastName;
-                    student.EMAIL = model.Email;
 
-                    _context.SaveChanges();
-                    return Ok("Student updated successfully.");
-                }
-                return NotFound("Personal information not found.");
+        // DELETE: /Registrar/DeleteReferenceByStudentId
+        [HttpDelete]
+        public async Task<IActionResult> DeleteReferenceByStudentId(string studentId)
+        {
+            if (string.IsNullOrEmpty(studentId))
+            {
+                return BadRequest("Invalid student ID.");
             }
-            return NotFound("Student not found.");
-        }
 
-        // DeleteStudent Action - Delete student by ID
-        [HttpPost]
-        public IActionResult DeleteStudent([FromForm] string studentId)
-        {
-            var student = _context.Users.FirstOrDefault(u => u.ACC_STUDENT_ID == studentId);
-            if (student != null)
+            var reference = await _context.StudentReferences.FirstOrDefaultAsync(r => r.SR_STUDENT_ACC_ID == studentId);
+            if (reference == null)
             {
-                // If needed, remove related data from other tables
-                var personalInfo = _context.PERSONAL_INFORMATION.FirstOrDefault(p => p.P_STUDENT_ACC_ID == studentId);
-                if (personalInfo != null)
-                {
-                    _context.PERSONAL_INFORMATION.Remove(personalInfo);
-                }
-
-                // Delete student
-                _context.Users.Remove(student);
-                _context.SaveChanges();
-                return Ok("Student deleted successfully.");
-            }
-            return NotFound("Student not found.");
-        }
-
-        public JsonResult GetStudentDetails(string studentId)
-        {
-            if (string.IsNullOrWhiteSpace(studentId))
-            {
-                return Json(new { message = "Student ID is missing or empty" });
+                return NotFound("Reference for the student not found.");
             }
 
             try
             {
-                // Log the input student ID
-                Console.WriteLine($"[DEBUG] Searching for Student ID: '{studentId}'");
-
-                // Fetch student details
-                var studentDetails = (from user in _context.Users
-                                      where user.ACC_STUDENT_ID.Trim() == studentId.Trim() // Match student ID
-                                      select new
-                                      {
-                                          FullName = (from personal in _context.PERSONAL_INFORMATION
-                                                      where personal.P_STUDENT_ACC_ID == user.ACC_STUDENT_ID
-                                                      select personal.FIRST_NAME + " " + personal.LAST_NAME).FirstOrDefault(),
-                                          Status = user.STATUS,
-                                          GWA = (from grades in _context.StudentGradings
-                                                 where grades.GRADES_STUDENT_ID == user.ACC_STUDENT_ID
-                                                 select grades.GWA).FirstOrDefault(),
-                                          PhotoUrl = (from enlistment in _context.STUDENT_ENLISTMENT
-                                                      where enlistment.SEF_STUDENT_ACC_ID == user.ACC_STUDENT_ID
-                                                      select enlistment.SEF_ID_PICTURE != null
-                                                          ? "data:image/jpeg;base64," + Convert.ToBase64String(enlistment.SEF_ID_PICTURE)
-                                                          : "../../images/default-profile.png").FirstOrDefault(),
-                                          YearLevel = (from screening in _context.StudentYrScreenings
-                                                       where screening.SYC_STUDENT_ACC_ID == user.ACC_STUDENT_ID
-                                                       select screening.YR_LEVEL).FirstOrDefault()
-                                      }).FirstOrDefault();
-
-                if (studentDetails != null)
-                {
-                    Console.WriteLine($"[DEBUG] Student found: {studentDetails.FullName}");
-                    return Json(studentDetails);
-                }
-
-                Console.WriteLine($"[DEBUG] No student found for ID: '{studentId}'");
-                return Json(new { message = "Student not found" });
+                _context.StudentReferences.Remove(reference);
+                await _context.SaveChangesAsync();
+                return Ok("Reference deleted successfully.");
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine($"[ERROR] Exception: {ex.Message}");
-                return Json(new { message = "An error occurred while fetching student details" });
+                return StatusCode(500, "An error occurred while deleting the reference.");
             }
         }
 
+        
 
+        // Helper method to format YearLevel and Term
+        private string FormatYearLevelTerm(string yrLevel, string yrTerm)
+        {
+            // Format Year Level with suffix (st, nd, rd, th)
+            string yearSuffix = GetYearSuffix(yrLevel);
+            string formattedYrLevel = $"{yrLevel}{yearSuffix} Year";
+
+            // Format YR_TERM (e.g., 1st Semester, 2nd Semester)
+            string formattedYrTerm = $"{yrTerm}{GetSemesterSuffix(yrTerm)} Semester";
+
+            // Combine Year Level and Term
+            return $"{formattedYrLevel} - {formattedYrTerm}";
+        }
+
+        // Helper method to get the suffix for Year Level (st, nd, rd, th)
+        private string GetYearSuffix(string yrLevel)
+        {
+            if (int.TryParse(yrLevel, out int level))
+            {
+                if (level == 1) return "st";
+                else if (level == 2) return "nd";
+                else if (level == 3) return "rd";
+                else return "th";
+            }
+            return "th"; // Default to "th" if not a number
+        }
+
+        // Helper method to get the suffix for Semester (st, nd)
+        private string GetSemesterSuffix(string yrTerm)
+        {
+            if (int.TryParse(yrTerm, out int term))
+            {
+                if (term == 1) return "st";
+                else if (term == 2) return "nd";
+            }
+            return ""; // Default if not found
+        }
 
 
     }

@@ -1,0 +1,252 @@
+﻿@{
+    ViewBag.Title = "- Registrar";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="container" id="main-container">
+    <div id="content-form" class="p-5 mt-3">
+        @await Html.PartialAsync("_LogoutModal")
+        <form id="editform" action="" method="POST">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <!-- Header Section -->
+            <div class="d-flex justify-content-between align-items-center">
+                <img src="../../images/QCU-Logo.png" alt="QCU" height="100px">
+                <div class="text-center">
+                    <p class="fw-bold fs-4 m-0">QUEZON CITY UNIVERSITY</p>
+                    <p class="m-0">673 Quirino Hi-Way, San Bartolome, Novaliches Q.C</p>
+                    <p class="fw-bold fs-5 m-0">ADMISSIONS OFFICE</p>
+                    <p class="m-0">STUDENT APPLICATION FORM</p>
+                    <p><span class="text-danger">1st</span> SEM, AY: <span class="text-danger">2024-2025</span></p>
+                </div>
+                <img src="/images/blake.jpg" alt="blake" height="100px" style="border: 2px solid black;">
+            </div>
+
+            <br><br>
+
+            <!-- ----------------------------------------------------------------------------------- -->
+            <h1 class="fs-2">Personal Information</h1>
+            <hr class="divider">
+            <p class="fw-bold">Full Name</p>
+            <div class="input-group">
+                <input type="text" name="lastName" id="lastName" placeholder="Last Name" readonly class="form-control" value="">
+                <input type="text" name="firstName" id="firstName" placeholder="First Name" readonly class="form-control" value="">
+                <input type="text" name="middleName" id="middleName" placeholder="Middle Name" readonly class="form-control" value="">
+                <input type="text" name="Suffix" id="Suffix" placeholder="Suffix" class="form-control" readonly value="">
+            </div>
+            <div class="mt-3 row row-cols-3">
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold">Date of Birth</p>
+                    <input type="text" name="DateBirth" id="DateBirth" class="form-control" readonly value="">
+                </div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold">Birth Place</p>
+                    <input type="text" name="BirthPlace" id="BirthPlace" class="form-control" readonly value="">
+                </div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold">Gender</p>
+                    <input type="text" name="gender" id="gender" class="form-control" readonly value="">
+                </div>
+            </div>
+            <div class="mt-3 row row-cols-3">
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold">Religion</p>
+                    <input type="text" name="religion" id="religion" class="form-control" readonly value="">
+                </div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold">Citizenship</p>
+                    <input type="text" name="citizenship" id="citizenship" class="form-control" readonly value="">
+                </div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold">Civil Status</p>
+                    <input type="text" name="civil" id="civil" class="form-control" readonly value="">
+                </div>
+            </div>
+            <p class="fw-bold mt-3">Present Address</p>
+            <div class="input-group">
+                <input type="text" name="personal_House" id="personal_House" placeholder="House No./Street" readonly class="form-control" value="">
+                <input type="text" name="personal_Barangay" id="personal_Barangay" placeholder="Barangay" readonly class="form-control" value="">
+                <input type="text" name="personal_Municipality" id="personal_Municipality" placeholder="Municipality" readonly class="form-control" value="">
+                <input type="text" name="personal_District" id="personal_District" placeholder="District" readonly class="form-control" value="">
+                <input type="text" name="personal_Zipcode" id="personal_Zipcode" placeholder="Zip Code" readonly class="form-control" value="">
+            </div>
+
+            <!-- ----------------------------------------------------------------------------------- -->
+            <h2 class="fs-2 mt-4">Basic Information</h2>
+            <hr class="divider">
+            <div class="d-flex gap-5">
+                <div class="d-flex flex-column step1">
+                    <label for="date" class="fw-bold">Application Date</label>
+                    <input type="text" name="date" id="date" class="form-control" readonly value="">
+                </div>
+                <div class="d-flex flex-column step1">
+                    <label for="lrn" class="fw-bold">LRN</label>
+                    <input type="text" name="lrn" id="lrn" class="form-control" readonly value="">
+                </div>
+                <div class="d-flex flex-column step1">
+                    <label for="studentNumber" class="fw-bold">Student Number</label>
+                    <input type="text" name="studentNumber" id="studentNumber" value="@ViewBag.StudentId" class="form-control" readonly value="">
+
+                </div>
+            </div>
+            <hr class="divider">
+            <div class="d-flex gap-5">
+                <div class="d-flex flex-column">
+                    <p class="fw-bold">Applying as</p>
+                    <input type="text" name="applying_As" id="applying_As" class="form-control" readonly value="">
+                </div>
+                <div class="d-flex flex-column">
+                    <p class="fw-bold">Year Level</p>
+                    <input type="text" name="yearlevel" id="yearlevel" class="form-control" readonly value="">
+                </div>
+                <div class="d-flex flex-column">
+                    <p class="fw-bold">Term</p>
+                    <input type="text" name="term" id="term" class="form-control" readonly value="">
+                </div>
+                <div class="d-flex flex-column">
+                    <p class="fw-bold">Academic Year</p>
+                    <input type="text" name="academicyear" id="academicyear" class="form-control" readonly value="">
+                </div>
+            </div>
+            <!-- ----------------------------------------------------------------------------------- -->
+            <h2 class="fs-2 mt-4">Educational Attainment</h2>
+            <hr class="divider">
+            <p class="fw-bold m-0">College</p>
+            <input type="text" name="education" id="education" class="form-control" value="" readonly>
+            <p class="fw-bold mt-3">School Address</p>
+            <input type="text" name="schooladdress" id="schooladdress" class="form-control" value="" readonly>
+            <p class="fw-bold mt-3">Location</p>
+            <div class="d-flex justify-content-between">
+                <div style="width: 50%;">
+                    <label for="location">Within Quezon City?</label>
+                    <input type="text" name="location" id="location" class="form-control" value="" readonly>
+                </div>
+                <div style="width: 50%;">
+                    <label for="School">School Type</label>
+                    <input type="text" name="School" id="School" class="form-control" value="" readonly>
+                </div>
+            </div>
+            <div class="mt-3 row row-cols-3">
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold">Year Graduated</p>
+                    <input type="text" name="yearGraduated" id="yearGraduated" class="form-control" value="" readonly>
+                </div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold">General Average</p>
+                    <input type="text" name="average" id="average" class="form-control" value="" readonly>
+                </div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold">Honors</p>
+                    <input type="text" name="honors" id="honors" class="form-control" value="" readonly>
+                </div>
+            </div>
+            <h2 class="fs-2 mt-4">Family Background</h2>
+            <hr class="divider">
+            <p class="fw-bold">Father's Full Name</p>
+            <div class="input-group">
+                <input type="text" name="father_lastName" id="father_lastName" placeholder="Last Name" class="form-control" value="" readonly>
+                <input type="text" name="father_firstName" id="father_firstName" placeholder="First Name" class="form-control" value="" readonly>
+                <input type="text" name="father_middleName" id="father_middleName" placeholder="Middle Name" class="form-control" value="" readonly>
+                <input type="text" name="father_Suffix" id="father_Suffix" placeholder="Suffix" class="form-control" value="" readonly>
+            </div>
+            <div class="mt-3 row row-cols-3">
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold"><label for="father_Occupation">Occupation</label></p>
+                    <input type="text" name="father_Occupation" id="father_Occupation" class="form-control" value="" readonly>
+                </div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold"><label for="father_Educational">Educational Attainment</label></p>
+                    <input type="text" name="father_Educational" id="father_Educational" class="form-control" value="" readonly>
+                </div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold"><label for="father_Contact">Contact Number</label></p>
+                    <input type="text" name="father_Contact" id="father_Contact" class="form-control" value="" readonly>
+                </div>
+            </div>
+            <p class="fw-bold mt-3">Mother’s Maiden Name</p>
+            <div class="input-group">
+                <input type="text" name="mother_lastname" id="mother_lastname" placeholder="Last Name" class="form-control" value="" readonly>
+                <input type="text" name="mother_firstName" id="mother_firstName" placeholder="First Name" class="form-control" value="" readonly>
+                <input type="text" name="mother_middleName" id="mother_middleName" placeholder="Middle Name" class="form-control" value="" readonly>
+            </div>
+            <div class="mt-3 row row-cols-3">
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold"><label for="mother_Occupation">Occupation</label></p>
+                    <input type="text" name="mother_Occupation" id="mother_Occupation" class="form-control" value="" readonly>
+                </div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold"><label for="mother_Educational">Educational Attainment</label></p>
+                    <input type="text" name="mother_Educational" id="mother_ducational" class="form-control" value="" readonly>
+                </div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold"><label for="mother_Contact">Contact Number</label></p>
+                    <input type="text" name="mother_Contact" id="mother_Contact" class="form-control" value="" readonly>
+                </div>
+            </div>
+            <p class="fw-bold mt-3">Address</p>
+            <div class="input-group">
+                <input type="text" name="Family_HouseStreet" id="Family_HouseStreet" placeholder="House No./Street" class="form-control" value="" readonly>
+                <input type="text" name="Family_Brgy" id="Family_Brgy" placeholder="Barangay" class="form-control" value="" readonly>
+                <input type="text" name="Family_Municipality" id="Family_Municipality" placeholder="Municipality" class="form-control" value="" readonly>
+                <input type="text" name="Family_District" id="Family_District" placeholder="District" class="form-control" value="" readonly>
+                <input type="text" name="Family_Zipcode" id="Family_Zipcode" placeholder="Zip Code" class="form-control" value="" readonly>
+            </div>
+            <p class="fw-bold mt-3">Guardian’s Full Name</p>
+            <div class="input-group">
+                <input type="text" name="Guardian_LastName" id="Guardian_LastName" placeholder="Last Name" class="form-control" value="" readonly>
+                <input type="text" name="Guardian_FirstName" id="Guardian_FirstName" placeholder="First Name" class="form-control" value="" readonly>
+                <input type="text" name="Guardian_MiddleName" id="Guardian_MiddleName" placeholder="Middle Name" class="form-control" value="" readonly>
+                <input type="text" name="Guardian_Suffix" id="Guardian_Suffix" placeholder="Suffix" class="form-control" value="" readonly>
+            </div>
+            <div class="d-flex justify-content-between gap-4">
+                <div style="width: 50%;">
+                    <label for="Guardian_Relationship" class="fw-bold my-3">Relationship</label>
+                    <input type="text" name="Guardian_Relationship" id="Guardian_Relationship" class="form-control" value="" readonly>
+                </div>
+                <div style="width: 50%;">
+                    <label for="Guardian_Contact" class="fw-bold my-3">Contact Number</label>
+                    <input type="text" name="Guardian_Contact" id="Guardian_Contact" class="form-control" value="" readonly>
+                </div>
+            </div>
+            <!-- ----------------------------------------------------------------------------------- -->
+            <h2 class="fs-2 mt-4">Person to be notified in case of Emergency</h2>
+            <hr class="divider">
+                <p class="fw-bold">Full Name</p>
+                <div class="input-group">
+                    <input type="text" name="Emergency_LastName" id="Emergency_LastName" placeholder="Last Name" class="form-control" value="" readonly>
+                    <input type="text" name="Emergency_FirstName" id="Emergency_FirstName" placeholder="First Name" class="form-control" value="" readonly>
+                    <input type="text" name="Emergency_MiddleName" id="Emergency_MiddleName" placeholder="Middle Name" class="form-control" value="" readonly>
+                    <input type="text" name="Emergency_Suffix" id="Emergency_Suffix" placeholder="Suffix" class="form-control" value="" readonly>
+                </div>
+                <div class="d-flex justify-content-between gap-4">
+                    <div style="width: 50%;">
+                        <label for="Emergency_Relationship" class="fw-bold my-3">Relationship</label>
+                        <input type="text" name="Emergency_Relationship" id="Emergency_Relationship" class="form-control" value="" readonly>
+                    </div>
+                    <div style="width: 50%;">
+                        <label for="Emergency_Contact" class="fw-bold my-3">Contact Number</label>
+                        <input type="text" name="Emergency_Contact" id="Emergency_Contact" class="form-control" value="" readonly>
+                    </div>
+                </div>
+                <p class="fw-bold mt-3">Address</p>
+                <div class="input-group">
+                    <input type="text" name="Emergency_HouseStreet" id="Emergency_HouseStreet" placeholder="House No./Street" class="form-control" value="" readonly>
+                    <input type="text" name="Emergency_Brgy" id="Emergency_Brgy" placeholder="Barangay" class="form-control" value="" readonly>
+                    <input type="text" name="Emergency_Municipality" id="Emergency_Municipality" placeholder="Municipality" class="form-control" value="" readonly>
+                    <input type="text" name="Emergency_District" id="Emergency_District" placeholder="District" class="form-control" value="" readonly>
+                    <input type="text" name="Emergency_ZipCode" id="Emergency_ZipCode" placeholder="Zip Code" class="form-control" value="" readonly>
+                </div>
+                <br />
+            <div class="buttons" style="float:right;">
+                <button id="editButton" class="btn btn-primary">Edit</button>
+                <button type="submit" name="saveform" id="saveform" class="btn btn-primary">Save Changes</button>
+            </div>
+
+
+        </form>
+    </div>
+</div>

@@ -7,14 +7,15 @@
 }
 @model List<prototype.Models.Registrar.StudentProfileViewModel>
 
-
+<!-- Include Font Awesome CDN (in case it's not already included in your layout) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
 <div class="container" id="main-container">
     <div class="d-flex gap-5">
         <div class="input-group border border-black p-3 rounded-4">
             <i class="fa-solid fa-magnifying-glass mt-3 ms-3 me-3" style="font-size: 25px; color: grey;"></i>
-            <input type="search" name="" placeholder="Search by Reference ID or Student Number" class="form-control">
+            <input type="search" name="search" placeholder="Search by Reference ID or Student Number" class="form-control">
             <button id="submit" type="submit" style="background-color: var(--main-color);" class="text-white rounded-end-4 p-3">Search</button>
-        </div>
+        </div>  
         <div class="d-flex text-white rounded-4 p-3 align-items-center" style="width: 500px;  background-color: var(--main-color);">
             <p class="fw-bold fs-3 m-0" id="liveTime">
                 @Html.Raw(currentTime)
@@ -45,198 +46,77 @@
                         <option value="3">Three</option>
                     </select>
                     <a id="filter-anchor" href="#" onclick="toggleFilter()" class="black-on-hover text-decoration-none text-white p-2 ms-2" style="background-color: var(--main-color);"><i class="fa-solid fa-filter text-white me-2"></i>Filters</a>
-                    <div id="filter-menu" class="p-3 border border-black text-white rounded-4" style="position: absolute; width: 15%; background-color: var(--main-color); left: 680px; visibility: hidden; opacity: 0;">
-                        <span onclick="toggleAcademicYear()" class="white-on-hover">Academic Year ></span>
-                        <span onclick="toggleCollegeProgram()" class="white-on-hover">College Program ></span>
-                        <span onclick="toggleSection()" class="white-on-hover">Yr. Level/Section ></span>
-                        <span onclick="toggleStatus()" class="white-on-hover">Student Status ></span>
-                        <span class="white-on-hover">Student Number</span>
-                    </div>
-                    <div class="border border-black text-white" id="academicYear" style="position: absolute; background-color: var(--main-color); width: 10%; left: 880px; visibility: hidden; opacity: 0;">
-                        <p class="text-center">Set Year</p>
-                        <div class="input-group">
-                            <select class="form-select form-select-sm" aria-label="Small select example">
-                                <option selected></option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                            -
-                            <select class="form-select form-select-sm" aria-label="Small select example">
-                                <option selected></option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="border border-black text-white" id="collegeProgram" style="position: absolute; background-color: var(--main-color); left: 880px; top: 400px; visibility: hidden; opacity: 0;">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                College of Business and Accountancy
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                College of Education
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                College of Engineering
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                College of Computer Studies
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Bachelor of Science in Information and Technology</a></li>
-                                <li><a class="dropdown-item" href="#">Bachelor of Science in Information Systems</a></li>
-                                <li><a class="dropdown-item" href="#">Bachelor of Science in Computer Science</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="border border-black text-white p-2" id="section" style="position: absolute; background-color: var(--main-color); left: 880px; top: 430px; visibility: hidden; opacity: 0;">
-                        <div class="d-flex gap-3">
-                            <div class="d-flex flex-column">
-                                <p class="text-center m-0" style="opacity: 0.5;">YEAR LEVEL</p>
-                                <div class="input-group gap-1">
-                                    <input type="radio" name="year" id="1st"> <label for="1st">1st Year</label>
-                                </div>
-                                <div class="input-group gap-1"><input type="radio" name="year" id="2nd"> <label for="2nd">2nd Year</label></div>
-                                <div class="input-group gap-1"><input type="radio" name="year" id="3rd"> <label for="3rd">3rd Year</label></div>
-                                <div class="input-group gap-1"><input type="radio" name="year" id="4th"> <label for="4th">4th Year</label></div>
-                            </div>
-                            <div class="d-flex flex-column">
-                                <p class="text-center m-0" style="opacity: 0.5;">SEMESTER</p>
-                                <div class="input-group gap-1">
-                                    <input type="radio" name="sem" id="1stSem"> <label for="1stSem">1ST SEM</label>
-                                </div>
-                                <div class="input-group gap-1"><input type="radio" name="sem" id="2ndSem"> <label for="2ndSem">2ND SEM</label></div>
-                            </div>
-                        </div>
-                        <div>
-                            <p style="opacity: 0.5;" class="m-0">SECTION</p>
-                            <div class="input-group gap-2">
-                                <input type="radio" name="section" id="A"> <label for="A">A</label>
-                                <input type="radio" name="section" id="D"> <label for="D">D</label>
-                                <input type="radio" name="section" id="G"> <label for="G">G</label>
-                                <input type="radio" name="section" id="J"> <label for="J">J</label>
-                            </div>
-                            <div class="input-group gap-2">
-                                <input type="radio" name="section" id="B"> <label for="B">B</label>
-                                <input type="radio" name="section" id="E"> <label for="E">E</label>
-                                <input type="radio" name="section" id="H"> <label for="H">H</label>
-                                <input type="radio" name="section" id="K"> <label for="K">K</label>
-                            </div>
-                            <div class="input-group gap-2">
-                                <input type="radio" name="section" id="C"> <label for="C">C</label>
-                                <input type="radio" name="section" id="F"> <label for="F">F</label>
-                                <input type="radio" name="section" id="I"> <label for="I">I</label>
-                                <input type="radio" name="section" id="L"> <label for="L">L</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border border-black text-white p-2" id="status" style="position: absolute; background-color: var(--main-color); left: 880px; top: 450px; visibility: hidden; opacity: 0;">
-                        <div class="d-flex flex-column">
-                            <p class="m-0" style="opacity: 0.5;">ACTIVE</p>
-                            <div class="input-group gap-1">
-                                <input type="radio" name="active" id="Regular"> <label for="Regular">Regular</label>
-                            </div>
-                            <div class="input-group gap-1"><input type="radio" name="active" id="Irregular"> <label for="Irregular">Irregular</label></div>
-                        </div>
-                        <div class="d-flex flex-column">
-                            <p class="m-0" style="opacity: 0.5;">ARCHIVE</p>
-                            <div class="input-group gap-1">
-                                <input type="radio" name="archive" id="Graduated"> <label for="Graduated">Graduated</label>
-                            </div>
-                            <div class="input-group gap-1"><input type="radio" name="archive" id="Dropped"> <label for="Dropped">Dropped</label></div>
-                        </div>
-                    </div>
+                 <!-- filter codes --->
 
-                    <!-- Table with Edit and Delete buttons -->
+
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Student Photo</th>
+                                <th>Photo</th>
                                 <th>Student ID</th>
                                 <th>Full Name</th>
                                 <th>Email</th>
-                                <th>Actions</th>
+                                <th><center>Actions</center></th> <!-- Add Actions Column -->
+
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var student in Model)
                             {
-                                <tr id="row_@student.StudentId" class="student-row" data-student-id="@student.StudentId">
-
+                                <tr class="student-row"
+                                    data-student-id="@student.StudentId"
+                                    data-full-name="@student.FullName"
+                                    data-photo-url="@student.PhotoUrl"
+                                    data-year-level="@student.YearLevelTerm"
+                                    data-gwa="@student.Gwa"
+                                    data-status="@student.Status"
+                                    data-reference-number="@student.ReferenceNumber"
+                                    onclick="updateSecondHalf('@student.StudentId', '@student.FullName', '@student.PhotoUrl', '@student.YearLevelTerm', '@student.Gwa', '@student.ReferenceNumber', '@student.Status')" style="cursor: pointer;">
                                     <td>
-                                        @if (!string.IsNullOrEmpty(student.PhotoUrl))
-                                        {
-                                            <img src="data:image/jpeg;base64,@student.PhotoUrl" alt="Student Photo" style="width: 40px; height: 40px; border-radius: 50%;">
-                                        }
-                                        else
-                                        {
-                                            <img src="default-profile.jpg" alt="Default Profile Photo" style="width: 40px; height: 40px; border-radius: 50%;">
-                                        }
+                                        <img src="@(!string.IsNullOrEmpty(student.PhotoUrl)
+                                ? $"data:image/jpeg;base64,{student.PhotoUrl}"
+                                : "default-profile.jpg")"
+                                             alt="Student Photo"
+                                                 style="width: 40px; height: 40px; border-radius: 50%;">
                                     </td>
                                     <td>@student.StudentId</td>
-                                    <td class="student-name editable">@student.FullName</td>
-                                    <td class="email editable">@student.Email</td>
-                                    <td>
-                                        <!-- Edit button (Toggle edit/save) -->
-                                        <a class="edit-button" href="javascript:void(0);" onclick="toggleEdit('row_@student.StudentId')">
-                                            <i class="fa-solid fa-user-pen operation custom-height-icon" style="cursor: pointer;"></i>
-                                        </a>
-
-                                        <!-- Delete button -->
-                                        <i class="operation fa-regular fa-trash-can delete-button custom-height-icon"
-                                           data-user-id="@student.StudentId"
-                                           style="cursor: pointer;"></i>
+                                    <td>@student.FullName</td>
+                                    <td>@student.Email</td>
+                                    <td><center>
+                                        <!-- Font Awesome Delete Button -->
+                                        <i class="fas fa-trash-alt text-danger" style="cursor: pointer;"
+                                               onclick="deleteReference('@student.StudentId')"></i>
+                                        </center>
                                     </td>
+                                </tr>
+                                <!-- No results message (hidden by default) -->
+                                <tr id="noResultsRow" style="display: none;">
+                                    <td colspan="5" class="text-center text-danger">No results found.</td>
                                 </tr>
                             }
                         </tbody>
                     </table>
 
 
-
-
                 </div>
             </div>
-            <div class="second-half" style="width: 35%;">
+        <div class="second-half" style="width: 35%;">
                 <input type="text" name="referenceId" id="referenceId" placeholder="Reference ID" class="form-control mb-3" style="width: 70%;" readonly>
                 <div class="border border-black rounded-3 p-5">
-                    <div class="mb-4 d-flex flex-column justify-content-center align-items-center text-center">
-                        <img id="studentPhoto" class="border border-black border-2" height="150px" src="../../images/default-profile.png" alt="Student Photo">
-                        <span class="name fw-bold fs-5 mb-2" id="studentName">Student Name</span>
-                        <span class="year sub-span rounded-2 mb-2" id="studentYear">Year Level</span>
-                        <span class="status text-success sub-span rounded-2 mb-2" id="studentStatus">Status</span>
-                        <span class="gwa sub-span rounded-2" id="studentGwa">GWA: </span>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <a href="#" id="viewProfile" class="underline-on-hover text-decoration-none text-black border border-grey border-2 p-1 rounded-2">View Profile</a>
-                        <a href="#" id="enlistStudent" class="underline-on-hover text-decoration-none text-black border border-grey border-2 p-1 rounded-2">Enlist Student</a>
-                    </div>
-                </div>
-            </div>
-
+        <div class="mb-4 d-flex flex-column justify-content-center align-items-center text-center">
+            <span class="studentnum fw-bold fs-5 mb-2" id="studentId">STUDENT ID</span>
+            <img id="studentPhoto" class="border border-black border-2" height="150px" src="../../images/default-profile.png" alt="Student Photo">
+            <span class="name fw-bold fs-5 mb-2" id="studentName">Student Name</span>
+            <span class="year sub-span rounded-2 mb-2" id="studentYear">Year Level</span>
+            <span class="status text-success sub-span rounded-2 mb-2" id="studentStatus">Status</span>
+            <span class="gwa sub-span rounded-2" id="studentGwa">GWA: </span>
+        </div>
+        <div class="d-flex justify-content-between">
+                        <a href="@Url.Action("ViewProfiles", "Registrar", new { studentId = ViewBag.StudentId })" id="viewProfile" class="underline-on-hover text-decoration-none text-black border border-grey border-2 p-1 rounded-2">View Profile</a>
+                        <a href="@Url.Action("Enlist", "Registrar")" id="enlistStudent" class="underline-on-hover text-decoration-none text-black border border-grey border-2 p-1 rounded-2">Enlist Student</a>
+        </div>
+    </div>
+</div>
 
         </div>
     </div>
@@ -263,136 +143,106 @@
 
 </script>
 <script>
-    // Toggle the edit mode and change the edit/save button icon
-    function toggleEdit(rowId) {
-        var row = document.getElementById(rowId);
-        var fields = row.querySelectorAll('.editable');  // Fields with class "editable"
+    async function updateSecondHalf(studentId, fullName, photoUrl, yearLevelTerm, gwa, referenceNumber, status) {
+        // Update the panel with basic information (ID, Name, Photo)
+        document.getElementById("studentId").textContent = studentId || "STUDENT ID";
+        document.getElementById("studentName").textContent = fullName || "Student Name";
+        document.getElementById("studentPhoto").src = photoUrl
+            ? `data:image/jpeg;base64,${photoUrl}`
+            : "../../images/default-profile.png";
 
-        // Toggle content editable
-        fields.forEach(function (field) {
-            field.contentEditable = !field.isContentEditable;
+        // Update additional fields passed with row data
+        document.getElementById("studentYear").textContent = yearLevelTerm || "Year Level - Term";
+        document.getElementById("studentStatus").textContent = status || "Status";
+        document.getElementById("studentGwa").textContent = `GWA: ${gwa || "N/A"}`;
+
+        // Update the reference number in the input field
+        document.getElementById("referenceId").value = referenceNumber || "Reference ID";  // Update input field with reference number
+    }
+
+    // Add click event listener to each table row
+    document.addEventListener("DOMContentLoaded", function () {
+        const rows = document.querySelectorAll(".student-row");
+
+        rows.forEach(row => {
+            row.addEventListener("click", function () {
+                // Extract data from the clicked row using `data-*` attributes
+                const studentId = this.getAttribute("data-student-id");
+                const fullName = this.getAttribute("data-full-name");
+                const photoUrl = this.getAttribute("data-photo-url");
+                const yearLevelTerm = this.getAttribute("data-year-level");
+                const gwa = this.getAttribute("data-gwa");
+                const referenceNumber = this.getAttribute("data-reference-number"); // Get reference number
+                const status = this.getAttribute("data-status");
+
+                // Call the function to update the second-half panel
+                updateSecondHalf(studentId, fullName, photoUrl, yearLevelTerm, gwa, referenceNumber, status);
+            });
         });
+    });
+</script>
+<script>
+    async function deleteReference(studentId) {
+        if (confirm(`Are you sure you want to delete the reference for Student ID: ${studentId}?`)) {
+            try {
+                const response = await fetch(`/Registrar/DeleteReferenceByStudentId?studentId=${studentId}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
 
-        // Change icon to 'save' or 'edit'
-        var editButton = row.querySelector('.edit-button');
-        var icon = editButton.querySelector('i');
-
-        if (icon.classList.contains('fa-user-pen')) {
-            // Change icon to save (check icon)
-            icon.classList.remove('fa-user-pen');
-            icon.classList.add('fa-check');
-        } else {
-            // Change icon back to edit (pen icon)
-            icon.classList.remove('fa-check');
-            icon.classList.add('fa-user-pen');
-            saveData(row);  // Call the function to save data
-        }
-    }
-
-    // Save the edited data
-    function saveData(row) {
-        var studentId = row.id.replace('row_', '');  // Extract the student ID from the row ID
-        var fullName = row.querySelector('.student-name').textContent;
-        var email = row.querySelector('.email').textContent;  // Extract email
-
-        // Split full name into first name, middle name, and last name
-        var names = fullName.split(" ");
-        var firstName = names[0];
-        var middleName = names.length > 2 ? names[1] : '';  // Middle name optional
-        var lastName = names[names.length - 1];
-
-        // Prepare the data to be sent to the server
-        var data = {
-            studentId: studentId,
-            firstName: firstName,
-            middleName: middleName,
-            lastName: lastName,
-            email: email
-        };
-
-        // Send the data to the server using AJAX
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/Registrar/Update", true);  // Update endpoint in your ASP.NET controller
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Handle success response (optional)
-                console.log('Update success:', xhr.responseText);
-            }
-        };
-        xhr.send(JSON.stringify(data));
-    }
-
-    // Delete the student record
-    function confirmDelete(studentId) {
-        if (confirm("Are you sure you want to delete this student?")) {
-            // Send AJAX request to delete student
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/Registrar/Delete', true);  // Delete endpoint in your ASP.NET controller
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == XMLHttpRequest.DONE) {
-                    if (xhr.status == 200) {
-                        // Successfully deleted, remove the row from the table
-                        document.getElementById('row_' + studentId).remove();
-                    } else {
-                        alert('Error deleting student: ' + xhr.responseText);
-                    }
+                if (response.ok) {
+                    const row = document.querySelector(`[data-student-id="${studentId}"]`);
+                    if (row) row.remove();
+                    alert("Reference deleted successfully.");
+                } else {
+                    const errorMessage = await response.text();
+                    alert(`Error: ${errorMessage}`);
                 }
-            };
-            xhr.send('studentId=' + encodeURIComponent(studentId));
+            } catch (error) {
+                console.error("Error deleting reference:", error);
+                alert("An unexpected error occurred.");
+            }
         }
     }
 </script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Add click event listener to all student rows
-        document.querySelectorAll('.student-row').forEach(row => {
-            row.addEventListener('click', function () {
-                // Extract student ID and photo directly from the row
-                const studentId = this.getAttribute('data-student-id');
-                const photoElement = this.querySelector('td img'); // Select the <img> in the row
-                const photoUrl = photoElement ? photoElement.src : "../../images/default-profile.png"; // Use default if photo is missing
+    // This function will handle the search functionality
+    function searchStudents() {
+        const searchTerm = document.querySelector('input[type="search"]').value.toLowerCase(); // Get the search input and convert it to lowercase
+        const rows = document.querySelectorAll('.student-row'); // Get all rows in the student table
+        let resultsFound = false; // Track if any result is found
 
-                // Update the photo in the second-half section immediately
-                document.getElementById('studentPhoto').src = photoUrl;
+        rows.forEach(row => {
+            const studentId = row.getAttribute('data-student-id').toLowerCase(); // Get the student ID from the row's data attribute
+            const referenceNumber = row.getAttribute('data-reference-number').toLowerCase(); // Get the reference number from the row's data attribute
 
-                // Fetch additional details from the server
-                fetchStudentDetails(studentId);
-            });
+            // Check if the search term matches either the student ID or the reference number
+            if (studentId.includes(searchTerm) || referenceNumber.includes(searchTerm)) {
+                row.style.display = ''; // Show the row if it matches the search term
+                resultsFound = true; // Mark that a result has been found
+            } else {
+                row.style.display = 'none'; // Hide the row if it doesn't match the search term
+            }
         });
+
+        // Show or hide the "No results found" message based on search results
+        const noResultsRow = document.getElementById('noResultsRow');
+        if (resultsFound) {
+            noResultsRow.style.display = 'none'; // Hide the "No results found" message if there are results
+        } else {
+            noResultsRow.style.display = ''; // Show the "No results found" message if no results are found
+        }
+    }
+
+    // Add event listener to the search button
+    document.getElementById('submit').addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent the default form submission
+        searchStudents(); // Trigger the search function when the button is clicked
     });
 
-    // Function to fetch student details based on studentId
-    function fetchStudentDetails(studentId) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/Registrar/GetStudentDetails?studentId=" + studentId, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                const studentData = JSON.parse(xhr.responseText);
-
-                if (studentData.FullName) {
-                    updateSecondHalfDetails(studentData);
-                } else {
-                    alert("Student not found!");
-                }
-            }
-        };
-        xhr.send();
-    }
-
-    // Function to update the second-half section with additional details
-    function updateSecondHalfDetails(studentData) {
-        document.getElementById('studentName').textContent = studentData.FullName;
-        document.getElementById('studentYear').textContent = studentData.YearLevel || "N/A";
-        document.getElementById('studentStatus').textContent = studentData.Status || "N/A";
-        document.getElementById('studentGwa').textContent = "GWA: " + (studentData.GWA || "N/A");
-
-        // Update dynamic links if applicable
-        document.getElementById('viewProfile').href = `/Registrar/ViewProfile?studentId=${studentData.StudentId}`;
-        document.getElementById('enlistStudent').href = `/Registrar/Enlist?studentId=${studentData.StudentId}`;
-    }
+    // Optional: You can also trigger the search function on input change if you'd like to search as you type
+    document.querySelector('input[type="search"]').addEventListener('input', searchStudents);
+</script>
 
 
-                </script>
