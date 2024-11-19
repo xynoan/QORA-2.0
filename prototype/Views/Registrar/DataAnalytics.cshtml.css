@@ -4,11 +4,14 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Metrics Section */
 .metrics {
     display: flex;
+    width: 100%;
     gap: 20px;
 }
 
@@ -35,6 +38,7 @@
 .charts {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 /* Bar Chart */
@@ -44,6 +48,7 @@
     border-radius: 8px;
     flex: 2;
     border: 1px solid #aeaeae;
+    min-width: 300px; /* Prevent shrinking too much */
 }
 
     .bar-chart h3 {
@@ -55,7 +60,7 @@
     display: flex;
     gap: 15px;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .bar {
@@ -97,6 +102,7 @@
     flex: 1;
     border: 1px solid #aeaeae;
     text-align: center;
+    min-width: 250px; /* Prevent shrinking too much */
 }
 
 .pie {
@@ -142,4 +148,77 @@
 
 .gray {
     background-color: #dcdcdc;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .dashboard {
+        align-items: normal;
+    }
+}
+@media (max-width: 1024px) {
+    .metrics {
+        flex-direction: column; /* Stack metrics vertically */
+    }
+
+    .charts {
+        flex-direction: column; /* Stack charts vertically */
+    }
+
+    .bar-chart, .pie-chart {
+        flex: none; /* Prevent charts from stretching */
+    }
+}
+
+@media (max-width: 768px) {
+    .bar div {
+        width: 50%; /* Increase bar width for better visibility */
+    }
+
+    .metric h2 {
+        font-size: 1.8em; /* Adjust font sizes */
+    }
+
+    .metric p {
+        font-size: 0.8em;
+    }
+
+    .bar-chart h3, .pie-chart h3 {
+        font-size: 1em;
+    }
+
+    .academic-year {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard {
+        width: 95%;
+    }
+
+    .metric {
+        padding: 10px;
+    }
+
+        .metric h2 {
+            font-size: 1.5em;
+        }
+
+        .metric p {
+            font-size: 0.7em;
+        }
+
+    .pie {
+        width: 120px; /* Shrink pie chart for small screens */
+        height: 120px;
+    }
+
+    .chart {
+        flex-direction: column; /* Stack bars vertically */
+    }
+
+    .bar {
+        margin-bottom: 10px;
+    }
 }
