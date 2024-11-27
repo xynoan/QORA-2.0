@@ -20,8 +20,8 @@
         <form asp-action="Index" method="post">
             <div class="d-flex gap-5">
                 <div class="d-flex flex-column step1">
-                    <label for="APPLICATION_DATE" class="fw-bold">Application Date</label>
-                    <input type="date" name="APPLICATION_DATE" id="APPLICATION_DATE" class="form-control" required />
+                    <label for="application_date" class="fw-bold">Application Date</label>
+                    <input type="date" name="APPLICATION_DATE" id="application_date" class="form-control" required disabled/>
                 </div>
                 <div class="d-flex flex-column step1">
                     <label for="lrn" class="fw-bold">LRN</label>
@@ -61,9 +61,9 @@
             <select class="form-select d-inline-block" id="accreditation" name="ACCREDITATION_OF_SUBJECTS" style="width: 120px;"  required
                     oninvalid="setCustomValidity('Please Select!.'); setInvalidBackground(this)"
                     oninput="setCustomValidity(''); setValidBackground(this)">
-                <option value="" selected disabled>Yes/No</option>
+                <option disabled>Yes/No</option>
                 <option value="Yes">Yes</option>
-                <option value="No">No</option>
+                <option selected value="No">No</option>
             </select>
             <div class="input-group gap-1">
                 <input type="radio" name="APPLYING_AS" id="applyingAs1" value="2nd Degree Course Taker" onclick="toggleTrackStrand(false)">
@@ -78,7 +78,7 @@
         <div class="col mb-4 choice">First Choice</div>
         <select class="form-select d-inline-block course" id="PREFERRED_COURSE1" name="PREFERRED_COURSE1"  required oninvalid="setCustomValidity('Select Course.'); setInvalidBackground(this)"
                 oninput="setCustomValidity(''); setValidBackground(this)">
-            <option value="" selected disabled>Select Program</option>
+            <option value="" selected >Select Program</option>
             <option value="Bachelor of Early Childhood Education">Bachelor of Early Childhood Education</option>
             <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy</option>
             <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
@@ -91,7 +91,7 @@
         <div class="col mb-4 choice">Second Choice</div>
         <select class="form-select d-inline-block course" id="PREFERRED_COURSE2" name="PREFERRED_COURSE2"  required oninvalid="setCustomValidity('Select Course.'); setInvalidBackground(this)"
                 oninput="setCustomValidity(''); setValidBackground(this)">
-            <option value="" selected disabled>Select Program</option>
+            <option value="" selected >Select Program</option>
             <option value="Bachelor of Early Childhood Education">Bachelor of Early Childhood Education</option>
             <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy</option>
             <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
@@ -104,7 +104,7 @@
         <div class="col mb-4 choice">Third Choice</div>
         <select class="form-select d-inline-block course" id="PREFERRED_COURSE3" name="PREFERRED_COURSE3"  required oninvalid="setCustomValidity('Select Course.'); setInvalidBackground(this)"
                 oninput="setCustomValidity(''); setValidBackground(this)">
-            <option value="" selected disabled>Select Program</option>
+            <option value="" selected >Select Program</option>
             <option value="Bachelor of Early Childhood Education">Bachelor of Early Childhood Education</option>
             <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy</option>
             <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
@@ -117,7 +117,7 @@
         <div class="col mb-4 choice">Currently Enrolled?</div>
                         <select class="form-select d-inline-block course" id="CURRENTLY_ENROLLED" name="CURRENTLY_ENROLLED"  required oninvalid="setCustomValidity('Select Choice.'); setInvalidBackground(this)"
                 oninput="setCustomValidity(''); setValidBackground(this)">
-            <option value="" selected disabled>Select Yes/No</option>
+            <option selected disabled>Select Yes/No</option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
         </select>
@@ -134,7 +134,7 @@
         <div class="col mb-4">First Choice</div>
         <select class="form-select d-inline-block campus" id="PREFERRED_CAMPUS1" name="PREFERRED_CAMPUS1" style="width:180px"  required oninvalid="setCustomValidity('Select Campus.'); setInvalidBackground(this)"
                 oninput="setCustomValidity(''); setValidBackground(this)">
-            <option value="" selected disabled>Select Campus</option>
+            <option value="" selected>Select Campus</option>
             <option value="San Bartolome">San Bartolome</option>
             <option value="San Francisco">San Francisco</option>
             <option value="Batasan">Batasan</option>
@@ -142,7 +142,7 @@
         <div class="col mb-4">Second Choice</div>
         <select class="form-select d-inline-block campus" id="PREFERRED_CAMPUS2" name="PREFERRED_CAMPUS2" style="width:180px"  required oninvalid="setCustomValidity('Select Campus.'); setInvalidBackground(this)"
                 oninput="setCustomValidity(''); setValidBackground(this)">
-            <option value="" selected disabled>Select Campus</option>
+            <option value="" selected >Select Campus</option>
             <option value="San Bartolome">San Bartolome</option>
             <option value="San Francisco">San Francisco</option>
             <option value="Batasan">Batasan</option>
@@ -150,7 +150,7 @@
         <div class="col mb-4">Third Choice</div>
         <select class="form-select d-inline-block campus" id="PREFERRED_CAMPUS3" name="PREFERRED_CAMPUS3" style="width:180px" onchange="nextPage()"  required oninvalid="setCustomValidity('Select Campus.'); setInvalidBackground(this)"
                 oninput="setCustomValidity(''); setValidBackground(this)">
-            <option value="" selected disabled>Select Campus</option>
+            <option value="" selected>Select Campus</option>
             <option value="San Bartolome">San Bartolome</option>
             <option value="San Francisco">San Francisco</option>
             <option value="Batasan">Batasan</option>
@@ -191,5 +191,66 @@
         });
         myModal.show();
     });
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get today's date in YYYY-MM-DD format
+        var today = new Date();
+        var yyyy = today.getFullYear();
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        var dd = String(today.getDate()).padStart(2, '0');
+
+        var formattedDate = yyyy + '-' + mm + '-' + dd;
+
+        // Set the value of the APPLICATION_DATE input field
+        var applicationDateField = document.getElementById('application_date');
+        if (applicationDateField) {
+            applicationDateField.value = formattedDate;
+        }
+    });
+</script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const courseSelectors = [
+        document.getElementById("PREFERRED_COURSE1"),
+        document.getElementById("PREFERRED_COURSE2"),
+        document.getElementById("PREFERRED_COURSE3")
+    ];
+
+    const campusSelectors = [
+        document.getElementById("PREFERRED_CAMPUS1"),
+        document.getElementById("PREFERRED_CAMPUS2"),
+        document.getElementById("PREFERRED_CAMPUS3")
+    ];
+
+    // Function to update options for a group of selectors
+    function updateOptions(selectors) {
+        let selectedValues = new Set([...selectors.map(sel => sel.value)]);
+
+        selectors.forEach(selector => {
+            let currentValue = selector.value;
+
+            Array.from(selector.options).forEach(option => {
+                if (option.value !== "" && selectedValues.has(option.value) && option.value !== currentValue) {
+                    option.style.display = "none";
+                } else {
+                    option.style.display = "";
+                }
+            });
+        });
+    }
+
+    // Attach event listeners to all course selectors
+    courseSelectors.forEach(selector => {
+        selector.addEventListener("change", () => updateOptions(courseSelectors));
+    });
+
+    // Attach event listeners to all campus selectors
+    campusSelectors.forEach(selector => {
+        selector.addEventListener("change", () => updateOptions(campusSelectors));
+    });
+});
 
 </script>

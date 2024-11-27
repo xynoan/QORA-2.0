@@ -37,20 +37,18 @@
                                     <th>Subject Name</th>
                                     <th>Units</th>
                                     <th style="text-align: center; line-height:30px; width: 150px;">Grade</th>
-                                <th style="text-align: center; line-height:30px; width: 180px;">Remarks</th> <!-- Added Remarks column -->
+                                    <th style="text-align: center; line-height:30px; width: 180px;">Remarks</th>
                                 </tr>
                             </thead>
-                        
                             <tbody>
-                               
                                 @foreach (var subject in Model)
                                 {
                                     <tr style="line-height: 50px;">
                                         <td>@subject.Key</td>
                                         <td>@subject.Value[0]</td>
                                         <td>@subject.Value[1]</td>
-                                        <td><input type="text" name="grades[@subject.Key]" class="grade-input" style="text-align: center; line-height:30px; width: 150px;" required/></td>
-                                <td><input type="text" name="remarks[@subject.Key]" class="remarks" style="text-align: center; line-height:30px; width: 180px;" readonly  /></td> <!-- Remarks input field -->
+                                        <td><input type="text" name="grades[@subject.Key]" class="grade-input" style="text-align: center; line-height:30px; width: 150px;" required /></td>
+                                        <td><input type="text" name="remarks[@subject.Key]" class="remarks" style="text-align: center; line-height:30px; width: 180px;" readonly /></td>
                                     </tr>
                                 }
                             </tbody>
@@ -65,9 +63,9 @@
             <div class="container text-center mt-4" style="width: 35%;">
                 <div class="row row-cols-2">
                     <div class="col mb-3"><p class="fw-bold">Total No. of Units</p></div>
-                    <div class="co  l"><input type="number" name="total_units" class="form-control" readonly /></div>
+                    <div class="co  l"><input type="text" name="TOTAL_UNITS" class="form-control" readonly /></div>
                     <div class="col"><p class="fw-bold">GWA</p></div>
-                    <div class="col"><input type="number" name="gwa" class="form-control" readonly /></div>
+                    <div class="col"><input type="text" name="GWA" id="GWA" class="form-control" readonly /></div>
                 </div>
             </div>
             <div class="d-flex justify-content-between mt-4">
@@ -82,26 +80,20 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Function to compute the total units
         function computeTotalUnits() {
             let totalUnits = 0;
 
-            // Loop through each subject row
             document.querySelectorAll("table tbody tr").forEach(function (row) {
-                // Get the units from the third column (index 2) of each row
                 let units = parseFloat(row.cells[2].innerText);
                 if (!isNaN(units)) {
                     totalUnits += units;
                 }
             });
 
-            // Log and update the Total No. of Units input field
-            console.log("Total Units Calculated:", totalUnits);
-            document.querySelector("input[name='total_units']").value = totalUnits.toFixed(2);  // Limit to 2 decimal places
+            document.querySelector("input[name='TOTAL_UNITS']").value = totalUnits.toFixed(2);
             return totalUnits;
         }
 
-        // Function to calculate GWA
         function calculateGWA() {
             let totalGradePoints = 0;
             let totalUnits = 0;
@@ -110,8 +102,7 @@
                 const gradeInput = row.querySelector('input[name^="grades"]');
                 const unitsText = row.querySelector('td:nth-child(3)').innerText;
 
-                // Parse grade and units as numbers
-                const grade = parseFloat(gradeInput ? gradeInput.value : 0).toFixed(2);  // Limit grade to 2 decimal places
+                const grade = parseFloat(gradeInput ? gradeInput.value : 0);
                 const units = parseFloat(unitsText);
 
                 if (!isNaN(grade) && !isNaN(units)) {
@@ -120,12 +111,27 @@
                 }
             });
 
-            // Calculate GWA if total units is not zero
             const gwa = totalUnits !== 0 ? (totalGradePoints / totalUnits).toFixed(2) : 0;
+            document.querySelector("input[name='GWA']").value = gwa;
+        }
 
-            // Log and update GWA input field
-            console.log("GWA Calculated:", gwa);
-            document.querySelector("input[name='gwa']").value = gwa;
+        function updateRemarks() {
+            document.querySelectorAll('input[name^="grades"]').forEach(function (gradeInput) {
+                const gradeValue = parseFloat(gradeInput.value);
+                const remarksInput = gradeInput.closest('tr').querySelector('input[name^="remarks"]');
+                let remarks = "";
+
+                if (gradeValue >= 75 && gradeValue <= 100) {
+                    remarks = gradeValue >= 98 ? "Excellent" : gradeValue >= 95 ? "Very Good" : "Good";
+                } else if (gradeValue >= 1.00 && gradeValue <= 5.00) {
+                    remarks = gradeValue === 1.00 ? "Excellent" : gradeValue <= 1.25 ? "Very Good" : "Good";
+                } else {
+                    remarks = "Invalid grade";
+                }
+
+                remarksInput.value = remarks;
+                remarksInput.style.color = remarks === "Invalid grade" ? "red" : "green";
+            });
         }
 
         // Function to update remarks based on grade
@@ -207,7 +213,6 @@
             });
         }
 
-        // Recompute the total units, GWA, and remarks when any grade input changes
         document.querySelectorAll('input[name^="grades"]').forEach(function (input) {
             input.addEventListener('input', function () {
                 computeTotalUnits();
@@ -216,7 +221,6 @@
             });
         });
 
-        // Initial computation on page load
         computeTotalUnits();
         calculateGWA();
         updateRemarks();

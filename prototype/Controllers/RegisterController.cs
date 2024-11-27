@@ -31,6 +31,12 @@ namespace prototype.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Set APPLICATION_DATE to today's date if not already set
+                if (string.IsNullOrEmpty(model.APPLICATION_DATE))
+                {
+                    model.APPLICATION_DATE = DateTime.Now.ToString("yyyy-MM-dd");
+                }
+
                 TempData["BasicInfo"] = JsonSerializer.Serialize(model);
                 TempData["StudentAccId"] = model.BI_STUDENT_ACC_ID;
                 TempData.Keep("StudentAccId");

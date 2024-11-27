@@ -302,28 +302,47 @@ namespace prototype.Controllers
 
             // Insert new grades
             var studentGradingList = new List<StudentGrading>();
+            double totalUnits = 0;
+            double totalGradePoints = 0;
 
             foreach (var gradeEntry in grades)
             {
                 var code = gradeEntry.Key;
-                var gradeValue = double.TryParse(gradeEntry.Value, out double grade) ? grade.ToString() : null;
+                var gradeValue = double.TryParse(gradeEntry.Value, out double grade) ? grade : 0;
                 var remark = remarks.ContainsKey(code) ? remarks[code] : "";
 
                 if (subjectsForYearSemester.TryGetValue(code, out var subjectInfo))
                 {
                     var subjectName = subjectInfo[0]?.ToString() ?? "";
-                    var units = subjectInfo.Count > 1 ? subjectInfo[1].ToString() : "0";
+                    var units = double.TryParse(subjectInfo.Count > 1 ? subjectInfo[1].ToString() : "0", out double u) ? u : 0;
+
+                    totalUnits += units;
+                    totalGradePoints += gradeValue * units;
 
                     studentGradingList.Add(new StudentGrading
                     {
                         GRADES_STUDENT_ID = accStudentId,
                         CODE = code,
                         SUBJECT = subjectName,
-                        UNITS = units,
-                        GRADE = gradeValue,
+                        UNITS = units.ToString(),
+                        GRADE = gradeValue.ToString(),
                         REMARKS = remark
                     });
                 }
+            }
+
+            // Calculate GWA (Grade Weighted Average)
+            var gwa = totalUnits > 0 ? totalGradePoints / totalUnits : 0;
+
+            // Round GWA and total units to whole numbers
+            var roundedGWA = (int)Math.Round(gwa);
+            var roundedTotalUnits = (int)Math.Round(totalUnits);
+
+            // Update each StudentGrading object with the GWA and total units
+            foreach (var studentGrade in studentGradingList)
+            {
+                studentGrade.TOTAL_UNITS = roundedTotalUnits.ToString();
+                studentGrade.GWA = roundedGWA.ToString();
             }
 
             _context.StudentGradings.AddRange(studentGradingList);

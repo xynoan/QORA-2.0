@@ -3,11 +3,132 @@
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 
+<style>
+/* General container styles */
+/* General container styles */
+#registrationForm {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+/* Header styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.header img {
+    width: 100px;
+    height: auto;
+}
+
+.header .text-center h3,
+.header .text-center h4,
+.header .text-center p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.header .text-end {
+    text-align: right;
+    font-size: 14px;
+}
+
+.header .text-end div {
+    margin-top: 5px;
+    width: 150px;
+    height: 50px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Form fields below header */
+.form-fields {
+    margin-top: 20px;
+}
+
+.form-fields label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.form-fields input {
+    font-size: 14px;
+    padding: 5px;
+}
+
+.form-fields small {
+    font-size: 12px;
+    display: block;
+    margin-top: 3px;
+}
+
+.row {
+    margin-bottom: 10px;
+}
+
+.col-md-3, .col-md-4 {
+    padding-right: 10px;
+}
+
+
+    .header .text-center h3,
+    .header .text-center h4,
+    .header .text-center p {
+        font-size: 12px;
+    }
+
+    .form-fields label {
+        font-size: 12px;
+    }
+
+
+    #registrationForm .table-bordered th,
+    #registrationForm .table-bordered td {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    #registrationForm h5 {
+        font-size: 14px;
+    }
+        #registrationForm .footer {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .next-student-link {
+        margin-top: 20px;
+        text-align: end;
+    }
+
+        .next-student-link a {
+            background-color: var(--main-color, #444);
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+
+            .next-student-link a:hover {
+                background-color: #222;
+            }
+
+</style>
+
 <div class="container" id="main-container">
-    <h1 class="text-center fs-2" style="color: var(--main-color);">Enrolled Schedule for AY [date]/[ ] Sem</h1>
+    <h1 class="text-center fs-2" style="color: var(--main-color);">
+        Enrolled Schedule for AY 2024-2025 / 1st Sem
+    </h1>
     <div class="border border-black border-2">
-        <div class="d-flex justify-content-between p-3">
-            <span>Roxas, Mark Joseph - StudNo - IT.pdf </span>
+        <div class="d-flex justify-content-between p-3 border border-black border-2 ">
+            <span>Roxas, Mark Joseph - StudNo - IT.pdf</span>
             <div class="zoom me-5">
                 <i class="fa-solid fa-minus"></i>
                 <i class="fa-solid fa-plus"></i>
@@ -17,9 +138,247 @@
                 <i class="fa-solid fa-envelope"></i> <span>Email</span>
             </div>
         </div>
-        <div style="background-color: grey;" class="p-3">
-            <img src="/images/Reg-Form.png" alt="regform" height="500px;" class="d-block mx-auto my-auto">
-            <p class="text-end"><a href="@Url.Action("Index")" style="background-color: var(--main-color);" class="text-white text-decoration-none black-on-hover p-2 rounded-3">Next Student</a></p>
+        <div style="background-color: #fff;" class="p-3">
+            <div id="registrationForm">
+                <!-- Header Section -->
+                <div class="header d-flex justify-content-between align-items-start">
+                    <!-- Left: Logo -->
+                    <div>
+                        <img src="/images/QCU-Logo.png" alt="QCU Logo" style="width: 100px; height: auto;" />
+                    </div>
+
+                    <!-- Center: Title -->
+                    <div class="text-center" style="flex-grow: 1;">
+                        <h3 style="margin-bottom: 0;">QUEZON CITY UNIVERSITY</h3>
+                        <h4 style="margin: 0;">(Formerly Quezon City University)</h4>
+                        <p style="margin: 5px 0;">CERTIFICATION OF REGISTRATION</p>
+                        <p><strong>AY: 2024-2025 SEM: 1st</strong></p>
+                    </div>
+                    <!-- Right: Campus and Barcode -->
+                    <div class="text-end">
+                        <p><strong>Campus:</strong> San Bartolome</p>
+                        <p><strong>StudNo:</strong> ___________</p>
+                 
+                  
+                    </div>
+                    <img src="/images/barcode.png" alt="QCU Logo" style="width: 100px; height: 50; margin-left:5%" />
+
+                </div>
+
+                <!-- Form Fields Below Header -->
+                <div class="form-fields mt-3">
+                    <div class="row">
+                        <!-- Course/Year/Section -->
+                        <div style="display: flex; align-items: center; margin-right: 30px; line-height:60px;">
+                            <span style="margin-right: 10px; ">Course/Year/Section</span>
+                            <input type="text" class="form-control border-input" style="width:50px;" value="BSIT" >
+                            <input type="text" class="form-control border-input" style="width:200px;" value="" >
+
+                            <input type="checkbox" class="form-check-input" style="height:35px; width:55px; margin-left:20px" >
+                            <span style="width:180px; margin-left:2px; ">Regular Student</span>
+
+                            <input type="checkbox" class="form-check-input" style="height:35px; width:55px; margin-left:20px">
+                            <span style="width:180px; margin-left:2px;  ">Irregular Student</span>
+
+
+                            <span style="width:170px; margin-left:5%;">Graduating?</span>
+                            <input type="checkbox" name="graduating" class="form-check-input" style="height:35px; width:55px;" >
+                            <span style="margin-right: 5px; margin-left:5px;">Yes</span>
+                            <input type="checkbox" name="graduating" class="form-check-input" style="height:35px; width:55px;" >
+                            <span style="margin-left: 5px;">No</span>
+                        </div>
+                   
+                    
+                    </div>
+       
+
+                    <!-- Name Fields -->
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" placeholder="Family Name" readonly>
+                            <small class="text-muted">(Family Name)</small>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" placeholder="Given Name" readonly>
+                            <small class="text-muted">(Given Name)</small>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" placeholder="Middle Name" readonly>
+                            <small class="text-muted">(Middle Name)</small>
+                        </div>
+                    </div>
+
+                    <div style="display: inline-block; margin-right: 30px;">
+                        <div style="display: inline-block; margin-right: 15px; width:130px;">
+                            <input type="checkbox" id="new" class="form-check-input" style="height:30px; width:30px;">
+                            <label for="new" class="form-check-label" style="font-size:15px;">New</label>
+                        </div>
+                        <div style="display: inline-block; margin-right: 15px; width:130px;">
+                            <input type="checkbox" id="old" class="form-check-input" style="height:30px; width:30px;">
+                            <label for="old" class="form-check-label" style="font-size:15px;">Old</label>
+                        </div><br />
+                        <div style="display: inline-block; margin-right: 15px; width:130px;">
+                            <input type="checkbox" id="returnee" class="form-check-input" style="height:30px; width:30px;">
+                            <label for="returnee" class="form-check-label" style="font-size:15px;">Returnee</label>
+                        </div>
+                        <div style="display: inline-block; width:150px;">
+                            <input type="checkbox" id="transferee" class="form-check-input" style="height:30px; width:30px;">
+                            <label for="transferee" class="form-check-label" style="font-size:15px;">Transferee</label>
+                        </div>
+                    </div>
+                   
+                    <!-- Last Enrollment -->
+                    <div style="display: inline-block; margin-right: 30px;">
+                        <span>Last Enrollment?</span>
+                        <input type="text" class="form-control border-input" placeholder="Semester, School Yr 20__-20__" style="width: 200px; margin-left: 10px;">
+                    </div>
+
+                    <!-- Course -->
+                    <div style="display: inline-block; margin-right: 30px;">
+                        <span>Course</span>
+                        <input type="text" class="form-control border-input" placeholder="Course" style="width: 120px; margin-left: 10px;">
+                    </div>
+
+                    <!-- Enlisted By -->
+                    <div style="display: inline-block;">
+                        <span>Enlisted by:</span>
+                        <input type="text" class="form-control border-input" placeholder="Staff Name" style="width: 150px; margin-left: 10px;">
+                    </div>
+                    <!-- Previous University -->
+                    <div style="display: inline-block; margin-right: 30px;">
+                        <span>Previous University</span>
+                        <input type="text" class="form-control border-input" placeholder="University Name" style="width: 250px; margin-left: 10px;">
+
+                        <span>Course</span>
+                        <input type="text" class="form-control border-input" placeholder="Course" style="width: 200px; margin-left: 10px;">
+                    </div>
+                </div>
+                <br />
+                <!-- Row 2: Previous University and Course -->
+         
+
+                </div>
+            </div>
+
+
+        <!-- Table for subjects -->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Section-Subject</th>
+                                <th>Unit</th>
+                                <th>Room</th>
+                                <th>Days</th>
+                                <th>Time</th>
+                                <th>Professor</th>
+                                <th>STUDENT ACCOUNT</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Subjects -->
+                            <tr>
+                                <td>SOCCSCI2</td>
+                                <td>SBIT2D-Readings in the Philippines History</td>
+                                <td>3</td>
+                                <td>F</td>
+                                <td>F</td>
+                                <td>11:00AM-2:00PM</td>
+                                <td>Prof. A</td>
+                                <td>Athletics & Sports Dev.</td>
+                                <td>50.00</td>
+                            </tr>
+                            <tr>
+                                <td>PE4</td>
+                                <td>SBIT2D-Team Sports</td>
+                                <td>2</td>
+                                <td>T</td>
+                                <td>T</td>
+                                <td>2:00PM-4:00PM</td>
+                                <td>Prof. B</td>
+                                <td>Comp/Major Lab</td>
+                                <td>500.00</td>
+                            </tr>
+                            <tr>
+                                <td>SOCCSCI1</td>
+                                <td>SBIT2D-Understanding the Self</td>
+                                <td>3</td>
+                                <td>F</td>
+                                <td>F</td>
+                                <td>7:00AM-10:00AM</td>
+                                <td>Prof. C</td>
+                                <td>Cultural Fee</td>
+                                <td>100.00</td>
+                            </tr>
+                            <!-- Additional rows for subjects -->
+                            <tr>
+                                <td>SE101</td>
+                                <td>SBIT2D-Software Engineering</td>
+                                <td>3</td>
+                                <td>S</td>
+                                <td>S</td>
+                                <td>11:00AM-1:00PM</td>
+                                <td>Prof. D</td>
+                                <td>Development Fee</td>
+                                <td>400.00</td>
+                            </tr>
+                            <tr>
+                                <td>IM101</td>
+                                <td>SBIT2D-Advanced Database Systems</td>
+                                <td>3</td>
+                                <td>T</td>
+                                <td>T</td>
+                                <td>7:00AM-10:00AM</td>
+                                <td>Prof. E</td>
+                                <td>Library Fee</td>
+                                <td>400.00</td>
+                            </tr>
+                            <tr>
+                                <td>HC101</td>
+                                <td>SBIT2D-Introduction to Human Computer Interface</td>
+                                <td>3</td>
+                                <td>TH</td>
+                                <td>TH</td>
+                                <td>9:00AM-11:00AM</td>
+                                <td>Prof. F</td>
+                                <td>Medical & Dental</td>
+                                <td>50.00</td>
+                            </tr>
+                            <tr>
+                                <td>IPT101</td>
+                                <td>SBIT2D-Integrative Programming and Technologies 1</td>
+                                <td>3</td>
+                                <td>W</td>
+                                <td>W</td>
+                                <td>3:00PM-5:00PM</td>
+                                <td>Prof. G</td>
+                                <td>Tuition 20 Units Php303.34/Unit</td>
+                                <td>6,066.80</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="8" class="text-end"><strong>Total</strong></td>
+                                <td><strong>7,656.80</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+    <!-- Footer -->
+    <div class="footers">
+        <p>ADVISER (Full Signature Over Printed Name)</p>
+        <p>Student's Signature</p>
+        <p>Date of Registration</p>
+    </div>
+</div>
+
+
+            <div class="next-student-link">
+                <a href="@Url.Action("Index")">Next Student</a>
+
+
+            </div>
         </div>
     </div>
 </div>

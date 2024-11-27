@@ -71,7 +71,8 @@
                                     data-gwa="@student.Gwa"
                                     data-status="@student.Status"
                                     data-reference-number="@student.ReferenceNumber"
-                                    onclick="updateSecondHalf('@student.StudentId', '@student.FullName', '@student.PhotoUrl', '@student.YearLevelTerm', '@student.Gwa', '@student.ReferenceNumber', '@student.Status')" style="cursor: pointer;">
+                                    onclick="handleRowClick('@student.StudentId', '@student.FullName', '@student.PhotoUrl', '@student.YearLevelTerm', '@student.Gwa', '@student.ReferenceNumber', '@student.Status')"
+                                    style="cursor: pointer;">
                                     <td>
                                         <img src="@(!string.IsNullOrEmpty(student.PhotoUrl)
                                 ? $"data:image/jpeg;base64,{student.PhotoUrl}"
@@ -112,9 +113,9 @@
             <span class="gwa sub-span rounded-2" id="studentGwa">GWA: </span>
         </div>
         <div class="d-flex justify-content-between">
-                        <a href="@Url.Action("ViewProfiles", "Registrar", new { studentId = ViewBag.StudentId })" id="viewProfile" class="underline-on-hover text-decoration-none text-black border border-grey border-2 p-1 rounded-2">View Profile</a>
-                        <a href="@Url.Action("Enlist", "Registrar")" id="enlistStudent" class="underline-on-hover text-decoration-none text-black border border-grey border-2 p-1 rounded-2">Enlist Student</a>
-        </div>
+        <a href="@Url.Action("ViewProfiles", "Registrar")" id="viewProfile" class="underline-on-hover text-decoration-none text-black border border-grey border-2 p-1 rounded-2">View Profile</a>
+                        <a href="#" id="enlistStudent" class="underline-on-hover text-decoration-none text-black border border-grey border-2 p-1 rounded-2">Enlist Student</a>
+                    </div>
     </div>
 </div>
 
@@ -144,43 +145,47 @@
 </script>
 <script>
     async function updateSecondHalf(studentId, fullName, photoUrl, yearLevelTerm, gwa, referenceNumber, status) {
-        // Update the panel with basic information (ID, Name, Photo)
+        // Update the panel with the student's details
         document.getElementById("studentId").textContent = studentId || "STUDENT ID";
         document.getElementById("studentName").textContent = fullName || "Student Name";
         document.getElementById("studentPhoto").src = photoUrl
             ? `data:image/jpeg;base64,${photoUrl}`
             : "../../images/default-profile.png";
-
-        // Update additional fields passed with row data
         document.getElementById("studentYear").textContent = yearLevelTerm || "Year Level - Term";
         document.getElementById("studentStatus").textContent = status || "Status";
         document.getElementById("studentGwa").textContent = `GWA: ${gwa || "N/A"}`;
+        document.getElementById("referenceId").value = referenceNumber || "Reference ID";
 
-        // Update the reference number in the input field
-        document.getElementById("referenceId").value = referenceNumber || "Reference ID";  // Update input field with reference number
+        // Update the "View Profile" button link
+        const viewProfileLink = document.getElementById("viewProfile");
+        viewProfileLink.href = `/Registrar/ViewProfiles?studentId=${studentId}`;
+
+        // Update the "Enlist Student" button link
+        const enlistStudentLink = document.getElementById("enlistStudent");
+        enlistStudentLink.href = `/Registrar/Enlist?studentId=${studentId}`;
     }
 
-    // Add click event listener to each table row
     document.addEventListener("DOMContentLoaded", function () {
         const rows = document.querySelectorAll(".student-row");
 
         rows.forEach(row => {
             row.addEventListener("click", function () {
-                // Extract data from the clicked row using `data-*` attributes
                 const studentId = this.getAttribute("data-student-id");
                 const fullName = this.getAttribute("data-full-name");
                 const photoUrl = this.getAttribute("data-photo-url");
                 const yearLevelTerm = this.getAttribute("data-year-level");
                 const gwa = this.getAttribute("data-gwa");
-                const referenceNumber = this.getAttribute("data-reference-number"); // Get reference number
+                const referenceNumber = this.getAttribute("data-reference-number");
                 const status = this.getAttribute("data-status");
 
-                // Call the function to update the second-half panel
                 updateSecondHalf(studentId, fullName, photoUrl, yearLevelTerm, gwa, referenceNumber, status);
             });
         });
     });
+
 </script>
+
+
 <script>
     async function deleteReference(studentId) {
         if (confirm(`Are you sure you want to delete the reference for Student ID: ${studentId}?`)) {
@@ -244,5 +249,3 @@
     // Optional: You can also trigger the search function on input change if you'd like to search as you type
     document.querySelector('input[type="search"]').addEventListener('input', searchStudents);
 </script>
-
-
