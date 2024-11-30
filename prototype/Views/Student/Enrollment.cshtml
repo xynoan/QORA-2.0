@@ -3,41 +3,64 @@
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 
+@section Scripts {
+    <script>
+        // Display error message if it exists
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <text>
+                alert("@TempData["ErrorMessage"]");
+            </text>
+        }
+
+            // Display success message if it exists
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+                alert("@TempData["SuccessMessage"]");
+            </text>
+        }
+    </script>
+}
+
 <div class="container" id="main-container">
-    <div id="content-form" class="p-md-5 p-3 mt-3">
-        <!-- Logout Modal or equivalent -->
-        @* Include logout modal, implement as partial view *@
-        @await Html.PartialAsync("_LogoutModal")
-
-        <!-- Progress bar -->
-        <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 17%"></div>
-        </div>
-
+    <div id="content-form" class="p-5 mt-3">
+        <!-- Progress Bar (optional) -->
+        <ul class="progressbar">
+            <li class="active"><a style="color:black;">Recent ID Picture</a></li>
+            <li>Year Level and Screening</li>
+            <li>Program</li>
+            <li>Grades Input</li>
+            <li>Input Review and Electronic Consent</li>
+            <li>Reference ID</li>
+        </ul>
+        <br>
         <h1 class="mt-3">Student Enlistment Form</h1>
         <hr class="divider">
 
-        <!-- Form for image upload and directions -->
-        <div class="d-flex flex-column flex-md-row justify-content-md-evenly align-items-center gap-4">
-            <form asp-action="Year" method="post" enctype="multipart/form-data" class="d-flex flex-column align-items-center gap-3">
-                <div id="image-container" class="square border border-3 border-grey d-flex flex-column justify-content-center align-items-center">
-                    <input type="file" id="actual-btn" name="UploadedImage" hidden />
-                    <label for="actual-btn">
-                        <i class="fa-solid fa-cloud-arrow-up" style="opacity: 0.5; font-size: 100px;"></i>
-                    </label>
-                    <span class="text-center mt-2" style="color: grey; width: 150px;">
-                        <b>Click to upload</b> or drag and drop
-                    </span>
+        <!-- Form for Image Upload -->
+        <div class="d-flex justify-content-evenly">
+            <form asp-action="Enrollment" method="post" enctype="multipart/form-data" class="d-flex flex-column align-items-center justify-content-center gap-3">
+                <div id="image-container" class="border border-3 d-flex flex-column justify-content-center align-items-center"
+                     style="height: 300px; width: 300px; position: relative; overflow: hidden; cursor: pointer; background: url('/path/to/your/image.png') no-repeat center center; background-size: contain;">
+                    <!-- Hidden file input -->
+                    <input type="file" id="SEF_ID_PICTURE" name="SEF_ID_PICTURE" accept="image/*" style="display: none;" required />
+
+                    <!-- Icon and placeholder text -->
+                    <i id="upload-icon" class="fa-solid fa-cloud-arrow-up" style="opacity: 0.5; font-size: 100px;"></i>
+                    <span id="placeholder-text" style="color: grey; text-align: center;"><b>Click to upload</b> or drag and drop</span>
                 </div>
-                <a href="#" class="text-black">
-                    <label for="actual-btn" class="text-decoration-underline" style="cursor: pointer;">Change</label>
-                </a>
-                <button type="submit" class="btn text-white rounded-4" id="submitImage">SUBMIT</button>
+
+                <!-- Change Image button, hidden initially -->
+                <button type="button" id="change-image-button" class="btn btn-secondary mt-3" style="display: none; cursor: pointer;">Change Image</button>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn text-white rounded-4 mt-3" name="submitImage" id="submitImage">Upload</button>
             </form>
 
-            <!-- Directions -->
-            <div class="text-center text-md-start">
-                <h2 class="text-uppercase">Directions:</h2>
+            <!-- Directions Section (optional) -->
+            <div>
+                <h2 class="text-uppercase text-center fw-bold">Directions:</h2>
                 <p>1. Please upload your <b>recent</b> image.</p>
                 <p>2. Image should be <b>clear</b> and <b>high-resolution</b>.</p>
                 <p>3. The background should be <b>white</b>.</p>
@@ -47,3 +70,63 @@
         </div>
     </div>
 </div>
+
+<!-- Optional Enrollment Guide Modal -->
+<div class="modal fade" id="enrollmentGuideModal" tabindex="-1" aria-labelledby="enrollmentGuideModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="enrollmentGuideModalLabel">Enrollment Instructions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Welcome to the Student Enlistment Form! Please follow the instructions below to complete your enrollment.</p>
+                <ul>
+                    <li>Upload a recent, clear, high-resolution image with a white background.</li>
+                    <li>Ensure the image format is JPEG, PNG, or GIF, and does not exceed 100MB.</li>
+                    <li>Fill in all required fields and review your information before submitting.</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got it!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional Script to Show Modal on Page Load -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var enrollmentModal = new bootstrap.Modal(document.getElementById('enrollmentGuideModal'), {
+            backdrop: 'static',
+            keyboard: false
+        });
+        enrollmentModal.show();
+    });
+</script>
+<!-- JavaScript to handle file input and preview -->
+<script>
+    document.getElementById('image-container').addEventListener('click', function () {
+        document.getElementById('SEF_ID_PICTURE').click();
+    });
+
+    document.getElementById('SEF_ID_PICTURE').addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const imageUrl = event.target.result;
+                document.getElementById('image-container').style.backgroundImage = `url(${imageUrl})`;
+                document.getElementById('placeholder-text').style.display = 'none';
+                document.getElementById('upload-icon').style.display = 'none';
+                document.getElementById('change-image-button').style.display = 'inline-block'; // Show Change Image button
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Handle "Change Image" button click
+    document.getElementById('change-image-button').addEventListener('click', function () {
+        document.getElementById('SEF_ID_PICTURE').click();
+    });
+</script>

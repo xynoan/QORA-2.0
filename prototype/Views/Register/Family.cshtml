@@ -1,31 +1,37 @@
-@{
-    ViewBag.Title = "- Register";
-}
+    @{
+        ViewBag.Title = "- Register";
+    }
 
 <div class="container" id="main-container">
     <div id="content-form" class="p-5 mt-3">
-        <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 80%"></div>
+        <div>
+            <ul class="progressbar">
+                <li class="active"><a style="color:black;">Basic Information</a></li>
+                <li class="active"><a style="color:black;">Personal Information</a></li>
+                <li class="active"><a style="color:black;">Educational Attainment</a></li>
+                <li class="active"><a style="color:black;">Family Background</a></li>
+                <li><a style="color:black;">In Case Of Emegency</a></li>
+            </ul>
         </div>
-        <h1 class="mt-3">Family Background</h1>
-        <hr class="divider">
-        <form asp-action="Emergency" method="post">
+            <h1 class="mt-3">Family Background</h1>
+            <hr class="divider">
+            <form asp-action="Family" method="post">
             <p class="fw-bold">Father's Full Name</p>
-            <div class="input-group d-flex flex-column name-input-group">
-                <input type="text" name="" id="" placeholder="Last Name" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="First Name" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="Middle Name" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="Suffix" class="form-control w-100">
+            <div class="input-group">
+                <input type="text" name="FATHER_LAST_NAME" id="lastName_father" placeholder="Last Name" class="form-control" style="border: 1px solid #ccc;">
+                <input type="text" name="FATHER_FIRST_NAME" id="firstName_father" placeholder="First Name" class="form-control" style="border: 1px solid #ccc;">
+                <input type="text" name="FATHER_MIDDLE_NAME" id="middleName_father" placeholder="Middle Name" class="form-control" style="border: 1px solid #ccc;">
+                <input type="text" name="FATHER_SUFFIX" id="suffix_father" placeholder="Suffix e.g., Jr., Sr., III" class="form-control">
             </div>
             <div class="mt-3 d-flex flex-column gap-3 personal-info-group">
                 <div class="d-flex flex-column">
                     <p class="fw-bold"><label for="Occupation">Occupation</label></p>
-                    <input type="text" name="" id="Occupation" class="form-control">
+                    <input type="text" name="FATHER_OCCUPATION" id="Occupation" placeholder="e.g., Teacher, Carpenter, Driver" class="form-control">
                 </div>
                 <div class="d-flex flex-column">
                     <p class="fw-bold"><label for="Educational">Educational Attainment</label></p>
-                    <select class="form-select d-inline-block" id="Educational">
-                        <option selected>Select One</option>
+                    <select class="form-select d-inline-block" id="Educational" name="FATHER_EDUCATIONAL_ATTAINMENT">
+                        <option selected value="" disabled>Select One</option>
                         <option value="Elementary">Elementary</option>
                         <option value="hs">High School (non-K12)</option>
                         <option value="hs-k12">High School (K-12)</option>
@@ -34,24 +40,24 @@
                 </div>
                 <div class="d-flex flex-column">
                     <p class="fw-bold"><label for="Contact">Contact Number</label></p>
-                    <input type="text" name="" id="Contact" class="form-control">
+                    <input type="number" name="FATHER_CONTACT_NUMBER" id="contact" placeholder="+639568612356" class="form-control">
                 </div>
             </div>
-            <p class="fw-bold mt-3">Mother’s Maiden Name</p>
-            <div class="input-group d-flex flex-column name-input-group">
-                <input type="text" name="" id="" placeholder="Last Name" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="First Name" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="Middle Name" class="form-control w-100">
+            <p class="fw-bold mt-3">Motherï¿½s Maiden Name</p>
+            <div class="input-group">
+                <input type="text" name="MOTHER_LAST_NAME" id="Last_name_mom" placeholder="Last Name" class="form-control" style="border: 1px solid #ccc;">
+                <input type="text" name="MOTHER_FIRST_NAME" id="First_name_mom" placeholder="First Name" class="form-control" style="border: 1px solid #ccc;">
+                <input type="text" name="MOTHER_MIDDLE_NAME" id="Middle_name_mom" placeholder="Middle Name" class="form-control" style="border: 1px solid #ccc;">
             </div>
             <div class="mt-3 gap-3 d-flex flex-column personal-info-group">
                 <div class="d-flex flex-column">
                     <p class="fw-bold"><label for="OccupationMother">Occupation</label></p>
-                    <input type="text" name="" id="OccupationMother" class="form-control">
+                    <input type="text" name="MOTHER_OCCUPATION" id="OccupationMother" placeholder="e.g., House Wife, Salesperson, Nurse" class="form-control">
                 </div>
                 <div class="d-flex flex-column">
                     <p class="fw-bold"><label for="EducationalMother">Educational Attainment</label></p>
-                    <select class="form-select d-inline-block" id="EducationalMother">
-                        <option selected>Select One</option>
+                    <select class="form-select d-inline-block" id="EducationalMother" name="MOTHER_EDUCATIONAL_ATTAINMENT" class="form-control">
+                        <option selected value="" disabled>Select One</option>
                         <option value="Elementary">Elementary</option>
                         <option value="hs">High School (non-K12)</option>
                         <option value="hs-k12">High School (K-12)</option>
@@ -60,38 +66,67 @@
                 </div>
                 <div class="d-flex flex-column">
                     <p class="fw-bold"><label for="ContactMother">Contact Number</label></p>
-                    <input type="text" name="" id="ContactMother" class="form-control">
+                    <input type="number" name="MOTHER_CONTACT_NUMBER" id="ContactMother" placeholder="+639568612356" class="form-control">
+                </div>
+                <p class="fw-bold mt-3">Present Address</p>
+                <div class="input-group">
+                    <input type="text" name="FAMILY_STREET" id="STREET" placeholder="House No./Street" class="form-control" required oninvalid="setCustomValidity('Drop the House No./Street.'); setInvalidBackground(this)"
+                           oninput="setCustomValidity(''); setValidBackground(this)">
+                    <select name="FAMILY_DISTRICT" id="district" class="form-control" required oninvalid="setCustomValidity('Select District.'); setInvalidBackground(this)"
+                            oninput="setCustomValidity(''); setValidBackground(this)">
+                        <option value="" selected disabled>District</option>
+                        <option value="District 1">District 1</option>
+                        <option value="District 2">District 2</option>
+                        <option value="District 3">District 3</option>
+                        <option value="District 4">District 4</option>
+                        <option value="District 5">District 5</option>
+                        <option value="District 6">District 6</option>
+                    </select>
+                    <select name="FAMILY_BARANGAY" id="barangay" class="form-control" required oninvalid="setCustomValidity('Select Barangay.'); setInvalidBackground(this)"
+                            oninput="setCustomValidity(''); setValidBackground(this)">
+                        <option value="" selected disabled>Barangay</option>
+                    </select>
+                    <select name="FAMILY_MUNICIPALITY" id="municipality" class="form-control" required oninvalid="setCustomValidity('Select City.'); setInvalidBackground(this)"
+                            oninput="setCustomValidity(''); setValidBackground(this)">
+                        <option value="" selected disabled>City</option>
+                        <option value="Quezon City">Quezon City</option>
+                    </select>
+
+                    <input type="text" name="FAMILY_ZIPCODE" id="zipcode" placeholder="Zip Code (Optional)" class="form-control" required oninvalid="setCustomValidity('Drop the Zipcode.'); setInvalidBackground(this)"
+                           oninput="setCustomValidity(''); setValidBackground(this)">
                 </div>
             </div>
-            <p class="fw-bold mt-3">Address</p>
-            <div class="input-group d-flex flex-column name-input-group">
-                <input type="text" name="" id="" placeholder="House No./Street" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="Barangay" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="Municipality" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="District" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="Zip Code" class="form-control w-100">
-            </div>
-            <p class="fw-bold mt-3">Guardian’s Full Name</p>
-            <div class="input-group d-flex flex-column name-input-group">
-                <input type="text" name="" id="" placeholder="Last Name" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="First Name" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="Middle Name" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="Suffix" class="form-control w-100">
+            <p class="fw-bold mt-3">Guardianï¿½s Full Name</p>
+            <div class="input-group">
+                <input type="text" name="GUARDIAN_LAST_NAME" id="lastName_guard" placeholder="Last Name" class="form-control" style="border: 1px solid #ccc;" required
+                       oninvalid="setCustomValidity('Enter The Last Name.'); setInvalidBackground(this)"
+                       oninput="setCustomValidity(''); setValidBackground(this)">
+                <input type="text" name="GUARDIAN_FIRST_NAME" id="firstName_guard" placeholder="First Name" class="form-control" style="border: 1px solid #ccc;" required
+                       oninvalid="setCustomValidity('Enter The First Name.'); setInvalidBackground(this)"
+                       oninput="setCustomValidity(''); setValidBackground(this)">
+                <input type="text" name="GUARDIAN_MIDDLE_NAME" id="middleName_guard" placeholder="Middle Name" class="form-control" style="border: 1px solid #ccc;" required
+                       oninvalid="setCustomValidity('Enter The Middle Name.'); setInvalidBackground(this)"
+                       oninput="setCustomValidity(''); setValidBackground(this)">
+                <input type="text" name="GUARDIAN_SUFFIX" id="suffix_guard" placeholder="Suffix e.g., Jr., Sr., III" class="form-control">
             </div>
             <div class="d-flex justify-content-between flex-column personal-info-group">
                 <div>
                     <label for="Relationship" class="fw-bold my-3">Relationship</label>
-                    <input type="text" name="" id="Relationship" class="form-control">
+                    <input type="text" name="GUARDIAN_RELATIONSHIP" id="Relationship" placeholder="e.g., Mother, Father, Guardian" class="form-control" style="border: 1px solid #ccc;" required
+                           oninvalid="setCustomValidity('Enter The Relationship.'); setInvalidBackground(this)"
+                           oninput="setCustomValidity(''); setValidBackground(this)">
                 </div>
                 <div>
                     <label for="ContactGuardian" class="fw-bold my-3">Contact Number</label>
-                    <input type="text" name="" id="ContactGuardian" class="form-control">
+                    <input type="number" name="GUARDIAN_CONTACT_NUMBER" id="ContactGuardian" placeholder="+639568612356" class="form-control" style="border: 1px solid #ccc;" required
+                           oninvalid="setCustomValidity('Enter Contact number.'); setInvalidBackground(this)"
+                           oninput="setCustomValidity(''); setValidBackground(this)">
                 </div>
             </div>
-            <div class="d-flex justify-content-between mt-4">
-                <button class="btn next text-white" id="previousButton" type="button"><i class="fa-solid fa-chevron-left"></i> Previous</button>
-                <button class="btn next text-white" type="submit">Next <i class="fa-solid fa-chevron-right"></i></button>
-            </div>
-        </form>
+                <div class="d-flex justify-content-between mt-4">
+                    <button class="btn next text-white" id="previousButton" type="button"><i class="fa-solid fa-chevron-left"></i> Previous</button>
+                <button class="btn next text-white" type="submit" formnovalidate>Next <i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>

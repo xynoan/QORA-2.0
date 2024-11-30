@@ -1,109 +1,325 @@
 @{
     ViewBag.Title = "- Enrollment";
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
+
+}
+
+@model List<prototype.Models.StudentGrading>
+
+@{
+    var studentEnlistment = TempData["Images"] != null ?
+        System.Text.Json.JsonSerializer.Deserialize<prototype.Models.Student.StudentEnlistment>(TempData["Images"].ToString()) : null;
+
+    var studentYrScreening = TempData["SelectedYearSemester"] != null ?
+        System.Text.Json.JsonSerializer.Deserialize<prototype.Models.Student.StudentYrScreening>(TempData["SelectedYearSemester"].ToString()) : null;
+
+    // Adjusted program retrieval to get only the relevant information
+    string programChosen = TempData["Program"] != null ?
+        System.Text.Json.JsonSerializer.Deserialize<prototype.Models.Student.StudentYrScreening>(TempData["Program"].ToString()).PROGRAMS_OFFER : "No Program Selected";
+
+    // Log JSON format
+    var gradeJson = TempData["Grade"]?.ToString();
+    Console.WriteLine("Grade JSON: " + gradeJson); // Check the JSON format
+
+        // Deserialize as a list of StudentGrading
+        var studentGrading = TempData["Grade"] != null ?
+            System.Text.Json.JsonSerializer.Deserialize<List<StudentGrading>>(TempData["Grade"].ToString()) : null;
 }
 
 <div class="container" id="main-container">
     <div id="content-form" class="p-md-5 p-3 mt-3">
         @await Html.PartialAsync("_LogoutModal")
-        <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 84%"></div>
+
+        <div>
+            <ul class="progressbar">
+                <li class="active"><a style="color:black;">Recent ID Picture</a></li>
+                <li class="active"><a style="color:black;">Year Level and Screening</a></li>
+                <li class="active"><a style="color:black;">Program</a></li>
+                <li class="active"><a style="color:black;">Grades Input</a></li>
+                <li class="active"><a style="color:black;">Input Review and Electronic Consent</a></li>
+                <li><a style="color:black;">Reference ID</a></li>
+            </ul>
         </div>
+        <br />
+
         <h1 class="mt-3">Student Enlistment Form</h1>
-        <hr class="divider">
-        
-        <form asp-action="ReferenceID" method="post">
-            <h2 class="text-center mb-4">Input Review</h2>
+        <hr style="width: 100%;">
+
+        <form asp-action="InputReview" method="post">
+
+@{
+    // Define the selected values from studentYrScreening if available
+    string selectedYearLevel = studentYrScreening?.YR_LEVEL;
+    string selectedTerm = studentYrScreening?.YR_TERM;
+
+    // Define the options for Year Level and Term as SelectList objects
+    var yearLevelOptions = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Select Year Level", Value = "", Disabled = true, Selected = (selectedYearLevel == null) },
+        new SelectListItem { Text = "1st Year", Value = "1", Selected = (selectedYearLevel == "1st Year") },
+        new SelectListItem { Text = "2nd Year", Value = "2", Selected = (selectedYearLevel == "2nd Year") },
+        new SelectListItem { Text = "3rd Year", Value = "3", Selected = (selectedYearLevel == "3rd Year") },
+        new SelectListItem { Text = "4th Year", Value = "4", Selected = (selectedYearLevel == "4th Year") }
+    };
+
+    var termOptions = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Select Term", Value = "", Disabled = true, Selected = (selectedTerm == null) },
+        new SelectListItem { Text = "1st Semester", Value = "1", Selected = (selectedTerm == "1st Semester") },
+        new SelectListItem { Text = "2nd Semester", Value = "2", Selected = (selectedTerm == "2nd Semester") }
+    };
+}
             
-            <!-- Responsive Flex Container -->
-            <div class="d-flex flex-column flex-md-row gap-5">
-                <!-- First Half -->
+
+                <div class="d-flex gap-5 justify-content-center align-items-center">
                 <div class="first-half">
                     <div class="row row-cols-1 row-cols-md-3 text-center mb-3">
                         <div class="col text-uppercase fw-bold mb-2">Year Level</div>
                         <div class="col text-uppercase fw-bold mb-2">TERM</div>
                         <div class="col text-uppercase fw-bold mb-2">Applying as</div>
-                        <div class="col"><input type="text" name="" id="" class="form-control"></div>
-                        <div class="col"><input type="text" name="" id="" class="form-control"></div>
+                        <div style="width: 33%;">
+                            <select name="YR_LEVEL" id="yearLevel" class="form-control">
+                                <option disabled>Select Year Level</option>
+                                @if (ViewBag.YR_LEVEL == "1st Year")
+                                {
+                                    <option value="1" selected>1st Year</option>
+                                }
+                                else
+                                {
+                                    <option value="1">1st Year</option>
+                                }
+
+                                @if (ViewBag.YR_LEVEL == "2nd Year")
+                                {
+                                    <option value="2" selected>2nd Year</option>
+                                }
+                                else
+                                {
+                                    <option value="2">2nd Year</option>
+                                }
+
+                                @if (ViewBag.YR_LEVEL == "3rd Year")
+                                {
+                                    <option value="3" selected>3rd Year</option>
+                                }
+                                else
+                                {
+                                    <option value="3">3rd Year</option>
+                                }
+
+                                @if (ViewBag.YR_LEVEL == "4th Year")
+                                {
+                                    <option value="4" selected>4th Year</option>
+                                }
+                                else
+                                {
+                                    <option value="4">4th Year</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div style="width: 33%;">
+                            <select name="YR_TERM" id="term" class="form-control">
+                                <option disabled>Select Semester</option>
+                                @if (ViewBag.YR_TERM == "1st Semester")
+                                {
+                                    <option value="1" selected>1st Semester</option>
+                                }
+                                else
+                                {
+                                    <option value="1">1st Semester</option>
+                                }
+
+                                @if (ViewBag.YR_TERM == "2nd Semester")
+                                {
+                                    <option value="2" selected>2nd Semester</option>
+                                }
+                                else
+                                {
+                                    <option value="2">2nd Semester</option>
+                                }
+                            </select>
+                        </div>
+
                         <div class="col">
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select name="APPLYING_AS" id="applying_As" class="form-control">
+                                <option disabled>Select Semester</option>
+                                @if (ViewBag.APPLYING_AS == "REGULAR")
+                                {
+                                    <option value="REGULAR" selected>REGULAR</option>
+                                }
+                                else
+                                {
+                                    <option value="REGULAR">REGULAR</option>
+                                }
+
+                                @if (ViewBag.APPLYING_AS == "IRREGULAR")
+                                {
+                                    <option value="IRREGULAR" selected>IRREGULAR</option>
+                                }
+                                else
+                                {
+                                    <option value="IRREGULAR">IRREGULAR</option>
+                                }
+
+                                @if (ViewBag.APPLYING_AS == "SHIFTEE")
+                                {
+                                    <option value="SHIFTEE" selected>SHIFTEE</option>
+                                }
+                                else
+                                {
+                                    <option value="SHIFTEE">SHIFTEE</option>
+                                }
                             </select>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col mb-3 mb-md-0">
-                            <p class="fw-bold text-center">ACADEMIC YEAR</p>
-                            <div class="d-flex flex-column flex-md-row align-items-center gap-2">
-                                <input type="text" name="" id="" class="form-control">
+                      <div class="row mb-3">
+                    <div class="col">
+                        <p class="fw-bold text-center">ACADEMIC YEAR</p>
+                        <div class="d-flex align-items-center gap-2">
+                        <span>FROM</span>
+                                <input type="text" name="ACADEMIC_FROM" id="academicYearFrom" class="form-control" value="@ViewBag.ACADEMIC_FROM" disabled>
                                 <span>TO</span>
-                                <input type="text" name="" id="" class="form-control">
+                                <input type="text" name="ACADEMIC_TO" id="academicYearTo" class="form-control" value="@ViewBag.ACADEMIC_TO" disabled>
                             </div>
                         </div>
                         <div class="col">
-                            <p class="fw-bold text-uppercase text-center">Program Chosen</p>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                            <p class="fw-bold text-uppercase text-center">program chosen</p>
+                                    <input type="text" id="programChosen" name="PROGRAMS_OFFER" class="form-control"
+                                           value="@ViewBag.ProgramChosen" disabled />
+                                </div>
+                                </div>
+                                </div>
+
+                        <!-- Display Image if Available -->
+                <div class="second-half" style="margin-left:12%; border-width:10px; border-color: #848181;">
+                            @if (!string.IsNullOrEmpty(ViewBag.ImageSrc))
+                            {
+                        <img src="@ViewBag.ImageSrc" alt="Student Image" class="img-thumbnail" style="width: 300px; max-height: 300px; border: 2px solid gray;" />
+                            }
+                            else
+                            {
+                                <p>No recent ID picture available.</p>
+                            }
+                        </div>
+            </div>
+<br>
+            <!-- Modal for confirmation -->
+            <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmModalLabel">Confirm Year and Term Change</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to change the Year and Term? This will reset your current selection.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="confirmChange">Yes, Change</button>
                         </div>
                     </div>
                 </div>
-
-                <!-- Second Half (Image) -->
-                <div class="second-half text-center">
-                    <img class="img-fluid" style="max-width: 100%; height: auto;" src="/images/CARLO.jpg" alt="Carlo">
-                </div>
             </div>
+           <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Select the year, term, and applying as dropdown elements
+                    const yearSelect = document.getElementById('yearLevel');
+                    const termSelect = document.getElementById('term');
+                    const applyingAsSelect = document.getElementById('applying_As');
 
-            <!-- Subject/Courses Section -->
-            <div class="container text-center mt-4">
-                <div class="row row-cols-1 row-cols-md-5">
-                    <div class="col fw-bold">Subject/Courses</div>
-                    <div class="col fw-bold">Remarks</div>
-                    <div class="col fw-bold">No. of Units</div>
-                    <div class="col fw-bold">Grade</div>
-                    <div class="col"></div>
-                    
-                    <!-- Input Rows -->
-                    <div class="col"><input type="text" class="form-control"></div>
-                    <div class="col"><input type="text" class="form-control"></div>
-                    <div class="col"><input type="text" class="form-control"></div>
-                    <div class="col"><input type="text" class="form-control"></div>
-                    <div class="col"><button type="button" class="btn btn-success">Add</button></div>
+                    // Store the original values
+                    let originalYear = yearSelect.value;
+                    let originalTerm = termSelect.value;
+                    let originalApplyingAs = applyingAsSelect.value;
+
+                    // Detect changes in year, term, or applying as, and show the modal if they change
+                    function showModalIfChanged() {
+                        if (yearSelect.value !== originalYear || termSelect.value !== originalTerm || applyingAsSelect.value !== originalApplyingAs) {
+                            // Show the modal on any change
+                            $('#confirmModal').modal('show');
+                        }
+                    }
+
+                    yearSelect.addEventListener('change', showModalIfChanged);
+                    termSelect.addEventListener('change', showModalIfChanged);
+                    applyingAsSelect.addEventListener('change', showModalIfChanged);
+
+                    // Handle modal confirmation (change year, term, or applying as)
+                    document.getElementById('confirmChange').addEventListener('click', function () {
+                        // Reset the original values after confirmation
+                        originalYear = yearSelect.value;
+                        originalTerm = termSelect.value;
+                        originalApplyingAs = applyingAsSelect.value;
+
+                        // Hide the modal after confirmation
+                        $('#confirmModal').modal('hide');
+
+                        // Redirect to the Year selection page or handle as required
+                        window.location.href = '@Url.Action("Year", "Student")';  // Redirect to year selection page
+                    });
+                });
+
+               </script>
+
+           
+<!-- Display grades table -->
+<center>
+                <h2> <strong>GRADES</strong></h2>
+            </center>
+<div class="container text-center">
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Subject Code</th>
+                    <th>Subject Name</th>
+                    <th>Units</th>
+                                <th style="text-align: center; line-height:30px; width: 150px;">Grade</th>
+                                <th style="text-align: center; line-height:30px; width: 180px;">Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+    @foreach (var grading in Model)
+    {
+        <tr style="line-height: 50px;">
+            <td>@grading.CODE</td>
+            <td>@grading.SUBJECT</td>
+            <td>@grading.UNITS</td>
+            <td>
+                                        <input type="text" name="grades[@grading.CODE]" class="grade-input form-control" style="text-align: center; line-height:30px; width: 150px;" value="@grading.GRADE" />
+            </td>
+                                    <td><input type="text" name="remarks[@grading.GRADES_ID]" class="remarks form-control" style="text-align: center; line-height:30px; width: 180px;" value="@grading.REMARKS" disabled /></td>
+        </tr>
+    }
+
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No grading data available.</p>
+    }
+
                 </div>
-            </div>
-
-            <!-- Total Units and GWA Section -->
-            <div class="container text-center mt-4" style="max-width: 400px;">
-                <div class="row row-cols-1 row-cols-md-2">
-                    <div class="col mb-3">
-                        <p class="fw-bold">Total No. of Units</p>
-                    </div>
-                    <div class="col mb-3">
-                        <input type="text" name="" id="" class="form-control">
-                    </div>
-                    <div class="col mb-3">
-                        <p class="fw-bold">GWA</p>
-                    </div>
-                    <div class="col">
-                        <input type="text" name="" id="" class="form-control">
+                <div class="container text-center mt-4" style="width: 35%;">
+                    <div class="row row-cols-2">
+                        <div class="col mb-3"><p class="fw-bold">Total No. of Units</p></div>
+                    <div class="col"><input type="number" name="TOTAL_UNITS" id="TOTAL_UNITS" class="form-control" readonly /></div>
+                        <div class="col"><p class="fw-bold">GWA</p></div>
+                        <div class="col"><input type="number" name="GWA" id="GWA" class="form-control" readonly /></div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Navigation Buttons -->
+
+
             <div class="d-flex justify-content-between mt-4">
-                <button class="btn next text-white" id="previousButton" type="button"><i class="fa-solid fa-chevron-left"></i> Previous</button>
+                <button class="btn next text-white" id="previousButton" type="button" onclick="goBack()"><i class="fa-solid fa-chevron-left"></i> Previous</button>
                 <button class="btn next text-white" type="button" data-bs-toggle="modal" data-bs-target="#consent">Next <i class="fa-solid fa-chevron-right"></i></button>
             </div>
 
-            <!-- Consent Modal -->
             <div class="modal fade" id="consent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
@@ -114,11 +330,10 @@
                         <div class="modal-body">
                             <!-- Consent Text Here -->
                             <span class="fw-bold">Please read the following carefully and indicate your consent by checking the box provided:</span><br><br>
-                            I, <b>[Full Name]</b>, hereby consent to participate in the student application process for <b>Quezon City University Online Registration Appointment (QORA)</b>. I understand that by providing my electronic signature below, I am agreeing to the terms and conditions outlined herein.
+                            I, <b>Student Name</b>, hereby consent to participate in the student application process for <b>Quezon City University Online Registration Appointment (QORA)</b>.
                             <br><br>
-                            <b>1. Purpose:</b> I understand that the purpose of this application is to apply for admission/enrollment in Quezon City University.
-                            <b>2. Information Collection:</b> I acknowledge that <b>QORA</b> will collect personal information from me, including but not limited to my name, contact information, educational background, and other pertinent details required for the application process.<br><br>
-
+                            <b>1. Purpose:</b> Admission/enrollment application in Quezon City University.<br>
+                            <br><b>2. Information Collection:</b> <b>QORA</b> will collect personal information.<br><br>
                             <b>3. Use of Information:</b> I understand that the information collected will be used solely to evaluate my application for admission/enrollment.<br><br>
 
                             <b>4. Confidentiality:</b> I acknowledge that all information provided in this application will be treated confidentially and by applicable privacy laws and regulations.<br><br>
@@ -129,16 +344,12 @@
 
                             <b>7. Signature:</b> By checking the box below, I certify that all information provided in this application is true and accurate to the best of my knowledge.<br><br>
 
-
                             <p class="text-center m-0"><b>I consent to the terms outlined above.</b></p><br>
-
-                            <p class="text-center m-0"><b>Date: [ ]</b></p><br>
-
-                            Please note that by providing your electronic signature, you are legally bound by the terms and conditions outlined in this consent form. If you have any questions or concerns regarding this form, please contact Quezon City University Registration Appointment for clarification before proceeding.
+                            <p class="text-center m-0"><b>Date: @DateTime.Now.ToString("MM-dd-yyyy")</b></p><br>
                         </div>
                         <div class="modal-footer d-flex flex-column align-items-end">
-                            <button type="submit" class="btn btn-primary next w-100 mb-2" style="border: 2px solid var(--main-color);">Agree and Submit</button>
-                            <button id="cancel_application" type="button" class="fw-bold btn btn-secondary w-100" data-bs-dismiss="modal" style="border: 2px solid var(--main-color); background: white; color: var(--main-color);">Cancel Application</button>
+                <button type="submit" id="formSubmit" class="btn btn-primary next" style="width: 50%; border: 2px solid var(--main-color);">Agree and Submit</button>
+                            <button id="cancel_application" type="button" class="fw-bold btn btn-secondary cancel_application" data-bs-dismiss="modal" style="width: 50%; border: 2px solid var(--main-color); background: white; color: var(--main-color);">Cancel Application</button>
                         </div>
                     </div>
                 </div>
@@ -146,3 +357,164 @@
         </form>
     </div>
 </div>
+<script>
+    document.getElementById('formSubmit').addEventListener('click', function () {
+        // Trigger form submission
+        document.querySelector('form').submit();
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function computeTotalUnits() {
+            let totalUnits = 0;
+
+            document.querySelectorAll("table tbody tr").forEach(function (row) {
+                let units = parseFloat(row.cells[2].innerText);
+                if (!isNaN(units)) {
+                    totalUnits += units;
+                }
+            });
+
+            document.querySelector("input[name='TOTAL_UNITS']").value = totalUnits.toFixed(2);
+            return totalUnits;
+        }
+
+        function calculateGWA() {
+            let totalGradePoints = 0;
+            let totalUnits = 0;
+
+            document.querySelectorAll("table tbody tr").forEach(function (row) {
+                const gradeInput = row.querySelector('input[name^="grades"]');
+                const unitsText = row.querySelector('td:nth-child(3)').innerText;
+
+                const grade = parseFloat(gradeInput ? gradeInput.value : 0);
+                const units = parseFloat(unitsText);
+
+                if (!isNaN(grade) && !isNaN(units)) {
+                    totalGradePoints += grade * units;
+                    totalUnits += units;
+                }
+            });
+
+            const gwa = totalUnits !== 0 ? (totalGradePoints / totalUnits).toFixed(2) : 0;
+            document.querySelector("input[name='GWA']").value = gwa;
+        }
+
+        function updateRemarks() {
+            document.querySelectorAll('input[name^="grades"]').forEach(function (gradeInput) {
+                const gradeValue = parseFloat(gradeInput.value);
+                const remarksInput = gradeInput.closest('tr').querySelector('input[name^="remarks"]');
+                let remarks = "";
+
+                if (gradeValue >= 75 && gradeValue <= 100) {
+                    remarks = gradeValue >= 98 ? "Excellent" : gradeValue >= 95 ? "Very Good" : "Good";
+                } else if (gradeValue >= 1.00 && gradeValue <= 5.00) {
+                    remarks = gradeValue === 1.00 ? "Excellent" : gradeValue <= 1.25 ? "Very Good" : "Good";
+                } else {
+                    remarks = "Invalid grade";
+                }
+
+                remarksInput.value = remarks;
+                remarksInput.style.color = remarks === "Invalid grade" ? "red" : "green";
+            });
+        }
+
+        // Function to update remarks based on grade
+        function updateRemarks() {
+            const gradeInputs = document.querySelectorAll('input[name^="grades"]');
+
+            gradeInputs.forEach(function (gradeInput) {
+                let gradeValue = parseFloat(gradeInput.value);  // Parse value as a number
+                const remarksInput = gradeInput.closest('tr').querySelector('input[name^="remarks"]');
+
+                // Log the gradeValue to debug the input
+                console.log("Grade Input:", gradeValue);
+
+                // Check if the grade is valid (non-NaN and within acceptable range)
+                if (isNaN(gradeValue) || gradeValue < 0 || (gradeValue > 100 && gradeValue !== 1.00 && gradeValue !== 1.25)) {
+                    remarksInput.value = "Invalid grade";
+                    remarksInput.style.color = "red";
+                    return;  // Skip further processing for invalid grades
+                }
+
+                let remarks = "";
+                if (gradeValue >= 75 && gradeValue <= 100) {
+                    // Handling grades in the range 75-100
+                    if (gradeValue >= 98) {
+                        remarks = "Excellent";
+                    } else if (gradeValue >= 95) {
+                        remarks = "Excellent";
+                    } else if (gradeValue >= 92) {
+                        remarks = "Very Good";
+                    } else if (gradeValue >= 89) {
+                        remarks = "Very Good";
+                    } else if (gradeValue >= 86) {
+                        remarks = "Good";
+                    } else if (gradeValue >= 83) {
+                        remarks = "Good";
+                    } else if (gradeValue >= 80) {
+                        remarks = "Satisfactory";
+                    } else if (gradeValue >= 77) {
+                        remarks = "Satisfactory";
+                    } else if (gradeValue >= 75) {
+                        remarks = "Passed";
+                    } else {
+                        remarks = "Failed";
+                    }
+                } else if (gradeValue >= 1.00 && gradeValue <= 5.00) {
+                    // Handling grades like 1.00, 1.25, etc.
+                    if (gradeValue === 1.00) {
+                        remarks = "Excellent";
+                    } else if (gradeValue <= 1.25) {
+                        remarks = "Excellent";
+                    } else if (gradeValue <= 1.50) {
+                        remarks = "Very Good";
+                    } else if (gradeValue <= 1.75) {
+                        remarks = "Very Good";
+                    } else if (gradeValue <= 2.00) {
+                        remarks = "Good";
+                    } else if (gradeValue <= 2.25) {
+                        remarks = "Good";
+                    } else if (gradeValue <= 2.50) {
+                        remarks = "Satisfactory";
+                    } else if (gradeValue <= 2.75) {
+                        remarks = "Satisfactory";
+                    } else if (gradeValue === 3.00) {
+                        remarks = "Passed";
+                    } else if (gradeValue >= 4.00 && gradeValue <= 5.00) {
+                        remarks = "Failed";
+                    } else {
+                        remarks = "Invalid grade";
+                    }
+                } else {
+                    remarks = "Invalid grade";
+                }
+
+                // Log the assigned remarks for debugging
+                console.log("Assigned Remarks:", remarks);
+
+                remarksInput.value = remarks;
+                remarksInput.style.color = remarks === "Failed" || remarks === "Invalid grade" ? "red" : "green";
+            });
+        }
+
+
+        document.querySelectorAll('input[name^="grades"]').forEach(function (input) {
+            input.addEventListener('input', function () {
+                computeTotalUnits();
+                calculateGWA();
+                updateRemarks();
+            });
+        });
+
+        computeTotalUnits();
+        calculateGWA();
+        updateRemarks();
+    });
+
+    function goBack() {
+        // Navigate to Grade.cshtml (update the URL as necessary)
+        window.location.href = '@Url.Action("Grade", "Student")';
+    }
+</script>
+

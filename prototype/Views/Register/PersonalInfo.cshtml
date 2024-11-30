@@ -1,65 +1,82 @@
 @{
-    ViewData["Title"] = "- Register";
+    ViewData["Title"] = "Register - Personal Information";
 }
 
 <div class="container" id="main-container">
     <div id="content-form" class="p-5 mt-3">
-        <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 40%"></div>
+        <div>
+            <ul class="progressbar">
+                <li class="active"><a style="color:black;">Basic Information</a></li>
+                <li class="active"><a style="color:black;">Personal Information</a></li>
+                <li><a style="color:black;">Educational Attainment</a></li>
+                <li><a style="color:black;">Family Background</a></li>
+                <li><a style="color:black;">In Case Of Emegency</a></li>
+            </ul>
         </div>
 
         <h1 class="mt-3">Personal Information</h1>
         <hr class="divider" />
 
-        <form asp-action="Education" method="post">
+        <form asp-action="PersonalInfo" method="post">
             <p class="fw-bold">Full Name</p>
-            <div class="input-group d-flex flex-column personal-details-form">
-                <input type="text" name="LastName" placeholder="Last Name" class="form-control w-100" />
-                <input type="text" name="FirstName" placeholder="First Name" class="form-control w-100" />
-                <input type="text" name="MiddleName" placeholder="Middle Name" class="form-control w-100" />
-                <input type="text" name="Suffix" placeholder="Suffix" class="form-control w-100" />
+            <div class="input-group">
+                <input type="text" name="LAST_NAME" id="lastName" placeholder="Last Name" class="form-control" style="border: 1px solid #ccc;" required
+                       oninvalid="setCustomValidity('Enter your Last Name.'); setInvalidBackground(this)"
+                       oninput="setCustomValidity(''); setValidBackground(this)">
+                <input type="text" name="FIRST_NAME" id="firstName" placeholder="First Name" class="form-control" style="border: 1px solid #ccc;" required
+                       oninvalid="setCustomValidity('Enter your First Name.'); setInvalidBackground(this)"
+                       oninput="setCustomValidity(''); setValidBackground(this)">
+                <input type="text" name="MIDDLE_NAME" id="middleName" placeholder="Middle Name" class="form-control" style="border: 1px solid #ccc;" required
+                       oninvalid="setCustomValidity('Enter your Middle Name.'); setInvalidBackground(this)"
+                       oninput="setCustomValidity(''); setValidBackground(this)">
+                <input type="text" name="SUFFIX" id="suffix" placeholder="Suffix e.g., Jr., Sr., III" class="form-control">
             </div>
-
-            <div class="mt-3 d-flex flex-column w-auto gap-3 background-info-form">
-                <div class="d-flex flex-column">
+            <div class="mt-3 row row-cols-3">
+                <div class="d-flex flex-column col">
                     <p class="fw-bold">Date of Birth</p>
-                    <input type="date" name="DateOfBirth" class="form-control" />
+                    <input type="date" name="DATE_OF_BIRTH" id="dateofbirth" class="form-control" style="border: 1px solid #ccc;" required
+                           oninvalid="setCustomValidity('Enter your Date of Birth.'); setInvalidBackground(this)"
+                           oninput="setCustomValidity(''); setValidBackground(this)">
                 </div>
                 <div class="d-flex flex-column">
                     <p class="fw-bold">Birth Place</p>
-                    <input type="text" name="BirthPlace" placeholder="Select Place" class="form-control" />
+                    <input type="text" name="BIRTH_PLACE" id="birthPlace" placeholder="Enter your Birthplace" class="form-control" style="border: 1px solid #ccc;" required
+                           oninvalid="setCustomValidity('Enter your Birth Place.'); setInvalidBackground(this)"
+                           oninput="setCustomValidity(''); setValidBackground(this)">
                 </div>
                 <div class="d-flex flex-column">
                     <p class="fw-bold">Gender</p>
-                    <select class="form-select" name="Gender">
-                        <option selected>Select One</option>
+                    <select class="form-select d-inline-block" name="GENDER" onchange="nextPage()" required oninvalid="setCustomValidity('Select Track.'); setInvalidBackground(this)"
+                            oninput="setCustomValidity(''); setValidBackground(this)">
+                        <option value="" selected disabled>Select Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                         <option value="LGBTQIA+">LGBTQIA+</option>
                     </select>
                 </div>
             </div>
-
-            <div class="mt-3 d-flex flex-column background-info-form">
-                <div class="d-flex flex-column">
+            <div class="mt-3 row row-cols-3">
+                <div class="d-flex flex-column col">
                     <p class="fw-bold">Religion</p>
-                    <select class="form-select" name="Religion">
-                        <option selected>Select One</option>
-                        <option value="Catholic">Catholic</option>
-                        <option value="Muslim">Muslim</option>
-                        <option value="Christian">Christian</option>
-                        <option value="Buddhist">Buddhist</option>
-                        <!-- Add other options as needed -->
+                    <select class="form-select d-inline-block" name="RELIGION" onchange="nextPage()" required oninvalid="setCustomValidity('Select Track.'); setInvalidBackground(this)"
+                            oninput="setCustomValidity(''); setValidBackground(this)">
+                        <option value="" selected disabled>Select Religion</option>
+                        <option value="Roman Catholic">Roman Catholic</option>
+                        <option value="Muslim">Islam</option>
+                        <option value="INC">INC</option>
                     </select>
                 </div>
                 <div class="d-flex flex-column">
                     <p class="fw-bold">Citizenship</p>
-                    <input type="text" name="Citizenship" class="form-control" />
+                    <input type="text" name="CITIZENSHIP" id="citizenship" placeholder="Enter your Citizenship" class="form-control" style="border: 1px solid #ccc;" required
+                           oninvalid="setCustomValidity('Enter your Birth Place.'); setInvalidBackground(this)"
+                           oninput="setCustomValidity(''); setValidBackground(this)">
                 </div>
                 <div class="d-flex flex-column">
                     <p class="fw-bold">Civil Status</p>
-                    <select class="form-select" name="CivilStatus">
-                        <option selected>Select One</option>
+                    <select class="form-select d-inline-block" name="CIVIL_STATUS" onchange="nextPage()" required oninvalid="setCustomValidity('Select Track.'); setInvalidBackground(this)"
+                            oninput="setCustomValidity(''); setValidBackground(this)">
+                        <option value="" selected disabled>Select Civil</option>
                         <option value="Single">Single</option>
                         <option value="Married">Married</option>
                         <option value="Divorced">Divorced</option>
@@ -67,20 +84,38 @@
                     </select>
                 </div>
             </div>
-
             <p class="fw-bold mt-3">Present Address</p>
-            <div class="input-group d-flex flex-column personal-details-form">
-                <input type="text" name="HouseStreet" placeholder="House No./Street" class="form-control w-100" />
-                <input type="text" name="Barangay" placeholder="Barangay" class="form-control w-100" />
-                <input type="text" name="Municipality" placeholder="Municipality" class="form-control w-100" />
-                <input type="text" name="District" placeholder="District" class="form-control w-100" />
-                <input type="text" name="ZipCode" placeholder="Zip Code" class="form-control w-100" />
-            </div>
+            <div class="input-group">
+                <input type="text" name="STREET" id="STREET" placeholder="House No./Street" class="form-control" required oninvalid="setCustomValidity('Drop the House No./Street.'); setInvalidBackground(this)"
+                       oninput="setCustomValidity(''); setValidBackground(this)">
+                <select name="DISTRICT" id="district" class="form-control" required oninvalid="setCustomValidity('Select District.'); setInvalidBackground(this)"
+                        oninput="setCustomValidity(''); setValidBackground(this)">
+                    <option value="" selected disabled>District</option>
+                    <option value="District 1">District 1</option>
+                    <option value="District 2">District 2</option>
+                    <option value="District 3">District 3</option>
+                    <option value="District 4">District 4</option>
+                    <option value="District 5">District 5</option>
+                    <option value="District 6">District 6</option>
+                </select>
+                <select name="BARANGAY" id="barangay" class="form-control" required oninvalid="setCustomValidity('Select Barangay.'); setInvalidBackground(this)"
+                        oninput="setCustomValidity(''); setValidBackground(this)">
+                    <option value="" selected disabled>Barangay</option>
+                </select>
+                <select name="MUNICIPALITY" id="municipality" class="form-control" required oninvalid="setCustomValidity('Select City.'); setInvalidBackground(this)"
+                        oninput="setCustomValidity(''); setValidBackground(this)">
+                    <option value="" selected disabled>City</option>
+                    <option value="Quezon City">Quezon City</option>
+                </select>
 
+                <input type="text" name="ZIPCODE" id="zipcode" placeholder="Zip Code (Optional)" class="form-control" required oninvalid="setCustomValidity('Drop the Zipcode.'); setInvalidBackground(this)"
+                       oninput="setCustomValidity(''); setValidBackground(this)">
+            </div>
             <div class="d-flex justify-content-between mt-4">
-                <button class="btn next text-white" id="previousButton" type="button"><i class="fa-solid fa-chevron-left"></i> Previous</button>
-                <button class="btn next text-white" type="submit">Next <i class="fa-solid fa-chevron-right"></i></button>
+                <button class="btn next text-white" type="button" onclick="window.history.back();"><i class="fa-solid fa-chevron-left"></i> Previous</button>
+                <button class="btn next text-white" type="submit" formnovalidate>Next <i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </form>
+
     </div>
 </div>

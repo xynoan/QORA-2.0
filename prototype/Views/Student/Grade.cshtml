@@ -1,3 +1,5 @@
+@model Dictionary<string, List<object>>
+
 @{
     ViewBag.Title = "- Enrollment";
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
@@ -6,73 +8,228 @@
 <div class="container" id="main-container">
     <div id="content-form" class="p-md-5 p-3 mt-3">
         @await Html.PartialAsync("_LogoutModal")
-        <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 68%"></div>
-        </div>
+        <div>
+            <ul class="progressbar">
+                <li class="active"><a style="color:black;">Recent ID Picture</a></li>
+                <li class="active"><a style="color:black;">Year Level and Screening</a></li>
+                <li class="active"><a style="color:black;">Program</a></li>
+                <li class="active"><a style="color:black;">Grades Input</a></li>
+                <li>Input Review and Electronic Consent</li>
+                <li>Reference ID</li>
+            </ul>
+        </div><br>
         <h1 class="mt-3">Student Enlistment Form</h1>
-        <hr class="divider">
 
-        <form asp-action="InputReview" method="post">
+        <form asp-action="Grade" method="post">
             <div class="container text-center">
-                <!-- Table Header Row -->
-                <div class="row row-cols-1 row-cols-md-5">
-                    <div class="col">
-                        <p class="fw-bold">Subject/Courses</p>
-                    </div>
-                    <div class="col">
-                        <p class="fw-bold">Remarks</p>
-                    </div>
-                    <div class="col">
-                        <p class="fw-bold">No. of Units</p>
-                    </div>
-                    <div class="col">
-                        <p class="fw-bold">Last Semestral Grade</p>
-                    </div>
-                    <div class="col"></div>
-                </div>
-                <!-- Input Row -->
-                <div class="row row-cols-1 row-cols-md-5 align-items-center mt-2">
-                    <div class="col mb-2 mb-md-0">
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="col mb-2 mb-md-0">
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="col mb-2 mb-md-0">
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="col mb-2 mb-md-0">
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-success">Add</button>
-                    </div>
+                <div class="row row-cols-4 justify-content-center align-items-center">
+                    <div class="col" style="width: 50%;"><p class="fw-bold"></p></div>
+                    <div class="col" style="width: 10%;"><p class="fw-bold"></p></div>
+                    <div class="col" style="width: 20%;"><p class="fw-bold"></p></div>
+                    <div class="col" style="width: 15%;"><p class="fw-bold"></p></div>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Subject Name</th>
+                                    <th>Units</th>
+                                    <th style="text-align: center; line-height:30px; width: 150px;">Grade</th>
+                                    <th style="text-align: center; line-height:30px; width: 180px;">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var subject in Model)
+                                {
+                                    <tr style="line-height: 50px;">
+                                        <td>@subject.Key</td>
+                                        <td>@subject.Value[0]</td>
+                                        <td>@subject.Value[1]</td>
+                                        <td><input type="text" name="grades[@subject.Key]" class="grade-input" style="text-align: center; line-height:30px; width: 150px;" required /></td>
+                                        <td><input type="text" name="remarks[@subject.Key]" class="remarks" style="text-align: center; line-height:30px; width: 180px;" readonly /></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No subjects available for the selected year and semester.</p>
+                    }
                 </div>
             </div>
-
-            <!-- Total Units and GWA Section -->
-            <div class="container text-center mt-4" style="max-width: 100%; width: 100%; max-width: 400px;">
-                <div class="row row-cols-1 row-cols-md-2">
-                    <div class="col mb-3">
-                        <p class="fw-bold">Total No. of Units</p>
-                    </div>
-                    <div class="col mb-3">
-                        <input type="text" name="" id="" class="form-control">
-                    </div>
-                    <div class="col mb-3">
-                        <p class="fw-bold">GWA</p>
-                    </div>
-                    <div class="col">
-                        <input type="text" name="" id="" class="form-control">
-                    </div>
+            <div class="container text-center mt-4" style="width: 35%;">
+                <div class="row row-cols-2">
+                    <div class="col mb-3"><p class="fw-bold">Total No. of Units</p></div>
+                    <div class="co  l"><input type="text" name="TOTAL_UNITS" class="form-control" readonly /></div>
+                    <div class="col"><p class="fw-bold">GWA</p></div>
+                    <div class="col"><input type="text" name="GWA" id="GWA" class="form-control" readonly /></div>
                 </div>
             </div>
 
             <!-- Navigation Buttons -->
             <div class="d-flex justify-content-between mt-4">
-                <button class="btn next text-white" id="previousButton" type="button"><i class="fa-solid fa-chevron-left"></i> Previous</button>
-                <button class="btn next text-white" type="submit">Next <i class="fa-solid fa-chevron-right"></i></button>
+                <button class="btn next text-white" id="previousButton" type="button" onclick="goBack()" ><i class="fa-solid fa-chevron-left"></i> Previous</button>
+                <button class="btn next text-white" id="submitButton" type="submit">
+                    Next <i class="fa-solid fa-angle-right"></i>
+                </button>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function computeTotalUnits() {
+            let totalUnits = 0;
+
+            document.querySelectorAll("table tbody tr").forEach(function (row) {
+                let units = parseFloat(row.cells[2].innerText);
+                if (!isNaN(units)) {
+                    totalUnits += units;
+                }
+            });
+
+            document.querySelector("input[name='TOTAL_UNITS']").value = totalUnits.toFixed(2);
+            return totalUnits;
+        }
+
+        function calculateGWA() {
+            let totalGradePoints = 0;
+            let totalUnits = 0;
+
+            document.querySelectorAll("table tbody tr").forEach(function (row) {
+                const gradeInput = row.querySelector('input[name^="grades"]');
+                const unitsText = row.querySelector('td:nth-child(3)').innerText;
+
+                const grade = parseFloat(gradeInput ? gradeInput.value : 0);
+                const units = parseFloat(unitsText);
+
+                if (!isNaN(grade) && !isNaN(units)) {
+                    totalGradePoints += grade * units;
+                    totalUnits += units;
+                }
+            });
+
+            const gwa = totalUnits !== 0 ? (totalGradePoints / totalUnits).toFixed(2) : 0;
+            document.querySelector("input[name='GWA']").value = gwa;
+        }
+
+        function updateRemarks() {
+            document.querySelectorAll('input[name^="grades"]').forEach(function (gradeInput) {
+                const gradeValue = parseFloat(gradeInput.value);
+                const remarksInput = gradeInput.closest('tr').querySelector('input[name^="remarks"]');
+                let remarks = "";
+
+                if (gradeValue >= 75 && gradeValue <= 100) {
+                    remarks = gradeValue >= 98 ? "Excellent" : gradeValue >= 95 ? "Very Good" : "Good";
+                } else if (gradeValue >= 1.00 && gradeValue <= 5.00) {
+                    remarks = gradeValue === 1.00 ? "Excellent" : gradeValue <= 1.25 ? "Very Good" : "Good";
+                } else {
+                    remarks = "Invalid grade";
+                }
+
+                remarksInput.value = remarks;
+                remarksInput.style.color = remarks === "Invalid grade" ? "red" : "green";
+            });
+        }
+
+        // Function to update remarks based on grade
+        function updateRemarks() {
+            const gradeInputs = document.querySelectorAll('input[name^="grades"]');
+
+            gradeInputs.forEach(function (gradeInput) {
+                let gradeValue = parseFloat(gradeInput.value);  // Parse value as a number
+                const remarksInput = gradeInput.closest('tr').querySelector('input[name^="remarks"]');
+
+                // Log the gradeValue to debug the input
+                console.log("Grade Input:", gradeValue);
+
+                // Check if the grade is valid (non-NaN and within acceptable range)
+                if (isNaN(gradeValue) || gradeValue < 0 || (gradeValue > 100 && gradeValue !== 1.00 && gradeValue !== 1.25)) {
+                    remarksInput.value = "Invalid grade";
+                    remarksInput.style.color = "red";
+                    return;  // Skip further processing for invalid grades
+                }
+
+                let remarks = "";
+                if (gradeValue >= 75 && gradeValue <= 100) {
+                    // Handling grades in the range 75-100
+                    if (gradeValue >= 98) {
+                        remarks = "Excellent";
+                    } else if (gradeValue >= 95) {
+                        remarks = "Excellent";
+                    } else if (gradeValue >= 92) {
+                        remarks = "Very Good";
+                    } else if (gradeValue >= 89) {
+                        remarks = "Very Good";
+                    } else if (gradeValue >= 86) {
+                        remarks = "Good";
+                    } else if (gradeValue >= 83) {
+                        remarks = "Good";
+                    } else if (gradeValue >= 80) {
+                        remarks = "Satisfactory";
+                    } else if (gradeValue >= 77) {
+                        remarks = "Satisfactory";
+                    } else if (gradeValue >= 75) {
+                        remarks = "Passed";
+                    } else {
+                        remarks = "Failed";
+                    }
+                } else if (gradeValue >= 1.00 && gradeValue <= 5.00) {
+                    // Handling grades like 1.00, 1.25, etc.
+                    if (gradeValue === 1.00) {
+                        remarks = "Excellent";
+                    } else if (gradeValue <= 1.25) {
+                        remarks = "Excellent";
+                    } else if (gradeValue <= 1.50) {
+                        remarks = "Very Good";
+                    } else if (gradeValue <= 1.75) {
+                        remarks = "Very Good";
+                    } else if (gradeValue <= 2.00) {
+                        remarks = "Good";
+                    } else if (gradeValue <= 2.25) {
+                        remarks = "Good";
+                    } else if (gradeValue <= 2.50) {
+                        remarks = "Satisfactory";
+                    } else if (gradeValue <= 2.75) {
+                        remarks = "Satisfactory";
+                    } else if (gradeValue === 3.00) {
+                        remarks = "Passed";
+                    } else if (gradeValue >= 4.00 && gradeValue <= 5.00) {
+                        remarks = "Failed";
+                    } else {
+                        remarks = "Invalid grade";
+                    }
+                } else {
+                    remarks = "Invalid grade";
+                }
+
+                // Log the assigned remarks for debugging
+                console.log("Assigned Remarks:", remarks);
+
+                remarksInput.value = remarks;
+                remarksInput.style.color = remarks === "Failed" || remarks === "Invalid grade" ? "red" : "green";
+            });
+        }
+
+        document.querySelectorAll('input[name^="grades"]').forEach(function (input) {
+            input.addEventListener('input', function () {
+                computeTotalUnits();
+                calculateGWA();
+                updateRemarks();
+            });
+        });
+
+        computeTotalUnits();
+        calculateGWA();
+        updateRemarks();
+    });
+
+    function goBack() {
+        // Navigate to Grade.cshtml (update the URL as necessary)
+        window.location.href = '@Url.Action("Program", "Student")';
+    }
+</script>
