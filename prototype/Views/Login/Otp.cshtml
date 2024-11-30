@@ -6,18 +6,80 @@
     <div id="content-form" class="p-5">
         <h1 class="fs-2 text-center mb-3">OTP Recovery Code</h1>
         <p>Enter the 6 digit verification code that was sent to your email.</p>
+        <center>
+            <h5 style="margin-bottom: 25px;">@ViewBag.Email</h5> <!-- Display the email -->
+        </center>
         <p class="fw-bold m-0">Enter 6-digit Recovery Code</p>
-        <form asp-action="Resetpw" asp-controller="Login" method="post">
+        <form asp-action="VerifyOtp" asp-controller="Login" method="post">
             <div id="otp" class="inputs d-flex flex-row my-2">
-                <input class="me-2 text-center form-control rounded" type="text" id="first" maxlength="1" />
-                <input class="me-2 text-center form-control rounded" type="text" id="second" maxlength="1" />
-                <input class="me-2 text-center form-control rounded" type="text" id="third" maxlength="1" />
-                <input class="me-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" />
-                <input class="me-2 text-center form-control rounded" type="text" id="fifth" maxlength="1" />
-                <input class="text-center form-control rounded" type="text" id="sixth" maxlength="1" />
+                <input class="me-2 text-center form-control rounded" type="text" name="otp" maxlength="1" required />
+                <input class="me-2 text-center form-control rounded" type="text" name="otp" maxlength="1" required />
+                <input class="me-2 text-center form-control rounded" type="text" name="otp" maxlength="1" required />
+                <input class="me-2 text-center form-control rounded" type="text" name="otp" maxlength="1" required />
+                <input class="me-2 text-center form-control rounded" type="text" name="otp" maxlength="1" required />
+                <input class="text-center form-control rounded" type="text" name="otp" maxlength="1" required />
             </div>
             <button id="signin" class="btn d-block mb-3 submit_button text-white" type="submit">Submit</button>
-            <p class="otp_not_received m-0">OTP not received? <a href="#" class="text-black">Send Again</a></p>
+            <p class="otp_not_received m-0">
+                OTP not received?
+                <a id="sendAgain" class="text-black" style="cursor: pointer; margin-right:10px;">Send Again</a>
+                <span id="countdown" style="display: none;">
+                    <input type="hidden" name="email" value="@ViewBag.Email" />
+
+                    <span class="loading-text" id="loadingText" style="display: none;">Sending OTP...</span>
+                    <span id="timerText"></span> <!-- Separate span for timer text -->
+                </span>
+            </p>
+
         </form>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        var sendAgainClickable = true;
+
+        function updateTimer(seconds) {
+            $("#countdown").show(); // Show countdown when timer starts
+            $("#sendAgain").text("Send Again in ");
+            $("#timerText").text(seconds + " seconds"); // Update the timer text
+            if (seconds <= 0) {
+                sendAgainClickable = true;
+                $("#sendAgain").text("Send Again");
+                $("#countdown").hide(); // Hide countdown when timer ends
+            } else {
+                setTimeout(function () {
+                    updateTimer(seconds - 1);
+                }, 1000);
+            }
+        }
+
+        $("#sendAgain").click(function (e) {
+            e.preventDefault(); // Prevent default link behavior
+
+            if (sendAgainClickable) {
+                sendAgainClickable = false;
+
+                $("#loadingText").show(); // Show loading text
+                $("#countdown").hide(); // Hide countdown initially
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Login/SendOtpAgain", // Updated endpoint to resend OTP
+                    success: function (response) {
+                        $("#loadingText").hide();
+                        alert(response.message); // Display success message
+                        updateTimer(30); // Start the countdown
+                    },
+                    error: function (xhr, status, error) {
+                        $("#loadingText").hide();
+                        console.error(xhr.responseText);
+                        sendAgainClickable = true; // Re-enable link on error
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+

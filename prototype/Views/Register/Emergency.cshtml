@@ -4,40 +4,77 @@
 
 <div class="container" id="main-container">
     <div id="content-form" class="p-5 mt-3">
-        <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+        <div>
+            <ul class="progressbar">
+                <li class="active"><a style="color:black;">Basic Information</a></li>
+                <li class="active"><a style="color:black;">Personal Information</a></li>
+                <li class="active"><a style="color:black;">Educational Attainment</a></li>
+                <li class="active"><a style="color:black;">Family Background</a></li>
+                <li class="active"><a style="color:black;">In Case Of Emegency</a></li>
+            </ul>
         </div>
         <h1 class="mt-3">Person to be notified in case of Emergency</h1>
         <hr class="divider">
-        <form asp-action="Create" method="post">
+        <form asp-action="Emergency" method="post">
             <p class="fw-bold">Full Name</p>
-            <div class="input-group d-flex flex-column name-input-group">
-                <input type="text" name="" id="" placeholder="Last Name" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="First Name" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="Middle Name" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="Suffix" class="form-control w-100">
+            <div class="input-group">
+                <input type="text" name="PICOE_LASTNAME" id="lastname" placeholder="Last Name" class="form-control" style="border: 1px solid #ccc;" required
+                       oninvalid="setCustomValidity('Enter the Last Name.'); setInvalidBackground(this)"
+                       oninput="setCustomValidity(''); setValidBackground(this)">
+                <input type="text" name="PICOE_FIRSTNAME" id="firstname" placeholder="First Name" class="form-control" style="border: 1px solid #ccc;" required
+                       oninvalid="setCustomValidity('Enter the First Name.'); setInvalidBackground(this)"
+                       oninput="setCustomValidity(''); setValidBackground(this)">
+                <input type="text" name="PICOE_MIDDLENAME" id="middlename" placeholder="Middle Name" class="form-control" style="border: 1px solid #ccc;" required
+                       oninvalid="setCustomValidity('Enter the Middle Name.'); setInvalidBackground(this)"
+                       oninput="setCustomValidity(''); setValidBackground(this)">
+                <input type="text" name="PICOE_SUFFIX" id="suffix" placeholder="Suffix e.g., Jr., Sr., III" class="form-control">
             </div>
             <div class="d-flex justify-content-between personal-info-group flex-column">
                 <div>
                     <label for="Relationship" class="fw-bold my-3">Relationship</label>
-                    <input type="text" name="" id="Relationship" class="form-control">
+                    <input type="text" name="PICOE_RELATIONSHIP" id="Relationship" placeholder="e.g., Mother, Father, Guardian" class="form-control" style="border: 1px solid #ccc;" required
+                           oninvalid="setCustomValidity('Enter the Relationship.'); setInvalidBackground(this)"
+                           oninput="setCustomValidity(''); setValidBackground(this)">
                 </div>
                 <div>
                     <label for="Contact" class="fw-bold my-3">Contact Number</label>
-                    <input type="text" name="" id="Contact" class="form-control">
+                    <input type="text" name="PICOE_CONTACTNUMBER" id="contact" class="form-control" placeholder="+639568612356" style="border: 1px solid #ccc;" required
+                           oninvalid="setCustomValidity('Enter Contact number.'); setInvalidBackground(this)"
+                           oninput="setCustomValidity(''); setValidBackground(this)">
                 </div>
             </div>
             <p class="fw-bold mt-3">Address</p>
-            <div class="input-group d-flex flex-column name-input-group">
-                <input type="text" name="" id="" placeholder="House No./Street" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="Barangay" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="Municipality" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="District" class="form-control w-100">
-                <input type="text" name="" id="" placeholder="Zip Code" class="form-control w-100">
+            <div class="input-group">
+                <input type="text" name="PICOE_HOUSESTREET" id="STREET" placeholder="House No./Street" class="form-control" style="border: 1px solid #ccc;" required
+                       oninvalid="setCustomValidity('Enter the House No./Street.'); setInvalidBackground(this)"
+                       oninput="setCustomValidity(''); setValidBackground(this)">
+                <select name="PICOE_DISTRICT" id="district" class="form-control" class="form-control" required
+                        oninvalid="setCustomValidity('Select District.'); setInvalidBackground(this)"
+                        oninput="setCustomValidity(''); setValidBackground(this)">
+                    <option selected value="" disabled>Select District</option>
+                    <option value="District 1">District 1</option>
+                    <option value="District 2">District 2</option>
+                    <option value="District 3">District 3</option>
+                    <option value="District 4">District 4</option>
+                    <option value="District 5">District 5</option>
+                    <option value="District 6">District 6</option>
+                </select>
+                <select name="PICOE_BRGY" id="barangay" class="form-control" style="border: 1px solid #ccc;" required
+                        oninvalid="setCustomValidity('Select Barangay.'); setInvalidBackground(this)"
+                        oninput="setCustomValidity(''); setValidBackground(this)">
+                    <option selected value="" disabled>Select Barangay</option>
+                </select>
+                <select name="PICOE_MUNICIPALITY" id="municipality" class="form-control" class="form-control" required
+                        oninvalid="setCustomValidity('Select City.'); setInvalidBackground(this)"
+                        oninput="setCustomValidity(''); setValidBackground(this)">
+                    <option value="Quezon City">Quezon City</option>
+                </select>
+
+                <input type="text" name="PICOE_ZIPCODE" id="zipcode" placeholder="Zip Code (Optional)" class="form-control">
             </div>
             <div class="d-flex justify-content-between mt-4">
                 <button class="btn next text-white" id="previousButton" type="button"><i class="fa-solid fa-chevron-left"></i> Previous</button>
-                <button class="btn next text-white" type="submit">Next <i class="fa-solid fa-chevron-right"></i></button>
+                <button class="btn next text-white" type="submit" formnovalidate>Next <i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </form>
     </div>

@@ -1,0 +1,416 @@
+﻿@{
+    ViewBag.Title = "- Registrar";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+@model prototype.Models.Registrar.StudentDetailsViewModel
+@Html.HiddenFor(model => model.StudentId)
+
+<div class="container" id="main-container">
+    <div id="content-form" class="p-5 mt-3">
+        @await Html.PartialAsync("_LogoutModal")
+        <form method="post" asp-controller="Registrar" asp-action="ViewProfiles">
+            <input type="hidden" name="StudentId" value="@Model.StudentId">
+
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <!-- Header Section -->
+            <div class="d-flex justify-content-between align-items-center">
+                <img src="../../images/QCU-Logo.png" alt="QCU" height="100px">
+                <div class="text-center">
+                    <p class="fw-bold fs-4 m-0">QUEZON CITY UNIVERSITY</p>
+                    <p class="m-0">673 Quirino Hi-Way, San Bartolome, Novaliches Q.C</p>
+                    <p class="fw-bold fs-5 m-0">ADMISSIONS OFFICE</p>
+                    <p class="m-0">STUDENT APPLICATION FORM</p>
+                    <p><span class="text-danger">1st</span> SEM, AY: <span class="text-danger">2024-2025</span></p>
+                </div>
+                <img src ="@Model.PhotoUrl" alt="blake" height="150px" width="150px" style="border: 2px solid black;">
+            </div>
+
+            <br><br>
+
+            <!-- ----------------------------------------------------------------------------------- -->
+            <h1 class="fs-2">Personal Information</h1>
+            <hr class="divider" style="width:100%">
+            <p class="fw-bold mt-3 mb-0">Full Name</p>
+
+            <div class="input-group">
+                <div class="tool-tip" data-tooltip-title="LAST NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="LastName" id="lastName" placeholder="Last Name" readonly class="form-control" value="@Model.LastName">
+                </div>
+                <div class="tool-tip" data-tooltip-title="FIRST NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="FirstName" id="firstName" placeholder="First Name" readonly class="form-control" value="@Model.FirstName">
+                </div>
+                <div class="tool-tip" data-tooltip-title="MIDDLE NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="MiddleName" id="middleName" placeholder="Middle Name" readonly class="form-control" value="@Model.MiddleName">
+                </div>
+                <div class="tool-tip" data-tooltip-title="SUFFIX" data-tooltip-position="bottom">
+                    <input type="text" name="Suffix" id="Suffix" placeholder="Suffix" class="form-control" readonly value="@Model.Suffix">
+                </div>
+            </div>
+            <div class="mt-3 row row-cols-3">
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold mt-3 mb-0">Date of Birth</p>
+                    <div class="tool-tip" data-tooltip-title="DATE OF BIRTH" data-tooltip-position="bottom">
+                        <input type="text" name="BirthDate" id="DateBirth" class="form-control" readonly value="@Model.BirthDate">
+                </div></div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold mt-3 mb-0">Birth Place</p>
+                    <div class="tool-tip" data-tooltip-title="DATE OF BIRTH" data-tooltip-position="bottom">
+                        <input type="text" name="BirthPlace" id="BirthPlace" class="form-control" readonly value="@Model.BirthPlace">
+                </div></div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold mt-3 mb-0">Gender</p>
+                    <div class="tool-tip" data-tooltip-title="GENDER" data-tooltip-position="bottom">
+                        <input type="text" name="Gender" id="gender" class="form-control" readonly value="@Model.Gender">
+                </div></div>
+            </div>
+            <div class="mt-3 row row-cols-3">
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold mt-3 mb-0">Religion</p>
+                    <div class="tool-tip" data-tooltip-title="RELIGION" data-tooltip-position="bottom">
+                        <input type="text" name="Religion" id="religion" class="form-control" readonly value="@Model.Religion">
+                </div></div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold mt-3 mb-0">Citizenship</p>
+                    <div class="tool-tip" data-tooltip-title="CITIZENSHIP" data-tooltip-position="bottom">
+                        <input type="text" name="Citizenship" id="citizenship" class="form-control" readonly value="@Model.Citizenship">
+                </div></div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold mt-3 mb-0">Civil Status</p>
+                    <div class="tool-tip" data-tooltip-title="CIVIL STATUS" data-tooltip-position="bottom">
+                        <input type="text" name="CivilStatus" id="civil" class="form-control" readonly value="@Model.CivilStatus">
+                </div></div>
+            </div>
+            <p class="fw-bold mt-3 mb-0">Present Address</p>
+            <div class="input-group">
+                <div class="tool-tip" data-tooltip-title="STREET" data-tooltip-position="bottom">
+                    <input type="text" name="Street" id="personal_House" placeholder="House No./Street" readonly class="form-control" value="@Model.Street">
+                </div>
+                <div class="tool-tip" data-tooltip-title="BARANGAY" data-tooltip-position="bottom">
+                    <input type="text" name="Barangay" id="personal_Barangay" placeholder="Barangay" readonly class="form-control" value="@Model.Barangay">
+                </div>
+                <div class="tool-tip" data-tooltip-title="MUNICPALITY" data-tooltip-position="bottom">
+                    <input type="text" name="Municipality" id="personal_Municipality" placeholder="Municipality" readonly class="form-control" value="@Model.Municipality">
+                </div>
+                <div class="tool-tip" data-tooltip-title="DISTRICT" data-tooltip-position="bottom">
+                    <input type="text" name="District" id="personal_District" placeholder="District" readonly class="form-control" value="@Model.District">
+                </div>
+                <div class="tool-tip" data-tooltip-title="ZIPCODE" data-tooltip-position="bottom">
+                    <input type="text" name="ZipCode" id="personal_Zipcode" placeholder="Zip Code" readonly class="form-control" value="@Model.ZipCode">
+                </div>
+            </div>
+
+            <!-- ----------------------------------------------------------------------------------- -->
+            <h2 class="fs-2 mt-4">Basic Information</h2>
+            <hr class="divider" style="width:100%">
+            <div class="basic-info d-flex gap-5">
+                <div class="d-flex flex-column step1">
+                    <label for="date" class="fw-bold mt-3 mb-0">Application Date</label>
+                    <div class="tool-tip" data-tooltip-title="APPLICATION DATE" data-tooltip-position="bottom">
+                        <input type="text" name="Application_DATE" id="date" class="form-control" readonly value="@Model.Application_DATE">
+                    </div>
+                </div>
+                <div class="d-flex flex-column step1">
+                    <label for="lrn" class="fw-bold mt-3 mb-0">LRN</label>
+                <div class="tool-tip" data-tooltip-title="LRN" data-tooltip-position="bottom">
+                        <input type="text" name="Lrn" id="lrn" class="form-control" readonly value="@Model.Lrn">
+                    </div>
+                </div>
+                <div class="d-flex flex-column step1">
+                    <label for="studentNumber" class="fw-bold mt-3 mb-0">Student Number</label>
+                <div class="tool-tip" data-tooltip-title="STUDENT NUMBER" data-tooltip-position="bottom">
+                        <input type="text" name="StudentId" id="studentNumber" value="@Model.StudentId" class="form-control" readonly>
+                    </div>
+
+                </div>
+            </div>
+            <hr class="divider" style="width:100%">
+            <div class="sc-info d-flex gap-5 w-100">
+                <div class="d-flex flex-column w-50">
+                    <p class="fw-bold mt-3 mb-0">Applying as</p>
+                    <div class="tool-tip" data-tooltip-title="APPLYING AS" data-tooltip-position="bottom">
+                        <input type="text" name="ApplyingAs" id="applying_As" class="form-control" readonly value="@Model.ApplyingAs">
+                    </div>
+                </div>
+                <div class="d-flex flex-column">
+                    <p class="fw-bold mt-3 mb-0">Year Level</p>
+                <div class="tool-tip" data-tooltip-title="YEAR LEVEL" data-tooltip-position="bottom">
+                        <input type="text" name="YearLevel" id="yearlevel" class="form-control" readonly value="@Model.YearLevel">
+                    </div>
+                </div>
+                <div class="d-flex flex-column">
+                    <p class="fw-bold mt-3 mb-0">Term</p>
+                <div class="tool-tip" data-tooltip-title="TERM" data-tooltip-position="bottom">
+                        <input type="text" name="Term" id="term" class="form-control" readonly value="@Model.Term">
+                    </div>
+                </div>
+                <div class="d-flex flex-column">
+                    <p class="fw-bold mt-3 mb-0">Academic Year</p>
+                    <div class="tool-tip" data-tooltip-title="ACADEMIC YEAR" data-tooltip-position="bottom">
+                        <input type="text" name="ACADEMIC" id="academicyear" class="form-control" readonly value="@($"{Model.Academic_FROM} - {Model.Academic_TO}")">
+                    </div>
+                </div>
+            </div>
+            <!-- ----------------------------------------------------------------------------------- -->
+            <h2 class="fs-2 mt-4">Educational Attainment</h2>
+            <hr class="divider" style="width:100%">
+            <p class="fw-bold m-0">College</p>
+                <div class="tool-tip" data-tooltip-title="SCHOOL NAME" data-tooltip-position="bottom">
+                <input type="text" name="CollegeName" id="education" class="form-control" value="@Model.CollegeName" readonly>
+            </div>
+            <p class="fw-bold mt-3 mb-0">School Address</p>
+            <div class="tool-tip" data-tooltip-title="SCHOOL ADDRESS" data-tooltip-position="bottom">
+                <input type="text" name="CollegeAddress" id="schooladdress" class="form-control" value="@Model.CollegeAddress" readonly>
+            </div>
+            <p class="fw-bold mt-3 fs-4">Location</p>
+            <div class="d-flex justify-content-between">
+                <div style="width: 20%;">
+                    <label for="location" class="fw-bold">Within Quezon City?</label>
+            <div class="tool-tip" data-tooltip-title="LOCATION" data-tooltip-position="bottom">
+                        <input type="text" name="CollegeLocation" id="location" class="form-control" value="@Model.CollegeLocation" readonly>
+                    </div>
+                </div>
+                <div style="width: 40%;">
+                    <label for="School" class="fw-bold">School Type</label>
+                                                            <div class="tool-tip" data-tooltip-title="SCHOOL TYPE" data-tooltip-position="bottom">
+                        <input type="text" name="CollegeSchoolType" id="School" class="form-control" value="@Model.CollegeSchoolType" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3 row row-cols-3">
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold mt-3 mb-0">Course</p>
+                    <div class="tool-tip" data-tooltip-title="COURSE" data-tooltip-position="bottom">
+                        <input type="text" name="CollegeCourseYr" id="course" class="form-control" value="@Model.CollegeCourseYr" readonly>
+                    </div>
+                </div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold mt-3 mb-0">Date Graduated</p>
+                   <div class="tool-tip" data-tooltip-title="DATE GRADUATED" data-tooltip-position="bottom">
+                        <input type="text" name="CollegeDateGraduated" id="yearGraduated" class="form-control" value="@Model.CollegeDateGraduated" readonly>
+                    </div>
+                </div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold mt-3 mb-0">Honors</p>
+                    <div class="tool-tip" data-tooltip-title="HONORS RECEIVED" data-tooltip-position="bottom">
+                        <input type="text" name="CollegeHonorsReceived" id="honors" class="form-control" value="@Model.CollegeHonorsReceived" readonly>
+                    </div>
+                </div>
+            </div>
+            <h2 class="fs-2 mt-4">Family Background</h2>
+            <hr class="divider" style="width:100%">
+            <p class="fw-bold mt-3 mb-0">Father's Full Name</p>
+            <div class="input-group">
+                <div class="tool-tip" data-tooltip-title="FATHER LAST NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="FatherLastName" id="father_lastName" placeholder="Last Name" class="form-control" value="@Model.FatherLastName" readonly>
+                </div>
+                <div class="tool-tip" data-tooltip-title="FATHER FIRST NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="FatherFirstName" id="father_firstName" placeholder="First Name" class="form-control" value="@Model.FatherFirstName" readonly>
+                </div>
+                <div class="tool-tip" data-tooltip-title="FATHER MIDDLE NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="FatherMiddleName" id="father_middleName" placeholder="Middle Name" class="form-control" value="@Model.FatherMiddleName" readonly>
+                </div>
+            <div class="tool-tip" data-tooltip-title="FATHER SUFFIX" data-tooltip-position="bottom">
+                    <input type="text" name="FatherSuffix" id="father_Suffix" placeholder="Suffix" class="form-control" value="@Model.FatherSuffix" readonly>
+                </div>
+
+        </div>
+        <div class="mt-3 row row-cols-3">
+            <div class="d-flex flex-column col">
+                <p class="fw-bold mt-3 mb-0"><label for="father_Occupation">Occupation</label></p>
+         <div class="tool-tip" data-tooltip-title="FATHER OCCUPATION" data-tooltip-position="bottom">
+                        <input type="text" name="FatherOccupation" id="father_Occupation" class="form-control" value="@Model.FatherOccupation" readonly>
+                    </div>
+            </div>
+            <div class="d-flex flex-column col">
+                <p class="fw-bold mt-3 mb-0"><label for="father_Educational">Educational Attainment</label></p>
+             <div class="tool-tip" data-tooltip-title="FATHER EDUCATION" data-tooltip-position="bottom">
+                        <input type="text" name="FatherEducationalAttainment" id="father_Educational" class="form-control" value="@Model.FatherEducationalAttainment" readonly>
+                    </div>
+            </div>
+            <div class="d-flex flex-column col">
+                <p class="fw-bold mt-3 mb-0"><label for="father_Contact">Contact Number</label></p>
+                  <div class="tool-tip" data-tooltip-title="FATHER CONTACT NUMBER" data-tooltip-position="bottom">
+                        <input type="text" name="FatherContactNumber" id="father_Contact" class="form-control" value="@Model.FatherContactNumber" readonly>
+                    </div>
+            </div>
+        </div>
+            <p class="fw-bold mt-3">Mother’s Maiden Name</p>
+            <div class="input-group">
+                <div class="tool-tip" data-tooltip-title="MOTHER LAST NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="MotherLastName" id="mother_lastname" placeholder="Last Name" class="form-control" value="@Model.MotherLastName" readonly>
+                </div>
+                <div class="tool-tip" data-tooltip-title="MOTHER FIRST NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="MotherFirstName" id="mother_firstName" placeholder="First Name" class="form-control" value="@Model.MotherFirstName" readonly>
+                </div>
+                <div class="tool-tip" data-tooltip-title="MOTHER MIDDLE NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="MotherMiddleName" id="mother_middleName" placeholder="Middle Name" class="form-control" value="@Model.MotherMiddleName" readonly>
+                </div>
+            </div>
+            <div class="mt-3 row row-cols-3">
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold mt-3 mb-0"><label for="mother_Occupation">Occupation</label></p>
+                     <div class="tool-tip" data-tooltip-title="MOTHER OCCUPATION" data-tooltip-position="bottom">
+                        <input type="text" name="MotherOccupation" id="mother_Occupation" class="form-control" value="@Model.MotherOccupation" readonly>
+                    </div>
+                </div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold mt-3 mb-0"><label for="mother_Educational">Educational Attainment</label></p>
+                 <div class="tool-tip" data-tooltip-title="MOTHER EDUCATION" data-tooltip-position="bottom">
+                        <input type="text" name="MotherEducationalAttainment" id="mother_ducational" class="form-control" value="@Model.MotherEducationalAttainment" readonly>
+                    </div>
+                </div>
+                <div class="d-flex flex-column col">
+                    <p class="fw-bold mt-3 mb-0"><label for="mother_Contact">Contact Number</label></p>
+             <div class="tool-tip" data-tooltip-title="MOTHER CONTACT NUMBER" data-tooltip-position="bottom">
+                        <input type="text" name="MotherContactNumber" id="mother_Contact" class="form-control" value="@Model.MotherContactNumber" readonly>
+                    </div>
+                </div>
+            </div>
+            <p class="fw-bold mt-3">Address</p>
+            <div class="input-group">
+            <div class="tool-tip" data-tooltip-title="STREET" data-tooltip-position="bottom">
+                    <input type="text" name="FamilyStreet" id="Family_HouseStreet" placeholder="House No./Street" class="form-control" value="@Model.FamilyStreet" readonly>
+                </div>
+            <div class="tool-tip" data-tooltip-title="BARANGAY" data-tooltip-position="bottom">
+                    <input type="text" name="FamilyBarangay" id="Family_Brgy" placeholder="Barangay" class="form-control" value="@Model.FamilyBarangay" readonly>
+                </div>
+            <div class="tool-tip" data-tooltip-title="MUNICPALITY" data-tooltip-position="bottom">
+                    <input type="text" name="FamilyMunicipality" id="Family_Municipality" placeholder="Municipality" class="form-control" value="@Model.FamilyMunicipality" readonly>
+                </div>
+            <div class="tool-tip" data-tooltip-title="DISTRICT" data-tooltip-position="bottom">
+                    <input type="text" name="FamilyDistrict" id="Family_District" placeholder="District" class="form-control" value="@Model.FamilyDistrict" readonly>
+                </div>
+            <div class="tool-tip" data-tooltip-title="ZIPCODE" data-tooltip-position="bottom">
+                    <input type="text" name="FamilyZipCode" id="Family_Zipcode" placeholder="Zip Code" class="form-control" value="@Model.FamilyZipCode" readonly>
+                </div>
+            </div>
+            <p class="fw-bold mt-3">Guardian’s Full Name</p>
+            <div class="input-group">
+                <div class="tool-tip" data-tooltip-title="GUARDIAN LAST NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="GuardianLastName" id="GUARDIAN_FIRST_NAME" placeholder="Last Name" class="form-control" value="@Model.GuardianLastName" readonly>
+                </div>
+                <div class="tool-tip" data-tooltip-title="GUARDIAN FIRST NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="GuardianFirstName" id="Guardian_FirstName" placeholder="First Name" class="form-control" value="@Model.GuardianFirstName" readonly>
+                </div>
+                <div class="tool-tip" data-tooltip-title="GUARDIAN MIDDLE NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="GuardianMiddleName" id="Guardian_MiddleName" placeholder="Middle Name" class="form-control" value="@Model.GuardianMiddleName" readonly>
+                </div>
+                <div class="tool-tip" data-tooltip-title="GUARDIAN SUFFIX" data-tooltip-position="bottom">
+                    <input type="text" name="GuardianSuffix" id="Guardian_Suffix" placeholder="Suffix" class="form-control" value="@Model.GuardianSuffix" readonly>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between gap-4">
+            <div style="width: 50%;">
+            <label for="Guardian_Relationship" class="fw-bold my-3">Relationship</label>
+            <div class="tool-tip" data-tooltip-title="RELATIONSHIP" data-tooltip-position="bottom">
+                        <input type="text" name="GuardianRelationship" id="Guardian_Relationship" class="form-control" value="@Model.GuardianRelationship" readonly>
+                    </div>
+            </div>
+            <div style="width: 50%;">
+            <label for="Guardian_Contact" class="fw-bold my-3">Contact Number</label>
+                    <div class="tool-tip" data-tooltip-title="GUARDIAN CONTACT NUMBER" data-tooltip-position="bottom">
+                        <input type="text" name="GuardianContactNumber" id="Guardian_Contact" class="form-control" value="@Model.GuardianContactNumber" readonly>
+                    </div>
+            </div>
+            </div>
+            <!-- ----------------------------------------------------------------------------------- -->
+            <h2 class="fs-2 mt-4">Person to be notified in case of Emergency</h2>
+            <hr class="divider" style="width:100%">
+            <p class="fw-bold mt-3 mb-0">Full Name</p>
+            <div class="input-group">
+                <div class="tool-tip" data-tooltip-title="LAST NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="PicoeLastName" id="Emergency_LastName" placeholder="Last Name" class="form-control" value="@Model.PicoeLastName" readonly>
+                </div>
+                <div class="tool-tip" data-tooltip-title="FIRST NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="PicoeFirstName" id="Emergency_FirstName" placeholder="First Name" class="form-control" value="@Model.PicoeFirstName" readonly>
+                </div>
+                <div class="tool-tip" data-tooltip-title="MIDDLE NAME" style="margin-right:20px" data-tooltip-position="bottom">
+                    <input type="text" name="PicoeMiddleName" id="Emergency_MiddleName" placeholder="Middle Name" class="form-control" value="@Model.PicoeMiddleName" readonly>
+                </div>
+            <div class="tool-tip" data-tooltip-title="SUFFIX" data-tooltip-position="bottom">
+                    <input type="text" name="PicoeSuffix" id="Emergency_Suffix" placeholder="Suffix" class="form-control" value="@Model.PicoeSuffix" readonly>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between gap-4">
+            <div style="width: 50%;">
+            <label for="Emergency_Relationship" class="fw-bold my-3">Relationship</label>
+            <div class="tool-tip" data-tooltip-title="RELATIONSHIP" data-tooltip-position="bottom">
+                        <input type="text" name="PicoeRelationship" id="Emergency_Relationship" class="form-control" value="@Model.PicoeRelationship" readonly>
+                    </div>
+
+            </div>
+            <div style="width: 50%;">
+            <label for="Emergency_Contact" class="fw-bold my-3">Contact Number</label>
+            <div class="tool-tip" data-tooltip-title="CONTACT NUMBER" data-tooltip-position="bottom">
+                        <input type="text" name="PicoeContactNumber" id="Emergency_Contact" class="form-control" value="@Model.PicoeContactNumber" readonly>
+                    </div>
+            </div>
+            </div>
+            <p class="fw-bold mt-3">Address</p>
+            <div class="input-group">
+            <div class="tool-tip" data-tooltip-title="STREET" data-tooltip-position="bottom">
+                    <input type="text" name="PicoeHouseStreet" id="Emergency_HouseStreet" placeholder="House No./Street" class="form-control" value="@Model.PicoeHouseStreet" readonly>
+                </div>
+            <div class="tool-tip" data-tooltip-title="BARANGAY" data-tooltip-position="bottom">
+                    <input type="text" name="PicoeBrgy" id="Emergency_Brgy" placeholder="Barangay" class="form-control" value="@Model.PicoeBrgy" readonly>
+                </div>
+            <div class="tool-tip" data-tooltip-title="MUNICPALITY" data-tooltip-position="bottom">
+                    <input type="text" name="PicoeMunicipality" id="Emergency_Municipality" placeholder="Municipality" class="form-control" value="@Model.PicoeMunicipality" readonly>
+                </div>
+            <div class="tool-tip" data-tooltip-title="DISTRICT" data-tooltip-position="bottom">
+                    <input type="text" name="PicoeDistrict" id="Emergency_District" placeholder="District" class="form-control" value="@Model.PicoeDistrict" readonly>
+                </div>
+            <div class="tool-tip" data-tooltip-title="ZIPCODE" data-tooltip-position="bottom">
+                    <input type="text" name="PicoeZipCode" id="Emergency_ZipCode" placeholder="Zip Code" class="form-control" value="@Model.PicoeZipCode" readonly>
+                </div>
+                </div>
+                <br />
+
+
+            <button type="button" class="btn btn-primary" style="float: right; margin-left:1%;" onclick="window.location.href='@Url.Action("Index", "Registrar")'">Back to Search Tab</button>
+
+            <div class="buttons mt-4">
+                <!-- Action buttons -->
+                <div id="actionButtons" style="display: none;">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-danger" onclick="cancelEdit()">Cancel</button>
+                </div>
+                <!-- Edit button -->
+                <button type="button" id="editButton" class="btn btn-warning" onclick="enableEditing()">Edit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    // Enable editing of form fields except Basic Information and SC Information
+    function enableEditing() {
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            // Skip enabling editing for Basic Information and SC Information fields
+            if (!input.closest('.basic-info') && !input.closest('.sc-info')) {
+                input.removeAttribute('readonly');
+            }
+        });
+
+        // Toggle visibility of buttons
+        document.getElementById('editButton').style.display = 'none';
+        document.getElementById('actionButtons').style.display = 'block';
+    }
+
+    // Cancel editing and restore readonly
+    function cancelEdit() {
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.setAttribute('readonly', true);
+        });
+
+        // Toggle visibility of buttons
+        document.getElementById('editButton').style.display = 'block';
+        document.getElementById('actionButtons').style.display = 'none';
+    }
+</script>

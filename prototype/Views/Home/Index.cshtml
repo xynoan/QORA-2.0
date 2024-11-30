@@ -1,6 +1,9 @@
 ﻿<main>
     <!-- First Section -->
     <section>
+        <button onclick="topFunction()" id="scrolltopbtn" title="Go to top">
+            <img src="@Url.Content("~/images/up_icon.png")" height="100%" width="80px">
+        </button>
         <div class="container d-flex align-items-end justify-content-end">
             <h1 id="navigation_links" class="fw-bold text-end text-white text-uppercase p-4">
                 <span class="years" id="countdown">30</span> <br>
@@ -25,9 +28,18 @@
                     <!-- Login Section -->
                     <div class="login">
                         <p class="text-center text-white header p-2 m-0">LOG IN</p>
-                        <form action="@Url.Action("Index", "Login")" class="p-4 d-flex flex-column" method="post">
-                            <input class="form-control mb-2 email" type="email" name="email" placeholder="Email">
-                            <input class="form-control password" type="password" name="password" placeholder="Password">
+                        <form asp-action="Enrollment" asp-controller="Login" class="p-4 d-flex flex-column" method="post">
+                            <input class="form-control mb-2 email" type="email" name="email" placeholder="Email" value="@ViewData["Email"]" />
+                            @if (ViewData.ContainsKey("EmailError"))
+                            {
+                                <span class="text-danger">@ViewData["EmailError"]</span>
+                            }
+                            <input class="form-control" type="password" name="password" id="password" placeholder="Password" />
+                            <span toggle="#password" class="fa fa-eye field-icon toggle-password" style="position: absolute; right: 10px; top: 15px; cursor: pointer;"></span>
+                            @if (ViewData.ContainsKey("PasswordError"))
+                            {
+                                <span class="text-danger">@ViewData["PasswordError"]</span>
+                            }
                             <div class="d-flex forgot_password gap-1 mt-3">
                                 <div class="input-group d-flex gap-1 justify-content-between">
                                     <div>
@@ -37,26 +49,9 @@
                                     <a href="@Url.Action("Forgot", "Login")" class="text-black">Forgot Password?</a>
                                 </div>
                             </div>
-                            <button class="btn login_btn text-white rounded-5 mt-3" type="button" data-bs-toggle="modal" data-bs-target="#consent">LOG IN</button>
+                            <button class="btn login_btn text-white rounded-5 mt-3" type="submit">LOG IN</button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="consent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5 text-uppercase" id="exampleModalLabel">Login as</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            This modal is only for simulation and will be removed later.
-                                        </div>
-                                        <div class="modal-footer d-flex flex-column align-items-end">
-                                            <button type="submit" class="btn btn-primary next p-2" style="width: 50%; border: 2px solid var(--main-color);">Login as Student</button>
-                                            <a id="cancel_application" href="@Url.Action("Index", "Registrar")" class="text-decoration-none fw-bold text-center rounded-2 p-2 cancel_application" style="width: 50%; border: 2px solid var(--main-color); background: white; color: var(--main-color);">Login as Registrar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                     
                         </form>
                     </div>
                 </div>
@@ -166,5 +161,44 @@
                 clearInterval(interval);
             }
         }, 25);
+    });
+</script>
+
+    <script>
+
+    // Get the scroll-to-top button
+    const mybutton = document.getElementById("scrolltopbtn");
+
+    // Show or hide the button based on scroll position
+    window.onscroll = function () {
+        scrollFunction();
+    };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // Scroll to the top of the document with smooth behavior
+    function topFunction() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    </script>
+
+<script>
+    // Toggle the password visibility
+    $(".toggle-password").click(function () {
+        var input = $($(this).attr("toggle"));
+        var icon = $(this);
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+            icon.removeClass("fa-eye").addClass("fa-eye-slash"); // Change icon to 'eye-slash'
+        } else {
+            input.attr("type", "password");
+            icon.removeClass("fa-eye-slash").addClass("fa-eye"); // Change icon back to 'eye'
+        }
     });
 </script>

@@ -1,0 +1,154 @@
+﻿
+<!-- Notification HTML -->
+<div class="notification" id="notification">
+    <div class="div">
+        <span class="icon" id="icon"></span>
+        <span class="message" id="message">You are currently offline.</span>
+        <span class="refresh" id="refresh" onclick="refreshPage()">Refresh</span>
+        <span class="close" onclick="hide()">✖</span>
+    </div>
+</div>
+
+<!-- Notification CSS -->
+<style>
+   
+
+    .notification {
+        background-color: #fff;
+        position: fixed;
+        height: 68px;
+        padding: 16px;
+        box-sizing: border-box;
+        border-radius: 8px;
+        left: 16px;
+        bottom: 10px;
+        display: none; /* Start hidden */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add drop shadow */
+    }
+
+
+    .div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 36px;
+    }
+
+    .icon {
+        width: 24px;
+        height: 24px;
+        background-size: cover;
+    }
+
+    .message {
+        font-size: 15px;
+        padding: 12px;
+        color: #050505;
+    }
+
+    .refresh {
+        padding-right: 12px;
+        font-size: 15px;
+        color: #216fDb;
+        cursor: pointer;
+    }
+
+    .close {
+        color: #050505;
+        background-color: #E4E6EB;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        text-align: center;
+        box-sizing: border-box;
+        font-size: 14px;
+        padding: 3px;
+        cursor: pointer;
+    }
+
+    .no-click {
+        pointer-events: none;
+        color: gray; /* Optional: give links a disabled appearance */
+    }
+</style>
+
+<script>
+    var notificationVisible = false; // Track if the notification is visible
+
+    // Disable or enable all form elements, buttons, and interactive elements
+    function toggleInteractiveElements(disable) {
+        // Disable all form elements
+        const forms = document.querySelectorAll("form");
+        forms.forEach(form => {
+            Array.from(form.elements).forEach(element => {
+                element.disabled = disable;
+            });
+        });
+
+        // Disable all buttons
+        const buttons = document.querySelectorAll("button");
+        buttons.forEach(button => {
+            button.disabled = disable;
+        });
+
+        // Disable all links by adding a no-click class
+        const links = document.querySelectorAll("a");
+        links.forEach(link => {
+            if (disable) {
+                link.classList.add("no-click");
+            } else {
+                link.classList.remove("no-click");
+            }
+        });
+    }
+
+    // Show notification with an online message
+    function online() {
+        const notification = document.getElementById('notification');
+        if (notificationVisible) { // Only show if it was previously visible
+            document.getElementById('icon').style.backgroundImage = 'url("/images/wifi_online.png")';
+            document.getElementById('message').innerHTML = 'Your Internet connection was restored.';
+            document.getElementById('refresh').style.display = 'none'; // Hide the refresh link
+            notification.style.display = 'block';
+        }
+        toggleInteractiveElements(false); // Enable all interactive elements when online
+    }
+
+    // Show notification with an offline message
+    function offline() {
+        const notification = document.getElementById('notification');
+        document.getElementById('icon').style.backgroundImage = 'url("/images/wifi_offline.png")';
+        document.getElementById('message').innerHTML = 'You are currently offline.';
+        document.getElementById('refresh').style.display = 'inline'; // Show the refresh link
+        notification.style.display = 'block';
+        notificationVisible = true;
+        toggleInteractiveElements(true); // Disable all interactive elements when offline
+    }
+
+    // Hide the notification
+    function hide() {
+        document.getElementById('notification').style.display = 'none';
+        notificationVisible = false;
+    }
+
+    // Reload the page when the refresh link is clicked
+    function refreshPage() {
+        window.location.reload();
+    }
+
+    // Event listeners to detect network status changes
+    window.addEventListener('online', function () {
+        online();
+    });
+    window.addEventListener('offline', function () {
+        offline();
+    });
+
+    // Initial load: do not show notification if online
+    window.addEventListener('load', function () {
+        if (!navigator.onLine) {
+            offline();
+        }
+    });
+
+</script>

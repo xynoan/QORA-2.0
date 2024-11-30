@@ -1,3 +1,4 @@
+
 <nav class="fixed-top">
     <div class="container d-flex justify-content-center flex-wrap align-items-center">
         <div class="d-flex align-items-center gap-3 flex-wrap">
@@ -33,51 +34,37 @@
                 <img class="qora_image" src="@Url.Content("~/images/logo.png")" alt="QORA" height="70">
             </a>
         </div>
-
         <!-- Profile and Logout Section -->
-        <img onclick="toggleProfile()" id="profile_img" src="@Url.Content("~/images/CARLO.jpg")" alt="Carlo" height="50px" class="rounded-5 me-5" style="border: 2px solid var(--main-color); cursor: pointer;">
+        <img onclick="toggleProfile()" id="profile_img"
+             src="@(!string.IsNullOrEmpty(ViewBag.ProfileImage) ? ViewBag.ProfileImage : Url.Content("~/images/default-profile.png"))"
+             alt="DP" height="50px" width="50px" class="rounded-5 me-5" style="border: 2px solid var(--main-color); cursor: pointer;">
+
         <div id="profileDiv" class="rounded-5 container p-3">
-            <img id="profile_img" src="@Url.Content("~/images/CARLO.jpg")" alt="Carlo" height="100px" style="border: 2px solid var(--main-color); border-radius: 50%; margin: 10px 0 10px 80px;">
-            <p class="m-0 fw-bold text-center">Nathaniel Carlo Morva</p>
-            <p class="text-center">nathanielcarlo@gmail.com</p>
-            <p class="text-center"><i class="fa-solid fa-circle-half-stroke" style="color: var(--main-color);"></i> Theme</p>
-            <p class="text-center"><a href="@Url.Action("Settings", "Home")" class="text-decoration-none text-black putBorder"><i class="fa-solid fa-sliders" style="rotate: 270deg;"></i> Settings</a></p>
-            <hr style="width: 100%;">
-            <p class="fw-bold">Switch Account</p>
-            <div class="container">
-                <div class="d-flex gap-2">
-                    <img id="profile_img" src="@Url.Content("~/images/blake.jpg")" alt="blake" height="50px" style="border: 2px solid var(--main-color); border-radius: 50%;">
-                    <div class="d-flex flex-column">
-                        <p class="fw-bold m-0" style="font-size: 13px;">Blake Justin Bangcaya</p>
-                        <p style="font-size: 13px;" class="m-0">bangcaya.blake@gmail.com</p>
-                    </div>
-                </div>
-                <div class="d-flex gap-2">
-                    <img id="profile_img" src="@Url.Content("~/images/roxas.png")" alt="Carlo" height="50px" style="border: 2px solid var(--main-color); border-radius: 50%;">
-                    <div class="d-flex flex-column">
-                        <p class="fw-bold m-0" style="font-size: 13px;">Mark Joseph Roxas</p>
-                        <p style="font-size: 13px;" class="m-0">roxas.markjoseph@gmail.com</p>
-                    </div>
-                </div>
-                <div class="d-flex">
-                    <a href="@Url.Action("Index", "Login")" class="text-black">
-                        <i class="fa-solid fa-plus ms-2" style="font-size: 30px; margin: 5px;"></i>
-                    </a>
-                    <p style="font-size: 13px;" class="mt-2 ms-3">
-                        <a href="@Url.Action("Index", "Login")" class="text-decoration-none text-black" id="add_new_account">Add another account</a>
-                    </p>
-                </div>
-            </div>
-            <hr style="width: 100%;">
+            <center>
+                <img id="profile_img"
+                     src="@(!string.IsNullOrEmpty(ViewBag.ProfileImage) ? ViewBag.ProfileImage : Url.Content("~/images/default-profile.png"))"
+                     alt="Profile" height="100px" width="100px" style="border: 2px solid var(--main-color); border-radius: 50%;">
+                <p class="m-0 fw-bold text-center">@ViewBag.FullName</p>
+                <p class="text-center">@ViewBag.EMAIL</p>
+                <a href="@Url.Action("Settings", "Home")" class="text-decoration-none text-black putBorder">
+                    <center>
+                        <i class="fa-solid fa-sliders" style="rotate: 270deg;"></i> Settings
+                </a>
+
             <p class="text-center">
-                <button id="logout" type="button" style="border: none; background: white;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
-                </button>
+                <form method="post" action="@Url.Action("Index", "Login")">
+                    <button id="logout" type="submit" style="border: none; background: white;">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                    </button>
+                </form>
             </p>
+            </center>
+
+        </div>
         </div>
     </div>
-
-    <p class="banner-message text-uppercase fs-4 text-center text-white p-2 m-0 border-top border-3" style="background-color: #212529;border-color: var(--brown) !important;">
+    <!-- Footer Section -->
+    <p class="text-uppercase fs-4 text-center text-white p-2 m-0 border-top border-3 border-primary" style="background-color: black;">
         mula sa tahanan ng husay at talino, para sa bayan...
     </p>
 </nav>

@@ -5,19 +5,87 @@
 <div class="container d-flex justify-content-center align-items-center" id="main-container">
     <div id="content-form" class="p-5">
         <h1 class="fs-2 text-center mb-3">OTP Verification</h1>
-        <p>Enter the 6 digit verification code that was sent to your email.</p>
-        <p class="fw-bold m-0">Enter Verification Code</p>
-        <form asp-action="Registered" method="post">
-            <div id="otp" class="inputs d-flex flex-row my-2">
-                <input class="me-2 text-center form-control rounded" type="text" id="first" maxlength="1" />
-                <input class="me-2 text-center form-control rounded" type="text" id="second" maxlength="1" />
-                <input class="me-2 text-center form-control rounded" type="text" id="third" maxlength="1" />
-                <input class="me-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" />
-                <input class="me-2 text-center form-control rounded" type="text" id="fifth" maxlength="1" />
-                <input class="text-center form-control rounded" type="text" id="sixth" maxlength="1" />
+        <p>Enter the 6-digit verification code that was sent to your email.</p>
+        <center>
+            <!-- Display the email (will always be visible) -->
+            <h5 style="margin-bottom: 25px;">@TempData["Email"]</h5>
+        </center>
+
+        <!-- Display error message if OTP is incorrect -->
+        @if (!string.IsNullOrEmpty(ViewBag.OtpErrorMessage))
+        {
+            <div class="alert alert-danger" style="line-height:10px;">
+                @ViewBag.OtpErrorMessage
             </div>
-            <button id="signin" class="btn d-block mb-3 submit_button text-white" type="submit">Submit</button>
-            <p class="otp_not_received m-0">OTP not received? <a href="#" class="text-black">Send Again</a></p>
+        }
+        <p class="fw-bold m-0">Enter Verification Code</p>
+        <form asp-action="Verification" method="post" id="otp-form">
+            <div id="otp" class="inputs d-flex flex-row my-2">
+                @for (int i = 0; i < 6; i++)
+                {
+                        <input class="me-2 text-center form-control rounded" type="text" name="otp[]" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,''); this.nextElementSibling?.focus();" />
+                }
+            </div>
+           <button id="signin" class="btn d-block mb-3 submit_button text-white" type="submit">Submit</button>
+            <p class="otp_not_received m-0">
+                OTP not received?
+                <a id="sendAgain" class="text-black" style="cursor: pointer; margin-right:10px;">Send Again</a>
+                <span id="countdown" style="display: none;">
+                    <input type="hidden" name="email" value="@ViewBag.Email" />
+                    <span class="loading-text" id="loadingText" style="display: none;">Sending OTP...</span>
+                    <span id="timerText"></span>
+                </span>
+            </p>
         </form>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        var sendAgainClickable = true;
+
+        function updateTimer(seconds) {
+            $("#countdown").show(); // Show countdown when timer starts
+            $("#timerText").text(seconds + " seconds"); // Update the timer text
+            if (seconds <= 0) {
+                sendAgainClickable = true;
+                $("#sendAgain").text("Send Again");
+                $("#countdown").hide(); // Hide countdown when timer ends
+            } else {
+                setTimeout(function () {
+                    updateTimer(seconds - 1);
+                }, 1000);
+            }
+        }
+
+        $("#sendAgain").click(function (e) {
+            e.preventDefault(); // Prevent default link behavior
+
+            if (sendAgainClickable) {
+                sendAgainClickable = false;
+
+                $("#loadingText").show(); // Show loading text
+                $("#countdown").hide(); // Hide countdown initially
+
+                // Get email from the hidden input field
+                var email = $("#countdown input[name='email']").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Register/ResendOtp", // Endpoint to resend OTP
+                    data: { email: email }, // Send email as data
+                    success: function (response) {
+                        $("#loadingText").hide();
+                        alert(response.message); // Display success message
+                        updateTimer(30); // Start the countdown
+                    },
+                    error: function (xhr, status, error) {
+                        $("#loadingText").hide();
+                        console.error(xhr.responseText);
+                        sendAgainClickable = true; // Re-enable link on error
+                    }
+                });
+            }
+        });
+    });
+</script>

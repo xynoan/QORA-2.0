@@ -7,10 +7,12 @@
         <h1 class="text-center mb-3">Forgot Password</h1>
         <p>
             Enter your email for the verification process,
-            we will send 6 digits code to your email.
+            we will send a 6-digit code to your email.
         </p>
-        <form asp-action="Otp" asp-controller="Login" method="post">
-            <input class="d-block form-control mb-3" type="text" name="" id="" placeholder="Email">
+        <form asp-action="SendOtp" asp-controller="Login" method="post">
+            <input class="d-block form-control mb-3" type="email" name="email" placeholder="Email" required>
+            <input type="hidden" name="EmailHidden" id="emailHidden" />
+
             <button id="signin" class="btn d-block mb-3 submit_button text-white" type="submit">Continue</button>
         </form>
     </div>
